@@ -1,0 +1,6 @@
+@Backend_CrmSG_HostAddress = http://localhost:5165
+
+GET {{Backend_CrmSG_HostAddress}}/weatherforecast/
+Accept: application/json
+
+###
