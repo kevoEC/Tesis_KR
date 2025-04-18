@@ -12,6 +12,13 @@ using System.Text;
 
 var builder = WebApplication.CreateBuilder(args);
 
+// ------------------------- Configuración de Azure AD -------------------------
+var azureAd = builder.Configuration.GetSection("AzureAd");
+string azureAuthority = $"{azureAd["Instance"]}{azureAd["TenantId"]}/v2.0";
+string azureAudience = azureAd["Audience"];
+string azureIssuer = $"https://sts.windows.net/{azureAd["TenantId"]}/";
+
+// ------------------------- CORS ----------------------------------
 builder.Services.AddCors(options =>
 {
     options.AddPolicy("AllowFrontend", policy => policy
@@ -20,35 +27,66 @@ builder.Services.AddCors(options =>
         .AllowAnyMethod());
 });
 
-
-// Registro del servicio JWT
+// ------------------- JWT SERVICE LOCAL ---------------------------
 builder.Services.AddScoped<IJwtService, JwtService>();
-// Configurar la autenticación JWT
+
+// ------------- AUTENTICACIÓN MÚLTIPLE ----------------------------
 builder.Services.AddAuthentication(options =>
 {
-    options.DefaultAuthenticateScheme = JwtBearerDefaults.AuthenticationScheme;
-    options.DefaultChallengeScheme = JwtBearerDefaults.AuthenticationScheme;
+    options.DefaultScheme = "MultiAuthScheme";
 })
-.AddJwtBearer(options =>
+.AddPolicyScheme("MultiAuthScheme", "JWT or Azure AD", options =>
+{
+    options.ForwardDefaultSelector = context =>
+    {
+        var authHeader = context.Request.Headers["Authorization"].FirstOrDefault();
+        if (authHeader != null && authHeader.StartsWith("Bearer "))
+        {
+            var token = authHeader.Substring("Bearer ".Length);
+            if (token.Length > 1000) // Tokens de Microsoft suelen ser más largos
+                return "AzureAdJwtScheme";
+            else
+                return "LocalJwtScheme";
+        }
+        return "LocalJwtScheme";
+    };
+})
+.AddJwtBearer("LocalJwtScheme", options =>
 {
     options.TokenValidationParameters = new TokenValidationParameters
     {
         ValidateIssuer = true,
         ValidateAudience = true,
-        ValidateLifetime = true, // Valida la expiración
+        ValidateLifetime = true,
         ValidateIssuerSigningKey = true,
         ValidIssuer = builder.Configuration["Jwt:Issuer"],
         ValidAudience = builder.Configuration["Jwt:Audience"],
         IssuerSigningKey = new SymmetricSecurityKey(Encoding.UTF8.GetBytes(builder.Configuration["Jwt:Key"]))
     };
+})
+.AddJwtBearer("AzureAdJwtScheme", options =>
+{
+    options.Authority = azureAuthority;
+    options.Audience = azureAudience;
+    options.TokenValidationParameters = new TokenValidationParameters
+    {
+        ValidateIssuer = true,
+        ValidIssuer = azureIssuer,
+        ValidateAudience = true,
+        ValidAudience = azureAudience,
+        ValidateLifetime = true,
+        ValidateIssuerSigningKey = true
+    };
 });
 
+// ------------------ AUTORIZACIÓN GENERAL --------------------------
 builder.Services.AddAuthorization();
-// Agregar el servicio del DbContext con la cadena de conexión definida en appsettings.json
+
+// ------------------ DB CONTEXT ------------------------------------
 builder.Services.AddDbContext<AppDbContext>(options =>
     options.UseSqlServer(builder.Configuration.GetConnectionString("DefaultConnection")));
 
-// Resto de configuraciones
+// ------------------ CONTROLADORES ---------------------------------
 builder.Services.AddControllers(options =>
 {
     options.Filters.Add<Backend_CrmSG.Filters.SuccessMessageFilter>();
@@ -56,27 +94,28 @@ builder.Services.AddControllers(options =>
 
 builder.Services.AddEndpointsApiExplorer();
 builder.Services.AddSwaggerGen();
-// Registro del repositorio genérico
+
+// ------------------ INYECCIÓN DE SERVICIOS ------------------------
 builder.Services.AddScoped(typeof(IRepository<>), typeof(Repository<>));
-// Registro del servicio de entidades
 builder.Services.AddScoped<IProspectoService, ProspectoService>();
 builder.Services.AddScoped<IActividadService, ActividadService>();
-//Registro dl servicio de catalogos
+
+// Catálogos
 builder.Services.AddScoped<IOrigenClienteService, OrigenClienteService>();
 builder.Services.AddScoped<IAgenciaService, AgenciaService>();
 builder.Services.AddScoped<IPrioridadService, PrioridadService>();
 builder.Services.AddScoped<ITipoActividadService, TipoActividadService>();
 builder.Services.AddScoped<ITipoIdentificacionService, TipoIdentificacionService>();
 builder.Services.AddScoped<IProductoInteresService, ProductoInteresService>();
-// Registro del servicio de seguridad
+
+// Seguridad
 builder.Services.AddScoped<IUsuarioService, UsuarioService>();
 builder.Services.AddScoped<IRolService, RolService>();
 builder.Services.AddScoped<IPermisoService, PermisoService>();
 builder.Services.AddScoped<IMenuService, MenuService>();
 builder.Services.AddScoped<IUsuarioRolService, UsuarioRolService>();
 
-
-
+// ------------------ APP BUILD --------------------------------------
 var app = builder.Build();
 
 if (app.Environment.IsDevelopment())
@@ -87,9 +126,10 @@ if (app.Environment.IsDevelopment())
 
 app.UseMiddleware<ExceptionHandlingMiddleware>();
 app.UseHttpsRedirection();
-// Agregar CORS aquí
 app.UseCors("AllowFrontend");
+
 app.UseAuthentication();
 app.UseAuthorization();
+
 app.MapControllers();
 app.Run();
