@@ -46,5 +46,10 @@ namespace Backend_CrmSG.Models
         // Campos de seguimiento
         public DateTime? FechaCreacion { get; set; }
         public DateTime? FechaModificacion { get; set; }
+
+        public bool? Estado { get; set; }
+        public bool? EsCliente { get; set; }
+        public int? IdUsuarioPropietario { get; set; }
+
     }
 }

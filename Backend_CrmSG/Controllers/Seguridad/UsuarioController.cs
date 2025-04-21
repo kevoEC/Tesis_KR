@@ -3,6 +3,10 @@ using System.Threading.Tasks;
 using Backend_CrmSG.Models.Seguridad;
 using Backend_CrmSG.DTOs;
 using Backend_CrmSG.Services.Seguridad;
+using System.Security.Claims;
+using System.IdentityModel.Tokens.Jwt;
+
+
 
 namespace Backend_CrmSG.Controllers.Seguridad
 {
@@ -11,10 +15,12 @@ namespace Backend_CrmSG.Controllers.Seguridad
     public class UsuarioController : ControllerBase
     {
         private readonly IUsuarioService _usuarioService;
+        private readonly StoredProcedureService _storedProcedureService;
         private readonly IJwtService _jwtService;
-        public UsuarioController(IUsuarioService usuarioService, IJwtService jwtService)
+        public UsuarioController(IUsuarioService usuarioService, IJwtService jwtService, StoredProcedureService storedProcedureService)
         {
             _usuarioService = usuarioService;
+            _storedProcedureService = storedProcedureService;
             _jwtService = jwtService;
         }
 
@@ -22,24 +28,54 @@ namespace Backend_CrmSG.Controllers.Seguridad
         [HttpPost("login")]
         public async Task<IActionResult> Login([FromBody] LoginRequest loginRequest)
         {
-            var user = await _usuarioService.AuthenticateAsync(loginRequest.Email, loginRequest.Contraseña);
-            if (user == null)
+            var result = await _storedProcedureService.EjecutarLoginSP(loginRequest.Email, loginRequest.Contraseña);
+
+            if (result.Usuario == null)
                 return Unauthorized("Credenciales inválidas o usuario inactivo.");
 
-            // Obtener roles del usuario; aquí deberás implementar la lógica real, en este ejemplo se retorna un mock
-            var roles = await _usuarioService.GetRolesByUserIdAsync(user.IdUsuario);
+            var claims = new List<Claim>
+    {
+        new Claim("idUsuario", result.Usuario.Id.ToString()),
+        new Claim(ClaimTypes.Email, result.Usuario.Email),
+        new Claim(JwtRegisteredClaimNames.Sub, result.Usuario.Email),
+        new Claim(JwtRegisteredClaimNames.Jti, Guid.NewGuid().ToString())
+    };
 
-            // Generar el token JWT
-            var token = _jwtService.GenerateToken(user, roles);
+            foreach (var rol in result.Roles)
+            {
+                claims.Add(new Claim(ClaimTypes.Role, rol));
+            }
+
+            var token = _jwtService.GenerateTokenFromClaims(claims);
+            var permisosAgrupados = result.Permisos
+            .GroupBy(p => new { p.Menu, p.Nombre, p.Ruta, p.Icono })
+            .Select(g => new
+            {
+                Menu = g.Key.Menu,
+                Nombre = g.Key.Nombre,
+                Ruta = g.Key.Ruta,
+                Icono = g.Key.Icono,
+                Permisos = g.Select(p => p.Permiso).ToList()
+            }).ToList();
+
+
 
             return Ok(new
             {
-                IdUsuario = user.IdUsuario,
-                Nombre = $"{user.PrimerApellido} {user.SegundoApellido} {user.PrimerNombre} {user.SegundoNombre}",
-                Email = user.Email,
-                Token = token
+                Token = token,
+                Usuario = new
+                {
+                    Id = result.Usuario.Id,
+                    Nombre = result.Usuario.NombreCompleto,
+                    Correo = result.Usuario.Email,
+                    Identificacion = result.Usuario.Identificacion
+                },
+                Roles = result.Roles,
+                Permisos = permisosAgrupados
             });
         }
+
+
 
 
         // GET: api/Usuario/roles/5

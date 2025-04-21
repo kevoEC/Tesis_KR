@@ -23,16 +23,16 @@ namespace Backend_CrmSG.Services.Seguridad
         }
 
         // ========== Autenticación ==========
-        public async Task<Usuario> AuthenticateAsync(string email, string password)
+        public async Task<Usuario?> AuthenticateAsync(string email, string password)
         {
-            // En un entorno real, se debe aplicar un hash a 'password' y compararlo con el valor almacenado.
-            // Aquí se realiza una comparación directa para simplificar.
             var user = await _usuarioRepository
                 .GetAllAsync()
                 .ContinueWith(t => t.Result.FirstOrDefault(u =>
                      u.Email == email && u.Contraseña == password && u.EsActivo == true));
+
             return user;
         }
+
 
         // ========== Roles ==========
         public async Task<IEnumerable<string>> GetRolesByUserIdAsync(int idUsuario)
@@ -85,5 +85,13 @@ namespace Backend_CrmSG.Services.Seguridad
         {
             await _usuarioRepository.DeleteAsync(id);
         }
+
+        public async Task<Usuario?> BuscarPorCorreoAsync(string email)
+        {
+            return await _usuarioRepository
+                .GetAllAsync()
+                .ContinueWith(t => t.Result.FirstOrDefault(u => u.Email == email));
+        }
+
     }
 }

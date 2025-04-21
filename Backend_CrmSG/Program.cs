@@ -11,12 +11,30 @@ using Microsoft.IdentityModel.Tokens;
 using System.Text;
 
 var builder = WebApplication.CreateBuilder(args);
+var jwtKey = builder.Configuration["Jwt:Key"]
+    ?? throw new InvalidOperationException("Falta Jwt:Key en appsettings.json");
+
+var jwtIssuer = builder.Configuration["Jwt:Issuer"]
+    ?? throw new InvalidOperationException("Falta Jwt:Issuer en appsettings.json");
+
+var jwtAudience = builder.Configuration["Jwt:Audience"]
+    ?? throw new InvalidOperationException("Falta Jwt:Audience en appsettings.json");
+
 
 // ------------------------- Configuración de Azure AD -------------------------
 var azureAd = builder.Configuration.GetSection("AzureAd");
-string azureAuthority = $"{azureAd["Instance"]}{azureAd["TenantId"]}/v2.0";
-string azureAudience = azureAd["Audience"];
-string azureIssuer = $"https://sts.windows.net/{azureAd["TenantId"]}/";
+var azureInstance = azureAd["Instance"]
+    ?? throw new InvalidOperationException("Falta AzureAd:Instance");
+
+var azureTenantId = azureAd["TenantId"]
+    ?? throw new InvalidOperationException("Falta AzureAd:TenantId");
+
+var azureAudience = azureAd["Audience"]
+    ?? throw new InvalidOperationException("Falta AzureAd:Audience");
+
+var azureAuthority = $"{azureInstance}{azureTenantId}/v2.0";
+var azureIssuer = $"https://sts.windows.net/{azureTenantId}/";
+
 
 // ------------------------- CORS ----------------------------------
 builder.Services.AddCors(options =>
@@ -59,9 +77,9 @@ builder.Services.AddAuthentication(options =>
         ValidateAudience = true,
         ValidateLifetime = true,
         ValidateIssuerSigningKey = true,
-        ValidIssuer = builder.Configuration["Jwt:Issuer"],
-        ValidAudience = builder.Configuration["Jwt:Audience"],
-        IssuerSigningKey = new SymmetricSecurityKey(Encoding.UTF8.GetBytes(builder.Configuration["Jwt:Key"]))
+        ValidIssuer = jwtIssuer,
+        ValidAudience = jwtAudience,
+        IssuerSigningKey = new SymmetricSecurityKey(Encoding.UTF8.GetBytes(jwtKey))
     };
 })
 .AddJwtBearer("AzureAdJwtScheme", options =>
@@ -99,6 +117,11 @@ builder.Services.AddSwaggerGen();
 builder.Services.AddScoped(typeof(IRepository<>), typeof(Repository<>));
 builder.Services.AddScoped<IProspectoService, ProspectoService>();
 builder.Services.AddScoped<IActividadService, ActividadService>();
+builder.Services.AddScoped<ISolicitudInversionService, SolicitudInversionService>();
+builder.Services.AddScoped<IJwtService, JwtService>();
+builder.Services.AddScoped<StoredProcedureService>();
+
+
 
 // Catálogos
 builder.Services.AddScoped<IOrigenClienteService, OrigenClienteService>();
@@ -114,6 +137,8 @@ builder.Services.AddScoped<IRolService, RolService>();
 builder.Services.AddScoped<IPermisoService, PermisoService>();
 builder.Services.AddScoped<IMenuService, MenuService>();
 builder.Services.AddScoped<IUsuarioRolService, UsuarioRolService>();
+builder.Services.AddScoped<EnsureMicrosoftUserExistsAttribute>();
+
 
 // ------------------ APP BUILD --------------------------------------
 var app = builder.Build();

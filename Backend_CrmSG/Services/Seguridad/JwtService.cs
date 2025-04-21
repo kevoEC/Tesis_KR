@@ -18,15 +18,9 @@ namespace Backend_CrmSG.Services.Seguridad
             _configuration = configuration;
         }
 
+        // ✅ Método original (por compatibilidad)
         public string GenerateToken(Usuario usuario, IEnumerable<string> roles)
         {
-            // Clave secreta y parámetros de configuración
-            var key = Encoding.UTF8.GetBytes(_configuration["Jwt:Key"]);
-            var issuer = _configuration["Jwt:Issuer"];
-            var audience = _configuration["Jwt:Audience"];
-            var expiresInMinutes = Convert.ToDouble(_configuration["Jwt:ExpiresInMinutes"]);
-
-            // Crear claims
             var claims = new List<Claim>
             {
                 new Claim(JwtRegisteredClaimNames.Sub, usuario.Email),
@@ -34,13 +28,22 @@ namespace Backend_CrmSG.Services.Seguridad
                 new Claim(JwtRegisteredClaimNames.Jti, Guid.NewGuid().ToString())
             };
 
-            // Agregar los roles a los claims
             foreach (var role in roles)
             {
                 claims.Add(new Claim(ClaimTypes.Role, role));
             }
 
-            // Crear descriptor del token
+            return GenerateTokenFromClaims(claims);
+        }
+
+        // ✅ NUEVO MÉTODO: para uso directo con claims desde SP
+        public string GenerateTokenFromClaims(List<Claim> claims)
+        {
+            var key = Encoding.UTF8.GetBytes(_configuration["Jwt:Key"]);
+            var issuer = _configuration["Jwt:Issuer"];
+            var audience = _configuration["Jwt:Audience"];
+            var expiresInMinutes = Convert.ToDouble(_configuration["Jwt:ExpiresInMinutes"]);
+
             var tokenDescriptor = new SecurityTokenDescriptor
             {
                 Subject = new ClaimsIdentity(claims),
@@ -50,7 +53,6 @@ namespace Backend_CrmSG.Services.Seguridad
                 SigningCredentials = new SigningCredentials(new SymmetricSecurityKey(key), SecurityAlgorithms.HmacSha256)
             };
 
-            // Generar el token
             var tokenHandler = new JwtSecurityTokenHandler();
             var token = tokenHandler.CreateToken(tokenDescriptor);
 

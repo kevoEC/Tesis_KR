@@ -4,6 +4,7 @@ using System.Collections.Generic;
 using System.Threading.Tasks;
 using Backend_CrmSG.Repositories;
 using System.ComponentModel.DataAnnotations;
+using Microsoft.Data.SqlClient;
 
 namespace Backend_CrmSG.Repositories
 {
@@ -74,6 +75,13 @@ namespace Backend_CrmSG.Repositories
             _dbSet.Remove(entity);
             await _context.SaveChangesAsync();
         }
+
+        public async Task<List<T>> ExecuteStoredProcedureAsync(string storedProcedure, params SqlParameter[] parameters)
+        {
+            var sql = storedProcedure + " " + string.Join(", ", parameters.Select(p => p.ParameterName));
+            return await _context.Set<T>().FromSqlRaw(sql, parameters).ToListAsync();
+        }
+
 
     }
 }

@@ -1,5 +1,7 @@
 ﻿using Backend_CrmSG.Data;
+using Backend_CrmSG.DTOs;
 using Backend_CrmSG.Models;
+using Backend_CrmSG.Services;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
 
@@ -10,10 +12,20 @@ namespace TesisBackend.Controllers
     public class ActividadController : ControllerBase
     {
         private readonly AppDbContext _context;
+        private readonly IActividadService _actividadService;
 
-        public ActividadController(AppDbContext context)
+        public ActividadController(AppDbContext context, IActividadService actividadService)
         {
             _context = context;
+            _actividadService = actividadService;
+        }
+
+        // POST: api/actividad/filtradas
+        [HttpPost("filtradas")]
+        public async Task<IActionResult> ObtenerFiltradas([FromBody] ActividadFiltroDto filtro)
+        {
+            var result = await _actividadService.ObtenerFiltradasAsync(filtro);
+            return Ok(result);
         }
 
         // GET: api/Actividad

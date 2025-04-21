@@ -1,4 +1,5 @@
-﻿using Backend_CrmSG.Models;
+﻿using Backend_CrmSG.DTOs;
+using Backend_CrmSG.Models;
 using Backend_CrmSG.Services;
 using Microsoft.AspNetCore.Mvc;
 using System.Threading.Tasks;
@@ -54,5 +55,13 @@ namespace TesisBackend.Controllers
             await _prospectoService.DeleteProspectoAsync(id);
             return NoContent();
         }
+
+        [HttpPost("filtrados")]
+        public async Task<IActionResult> ObtenerFiltrados([FromBody] ProspectoFiltroDto filtro)
+        {
+            var result = await _prospectoService.ObtenerProspectosFiltradosAsync(filtro);
+            return Ok(result);
+        }
+
     }
 }

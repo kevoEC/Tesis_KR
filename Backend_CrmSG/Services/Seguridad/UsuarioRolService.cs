@@ -3,6 +3,7 @@ using System.Linq;
 using System.Threading.Tasks;
 using Backend_CrmSG.Data;
 using Backend_CrmSG.Models.Seguridad;
+using Backend_CrmSG.Repositories;
 using Microsoft.EntityFrameworkCore;
 
 namespace Backend_CrmSG.Services.Seguridad
@@ -23,7 +24,7 @@ namespace Backend_CrmSG.Services.Seguridad
         }
 
         // Obtiene una relación específica por clave compuesta
-        public async Task<UsuarioRol> GetByIdAsync(int idUsuario, int idRol)
+        public async Task<UsuarioRol?> GetByIdAsync(int idUsuario, int idRol)
         {
             return await _context.Set<UsuarioRol>()
                 .FirstOrDefaultAsync(ur => ur.IdUsuario == idUsuario && ur.IdRol == idRol);
@@ -74,5 +75,30 @@ namespace Backend_CrmSG.Services.Seguridad
                 .Where(ur => ur.IdRol == idRol)
                 .ToListAsync();
         }
+
+        public async Task AsignarRolPorDefecto(int idUsuario, string nombreRol)
+        {
+            var rol = await _context.Rol.FirstOrDefaultAsync(r => r.Nombre == nombreRol);
+
+            if (rol == null)
+                return;
+
+            // Validar si ya tiene ese rol asignado
+            var yaExiste = await _context.UsuarioRol
+                .AnyAsync(ur => ur.IdUsuario == idUsuario && ur.IdRol == rol.IdRol);
+
+            if (!yaExiste)
+            {
+                var nuevoUsuarioRol = new UsuarioRol
+                {
+                    IdUsuario = idUsuario,
+                    IdRol = rol.IdRol
+                };
+
+                _context.UsuarioRol.Add(nuevoUsuarioRol);
+                await _context.SaveChangesAsync();
+            }
+        }
     }
-}
+
+    }

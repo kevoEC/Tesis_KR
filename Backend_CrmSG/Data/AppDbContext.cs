@@ -22,6 +22,7 @@ namespace Backend_CrmSG.Data
         // DbSets de tus tablas de seguridad
         public DbSet<Usuario> Usuario { get; set; }
         public DbSet<Rol> Rol { get; set; }
+        public DbSet<UsuarioRol> UsuarioRol { get; set; }
         public DbSet<Permiso> Permiso { get; set; }
         public DbSet<Menu> Menu { get; set; }
         protected override void OnModelCreating(ModelBuilder modelBuilder)
