@@ -9,6 +9,7 @@ using Backend_CrmSG.Middleware;
 using Microsoft.AspNetCore.Authentication.JwtBearer;
 using Microsoft.IdentityModel.Tokens;
 using System.Text;
+using Backend_CrmSG.Services.Producto;
 
 var builder = WebApplication.CreateBuilder(args);
 var jwtKey = builder.Configuration["Jwt:Key"]
@@ -133,6 +134,9 @@ builder.Services.AddScoped<IPrioridadService, PrioridadService>();
 builder.Services.AddScoped<ITipoActividadService, TipoActividadService>();
 builder.Services.AddScoped<ITipoIdentificacionService, TipoIdentificacionService>();
 builder.Services.AddScoped<IProductoInteresService, ProductoInteresService>();
+builder.Services.AddScoped<IProductoService, ProductoService>();
+builder.Services.AddScoped<IConfiguracionProductoService, ConfiguracionProductoService>();
+
 
 // Seguridad
 builder.Services.AddScoped<IUsuarioService, UsuarioService>();

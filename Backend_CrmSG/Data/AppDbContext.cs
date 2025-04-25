@@ -2,6 +2,7 @@
 using Backend_CrmSG.Models;
 using Backend_CrmSG.Models.Catalogos;
 using Backend_CrmSG.Models.Seguridad;
+using Backend_CrmSG.Models.Catalogos.Producto;
 
 namespace Backend_CrmSG.Data
 {
@@ -25,6 +26,9 @@ namespace Backend_CrmSG.Data
         public DbSet<UsuarioRol> UsuarioRol { get; set; }
         public DbSet<Permiso> Permiso { get; set; }
         public DbSet<Menu> Menu { get; set; }
+
+        public DbSet<Producto> Producto { get; set; }
+        public DbSet<ConfiguracionesProducto> ConfiguracionesProducto { get; set; } // ← ESTA ES LA CLAVE
         protected override void OnModelCreating(ModelBuilder modelBuilder)
         {
             // Configuración de clave compuesta para UsuarioRol
