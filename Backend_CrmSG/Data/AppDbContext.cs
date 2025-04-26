@@ -29,11 +29,18 @@ namespace Backend_CrmSG.Data
 
         public DbSet<Producto> Producto { get; set; }
         public DbSet<ConfiguracionesProducto> ConfiguracionesProducto { get; set; } // ← ESTA ES LA CLAVE
+        public DbSet<Proyeccion> Proyeccion { get; set; }
+        public DbSet<CronogramaProyeccion> CronogramaProyeccion { get; set; }
         protected override void OnModelCreating(ModelBuilder modelBuilder)
         {
             // Configuración de clave compuesta para UsuarioRol
             modelBuilder.Entity<UsuarioRol>()
                 .HasKey(ur => new { ur.IdUsuario, ur.IdRol });
+
+            modelBuilder.Entity<Proyeccion>()
+            .Ignore(p => p.Producto)
+            .Ignore(p => p.ConfiguracionUsada)
+            .Ignore(p => p.SolicitudInversion);
 
             base.OnModelCreating(modelBuilder);
         }

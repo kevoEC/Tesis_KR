@@ -124,6 +124,9 @@ builder.Services.AddScoped<IActividadService, ActividadService>();
 builder.Services.AddScoped<ISolicitudInversionService, SolicitudInversionService>();
 builder.Services.AddScoped<IJwtService, JwtService>();
 builder.Services.AddScoped<StoredProcedureService>();
+builder.Services.AddScoped<ProyeccionService>();
+builder.Services.AddScoped<SimuladorProyeccionService>();
+
 
 
 

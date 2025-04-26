@@ -23,7 +23,7 @@ namespace Backend_CrmSG.Models.Catalogos.Producto
 
         public int IdFormaPago { get; set; } // FK hacia tabla FormaPago
 
-        public short? Periocidad { get; set; }
+        public short Periocidad { get; set; }
 
         public decimal? MontoMinimoIncremento { get; set; }
 
