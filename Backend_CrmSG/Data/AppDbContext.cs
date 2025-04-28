@@ -31,6 +31,8 @@ namespace Backend_CrmSG.Data
         public DbSet<ConfiguracionesProducto> ConfiguracionesProducto { get; set; } // ← ESTA ES LA CLAVE
         public DbSet<Proyeccion> Proyeccion { get; set; }
         public DbSet<CronogramaProyeccion> CronogramaProyeccion { get; set; }
+
+        public DbSet<Documento> Documento { get; set; }
         protected override void OnModelCreating(ModelBuilder modelBuilder)
         {
             // Configuración de clave compuesta para UsuarioRol
