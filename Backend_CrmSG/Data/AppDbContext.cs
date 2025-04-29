@@ -26,6 +26,7 @@ namespace Backend_CrmSG.Data
         public DbSet<UsuarioRol> UsuarioRol { get; set; }
         public DbSet<Permiso> Permiso { get; set; }
         public DbSet<Menu> Menu { get; set; }
+        public DbSet<SolicitudInversion> SolicitudInversion { get; set; } // ← ESTA ES LA CLAVE
 
         public DbSet<Producto> Producto { get; set; }
         public DbSet<ConfiguracionesProducto> ConfiguracionesProducto { get; set; } // ← ESTA ES LA CLAVE

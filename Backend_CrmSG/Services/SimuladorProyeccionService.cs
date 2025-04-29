@@ -19,12 +19,11 @@ namespace Backend_CrmSG.Services
 
             decimal totalRentabilidad = 0;
             decimal totalCosteOperativo = 0;
-            decimal totalRentaPeriodo = 0;
             decimal totalAporteAdicional = 0;
             DateTime? fechaIncremento = null;
 
             decimal rentabilidadAcumuladaParaCoste = 0;
-            decimal rentaAcumuladaReal = 0;
+            decimal rentaAcumuladaTotal = 0;
 
             int periodosDesdeInicio = origenEsLocal ? -1 : 0;
 
@@ -47,21 +46,14 @@ namespace Backend_CrmSG.Services
                 cuota.CapitalOperacion = cuota.Capital;
                 cuota.MontoOperacion = cuota.CapitalOperacion + cuota.AporteOperacion + cuota.AporteOperacionAdicional;
 
-                // RENTABILIDAD
                 if (origenEsLocal && cuota.Periodo == 1)
-                {
                     cuota.Rentabilidad = 0;
-                }
                 else
-                {
                     cuota.Rentabilidad = decimal.Round(cuota.MontoOperacion * cuota.Tasa / 100, 2);
-                }
 
                 cuota.CostoNotarizacion = cuota.UltimaCuota ? costeNotarizacion : 0;
-
                 rentabilidadAcumuladaParaCoste += cuota.Rentabilidad;
 
-                // ¿Toca pagar renta en este período?
                 bool tocaPagar = false;
                 if (periodicidad == 0)
                 {
@@ -70,7 +62,6 @@ namespace Backend_CrmSG.Services
                 else
                 {
                     int ajusteLocal = origenEsLocal ? 1 : 0;
-
                     if ((periodosDesdeInicio + ajusteLocal) > 0 &&
                         ((periodosDesdeInicio + ajusteLocal) % periodicidad == 0 || cuota.UltimaCuota))
                     {
@@ -80,47 +71,40 @@ namespace Backend_CrmSG.Services
 
                 cuota.PagaRenta = tocaPagar;
 
-                // COSTE OPERATIVO
                 if (tocaPagar)
                 {
                     cuota.CostoOperativo = decimal.Round(rentabilidadAcumuladaParaCoste * 0.05m, 2);
-                }
-                else
-                {
-                    cuota.CostoOperativo = 0;
-                }
 
-                // RENTA DEL PERIODO
-                if (tocaPagar)
-                {
-                    cuota.RentaPeriodo = Math.Max(rentabilidadAcumuladaParaCoste - cuota.CostoOperativo, 0);
+                    if (periodicidad == 0 && cuota.UltimaCuota)
+                    {
+                        cuota.RentaPeriodo = Math.Max(cuota.Rentabilidad - cuota.CostoOperativo, 0);
+                    }
+                    else
+                    {
+                        cuota.RentaPeriodo = Math.Max(rentabilidadAcumuladaParaCoste - cuota.CostoOperativo, 0);
+                    }
+
                     rentabilidadAcumuladaParaCoste = 0;
                 }
                 else
                 {
+                    cuota.CostoOperativo = 0;
                     cuota.RentaPeriodo = cuota.Rentabilidad;
                 }
 
-                // RENTA ACUMULADA
-                rentaAcumuladaReal += cuota.RentaPeriodo;
-                cuota.RentaAcumulada = rentaAcumuladaReal;
+                rentaAcumuladaTotal += cuota.RentaPeriodo;
+                cuota.RentaAcumulada = rentaAcumuladaTotal;
 
-                // CAPITAL + RENTA
                 cuota.CapitalRenta = cuota.Capital + cuota.Rentabilidad;
 
-                // MONTO A PAGAR
                 if (tocaPagar)
                 {
                     if (cuota.UltimaCuota)
                     {
                         if (periodicidad == 0)
-                        {
                             cuota.MontoPagar = cuota.CapitalRenta - cuota.CostoOperativo;
-                        }
                         else
-                        {
                             cuota.MontoPagar = cuota.Capital + cuota.RentaPeriodo;
-                        }
                     }
                     else
                     {
@@ -132,18 +116,8 @@ namespace Backend_CrmSG.Services
                     cuota.MontoPagar = 0;
                 }
 
-                // CAPITAL FINAL
-                if (periodicidad == 0)
-                {
-                    // En renta fija el capital crece
-                    cuota.CapitalFinal = cuota.UltimaCuota ? 0 : cuota.Capital + cuota.RentaPeriodo;
-                }
-                else
-                {
-                    cuota.CapitalFinal = cuota.UltimaCuota ? 0 : cuota.Capital;
-                }
+                cuota.CapitalFinal = cuota.UltimaCuota ? 0 : (periodicidad == 0 ? cuota.Capital + cuota.RentaPeriodo : cuota.Capital);
 
-                // Registrar incremento si aplica
                 if (cuota.AporteAdicional > 0 && fechaIncremento == null)
                     fechaIncremento = cuota.FechaInicial;
 
@@ -151,7 +125,6 @@ namespace Backend_CrmSG.Services
 
                 totalRentabilidad += cuota.Rentabilidad;
                 totalCosteOperativo += cuota.CostoOperativo;
-                totalRentaPeriodo += cuota.RentaPeriodo;
                 totalAporteAdicional += cuota.AporteAdicional;
 
                 capital = cuota.CapitalFinal;
@@ -163,7 +136,7 @@ namespace Backend_CrmSG.Services
                 FechaInicio = request.FechaInicial,
                 FechaIncremento = fechaIncremento,
                 TotalAporteAdicional = totalAporteAdicional,
-                TotalRentaPeriodo = totalRentaPeriodo,
+                TotalRentaPeriodo = cronogramalist.Sum(c => c.RentaPeriodo),
                 TotalCosteOperativo = totalCosteOperativo,
                 TotalRentabilidad = totalRentabilidad,
                 RendimientoCapital = cronogramalist.Last().CapitalRenta,
@@ -171,5 +144,7 @@ namespace Backend_CrmSG.Services
                 Cronograma = cronogramalist
             };
         }
+
     }
+
 }

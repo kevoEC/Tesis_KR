@@ -1,10 +1,12 @@
 ﻿using Backend_CrmSG.DTOs;
 using Backend_CrmSG.Models;
+using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 using System.Threading.Tasks;
 
 [Route("api/[controller]")]
 [ApiController]
+[Authorize]
 public class SolicitudInversionController : ControllerBase
 {
     private readonly ISolicitudInversionService _service;
@@ -38,9 +40,29 @@ public class SolicitudInversionController : ControllerBase
     [HttpPost]
     public async Task<IActionResult> Create([FromBody] SolicitudInversion solicitud)
     {
-        await _service.AddAsync(solicitud);
-        return Ok();
+        try
+        {
+            await _service.AddAsync(solicitud);
+
+            return Ok(new
+            {
+                success = true,
+                message = "Solicitud creada correctamente."
+            });
+        }
+        catch (Exception ex)
+        {
+            return BadRequest(new
+            {
+                success = false,
+                message = "Ocurrió un error en el servidor. Intenta nuevamente.",
+                details = ex.Message,
+                inner = ex.InnerException?.Message,
+                stack = ex.InnerException?.StackTrace
+            });
+        }
     }
+
 
     [HttpPut("{id}")]
     public async Task<IActionResult> Update(int id, [FromBody] SolicitudInversion solicitud)
