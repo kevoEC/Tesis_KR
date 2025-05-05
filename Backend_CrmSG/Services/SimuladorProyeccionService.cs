@@ -123,7 +123,7 @@ namespace Backend_CrmSG.Services
 
                 cronogramalist.Add(cuota);
 
-                totalRentabilidad += cuota.Rentabilidad;x
+                totalRentabilidad += cuota.Rentabilidad;
                 totalCosteOperativo += cuota.CostoOperativo;
                 totalAporteAdicional += cuota.AporteAdicional;
 
