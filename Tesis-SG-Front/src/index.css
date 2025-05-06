@@ -1,0 +1,187 @@
+@import "tailwindcss";
+
+/* 🌈 Variables del sistema de diseño */
+@theme {
+  --font-sans: "Inter", system-ui, sans-serif;
+
+  --color-bg: #f8f9fb;
+  --color-fg: #1f1f1f;
+  --color-muted: #6b7280;
+  --color-border: #e5e7eb;
+
+  --color-primary: #4f46e5;  /* Azul-morado */
+  --color-accent: #4F46E533;   /* Rojo SG */
+  --color-secondary: #833ab4;
+  --color-dark: #1d2671;
+
+  --text-sm: 0.875rem;
+  --text-base: 1rem;
+  --text-lg: 1.125rem;
+  --text-xl: 1.25rem;
+
+  --radius: 0.5rem;
+
+  --shadow-sm: 0 1px 2px rgba(0, 0, 0, 0.05);
+  --shadow-md: 0 4px 8px rgba(0, 0, 0, 0.08);
+}
+
+/* 🧱 Estilos base */
+@layer base {
+  html {
+    font-family: var(--font-sans);
+    background-color: var(--color-bg);
+    color: var(--color-fg);
+  }
+
+  body {
+    margin: 0;
+    padding: 0;
+    min-height: 100vh;
+  }
+
+  h1, h2, h3 {
+    font-weight: 600;
+  }
+
+  p {
+    font-size: var(--text-base);
+  }
+}
+
+/* 🧩 Componentes */
+@layer components {
+  .btn-primary {
+    background-color: var(--color-primary);
+    color: white;
+    font-weight: 500;
+    border-radius: var(--radius);
+    transition: all 0.2s ease-in-out;
+    padding: 0.75rem 1.5rem;
+  }
+
+  .btn-primary:hover {
+    background-color: #4338ca;
+  }
+
+  .btn-primary:focus {
+    outline: none;
+    box-shadow: 0 0 0 3px rgba(79, 70, 229, 0.4);
+  }
+
+  .btn-primary:active {
+    transform: scale(0.98);
+  }
+
+  .btn-microsoft {
+    background-color: white;
+    color: black;
+    border: 1px solid var(--color-border);
+    border-radius: var(--radius);
+    padding: 0.75rem 1.5rem;
+    transition: all 0.2s ease-in-out;
+  }
+
+  .btn-microsoft:hover {
+    background-color: #f3f4f6;
+  }
+
+  .btn-microsoft:active {
+    transform: scale(0.98);
+  }
+
+  .fade-in-up {
+    animation: fadeUp 0.5s ease-out both;
+  }
+
+  .bg-pattern {
+    background-image: radial-gradient(circle at 1px 1px, #cbd5e1 1px, transparent 0);
+    background-size: 12px 12px;
+    background-repeat: repeat;
+    animation: pattern-float 25s linear infinite;
+    opacity: 0.7;
+  }
+  
+}
+
+/* 🎞️ Animaciones */
+@keyframes fadeUp {
+  from {
+    opacity: 0;
+    transform: translateY(20px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+@keyframes pattern-float {
+  0% {
+    background-position: 0 0;
+  }
+  100% {
+    background-position: 100px 100px;
+  }
+}
+
+
+@keyframes gradient-flow {
+  0%   { background-position: 0% 50%; }
+  50%  { background-position: 100% 50%; }
+  100% { background-position: 0% 50%; }
+}
+
+@keyframes fade-in-down {
+  from {
+    opacity: 0;
+    transform: translateY(-4px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+.animate-fade-in-down {
+  animation: fade-in-down 0.3s ease-out;
+}
+
+
+/* 🛠️ Utilidades */
+@layer utilities {
+  .btn-animated {
+    transition: all 0.3s ease-in-out;
+  }
+
+  .btn-animated:hover {
+    transform: scale(1.02);
+    box-shadow: 0 8px 20px rgba(0, 0, 0, 0.06);
+  }
+
+  .footer-text {
+    font-size: var(--text-sm);
+    color: var(--color-muted);
+    text-align: center;
+    margin-top: 2rem;
+    opacity: 0.6;
+  }
+
+  .clip-diagonal {
+    clip-path: polygon(0 0, 100% 0, 100% 80%, 0 100%);
+  }
+
+  .bg-sg-gradient {
+    background: linear-gradient(135deg, var(--color-accent), var(--color-secondary), var(--color-dark));
+    background-size: 400% 400%;
+    animation: gradient-flow 15s ease infinite;
+  }
+
+  .checkbox-animated {
+    @apply transition-transform duration-300 ease-in-out
+            data-[state=checked]:scale-110
+            data-[state=checked]:bg-[--color-primary]
+            data-[state=checked]:border-[--color-primary]
+            data-[state=checked]:text-white
+            focus-visible:ring-2 focus-visible:ring-[--color-primary];
+  }
+}
