@@ -5,9 +5,16 @@ import { XIcon } from "lucide-react"
 import { cn } from "@/lib/utils"
 
 function Dialog({
+  className,
   ...props
 }) {
-  return <DialogPrimitive.Root data-slot="dialog" {...props} />;
+  return <DialogPrimitive.Root data-slot="dialog" 
+  className={cn(
+    "data-[state=open]:animate-in data-[state=closed]:animate-out",
+    "data-[state=closed]:fade-out-0 data-[state=open]:fade-in-0",
+    "fixed inset-0 z-50 bg-white/60 backdrop-blur-md transition-all duration-200 ease-in-out",
+    className
+  )}{...props} />;
 }
 
 function DialogTrigger({
@@ -34,12 +41,16 @@ function DialogOverlay({
 }) {
   return (
     <DialogPrimitive.Overlay
-      data-slot="dialog-overlay"
-      className={cn(
-        "data-[state=open]:animate-in data-[state=closed]:animate-out data-[state=closed]:fade-out-0 data-[state=open]:fade-in-0 fixed inset-0 z-50 bg-black/50",
-        className
-      )}
-      {...props} />
+  data-slot="dialog-overlay"
+  className={cn(
+    "data-[state=open]:animate-in data-[state=closed]:animate-out",
+    "data-[state=closed]:fade-out-0 data-[state=open]:fade-in-0",
+    "fixed inset-0 z-50 bg-white/60 backdrop-blur-md transition-all duration-200 ease-in-out",
+    className
+  )}
+  {...props}
+/>
+
   );
 }
 

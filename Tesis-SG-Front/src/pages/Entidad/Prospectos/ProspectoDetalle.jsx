@@ -17,6 +17,7 @@ import ActividadModal from "@/components/prospectos/ModalActividad";
 import { getProspectoById } from "@/service/Entidades/ProspectoService";
 import { getActividadesByProspectoId } from "@/service/Entidades/ActividadService";
 import { getSolicitudesByProspectoId } from "@/service/Entidades/SolicitudService";
+import TablaCustom2 from "@/components/shared/TablaCustom2";
 
 export default function ProspectoDetalle() {
   const { id } = useParams();
@@ -55,6 +56,32 @@ export default function ProspectoDetalle() {
     return <p className="text-center text-gray-600">Cargando prospecto...</p>;
   }
 
+  const columnasActividad = [
+    { key: 'tipoActividad', label: 'Tipo' },
+    { key: 'asunto', label: 'Asunto' },
+    { key: 'descripcion', label: 'Descripción' },
+    { key: 'duracion', label: 'Duración' },
+    { key: 'vencimiento', label: 'Vencimiento' },
+    { key: 'prioridad', label: 'Prioridad' },
+    {
+      key: 'estado',
+      label: 'Estado',
+      render: (value) => (
+        <span
+          className={`px-2 py-1 text-xs font-semibold rounded-full ${value ? 'bg-green-100 text-green-700' : 'bg-yellow-200 text-yellow-700'
+            }`}
+        >
+          {value ? 'Finalizada' : 'En Progreso'}
+        </span>
+      ),
+    }
+  ];
+
+  const columnasInversion = [
+    { key: 'idProspecto', label: 'Número de Contacto' },
+    { key: 'nombres', label: 'Nombre de Prospecto' },
+  ];
+
   return (
     <div className="max-w-6xl mx-auto p-6 space-y-6">
       {/* Encabezado */}
@@ -86,9 +113,26 @@ export default function ProspectoDetalle() {
           Nueva Actividad
         </Button>
       </div>
-
       <Card>
         <CardContent className="p-0">
+
+          <TablaCustom2
+            columns={columnasActividad}
+            data={actividades}
+            mostrarEditar={true}
+            mostrarAgregarNuevo={true}
+            mostrarEliminar={true}
+          // onEditarClick={handleEditar}
+          // onEliminarClick={handleEliminar}
+          />
+
+        </CardContent>
+      </Card>
+      <Card>
+        <CardContent className="p-0">
+
+
+
           <Table>
             <TableHeader>
               <TableRow>
@@ -141,6 +185,20 @@ export default function ProspectoDetalle() {
           Nueva Solicitud de Inversión
         </Button>
       </div>
+
+      <Card>
+        <CardContent className="p-0">
+          <TablaCustom2
+            columns={columnasInversion}
+            data={[]}
+            mostrarEditar={true}
+            mostrarAgregarNuevo={true}
+            mostrarEliminar={true}
+          // onEditarClick={handleEditar}
+          // onEliminarClick={handleEliminar}
+          />
+        </CardContent>
+      </Card>
 
       <Card>
         <CardContent className="p-0">
