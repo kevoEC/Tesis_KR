@@ -1661,6 +1661,22 @@
   },
   {
     "ContainingType": "Backend_CrmSG.Controllers.Seguridad.UsuarioController",
+    "Method": "RegistroParcial",
+    "RelativePath": "api/Usuario/registro-parcial",
+    "HttpMethod": "POST",
+    "IsController": true,
+    "Order": 0,
+    "Parameters": [
+      {
+        "Name": "dto",
+        "Type": "Backend_CrmSG.DTOs.Seguridad.RegistroParcialDTO",
+        "IsRequired": true
+      }
+    ],
+    "ReturnTypes": []
+  },
+  {
+    "ContainingType": "Backend_CrmSG.Controllers.Seguridad.UsuarioController",
     "Method": "GetRoles",
     "RelativePath": "api/Usuario/roles/{idUsuario}",
     "HttpMethod": "GET",

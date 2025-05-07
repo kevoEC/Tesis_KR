@@ -49,16 +49,6 @@ namespace Backend_CrmSG.Data
                 .Ignore(p => p.ConfiguracionUsada)
                 .Ignore(p => p.SolicitudInversion);
 
-            modelBuilder.Entity<TransaccionesValidacion>()
-                .HasOne(t => t.Usuario)
-                .WithMany()
-                .HasForeignKey(t => t.IdUsuario);
-
-            modelBuilder.Entity<TransaccionesValidacion>()
-                .HasOne(t => t.TipoTransaccion)
-                .WithMany(t => t.Transacciones)
-                .HasForeignKey(t => t.IdTipoTransaccion);
-
             base.OnModelCreating(modelBuilder);
         }
 

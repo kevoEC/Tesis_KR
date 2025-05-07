@@ -1,10 +1,13 @@
 ﻿using System;
+using System.ComponentModel.DataAnnotations;
 
 namespace Backend_CrmSG.Models.Seguridad
 {
     public class TransaccionesValidacion
     {
+        [Key]
         public int IdTransaccion { get; set; }
+
         public int IdUsuario { get; set; }
         public int IdTipoTransaccion { get; set; }
 
