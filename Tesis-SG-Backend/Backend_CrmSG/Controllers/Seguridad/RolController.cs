@@ -2,7 +2,7 @@
 using System.Collections.Generic;
 using System.Threading.Tasks;
 using Backend_CrmSG.Models.Seguridad;
-using Backend_CrmSG.Services.Seguridad;
+using Backend_CrmSG.Repositories;
 using Microsoft.AspNetCore.Authorization;
 
 namespace Backend_CrmSG.Controllers.Seguridad
@@ -12,18 +12,18 @@ namespace Backend_CrmSG.Controllers.Seguridad
     [Authorize]
     public class RolController : ControllerBase
     {
-        private readonly IRolService _rolService;
+        private readonly IRepository<Rol> _rolRepository;
 
-        public RolController(IRolService rolService)
+        public RolController(IRepository<Rol> rolRepository)
         {
-            _rolService = rolService;
+            _rolRepository = rolRepository;
         }
 
         // GET: api/Rol
         [HttpGet]
         public async Task<IActionResult> GetAll()
         {
-            IEnumerable<Rol> roles = await _rolService.GetAllAsync();
+            var roles = await _rolRepository.GetAllAsync();
             return Ok(roles);
         }
 
@@ -31,7 +31,7 @@ namespace Backend_CrmSG.Controllers.Seguridad
         [HttpGet("{id}")]
         public async Task<IActionResult> GetById(int id)
         {
-            Rol rol = await _rolService.GetByIdAsync(id);
+            var rol = await _rolRepository.GetByIdAsync(id);
             if (rol == null)
                 return NotFound();
             return Ok(rol);
@@ -41,7 +41,7 @@ namespace Backend_CrmSG.Controllers.Seguridad
         [HttpPost]
         public async Task<IActionResult> Post([FromBody] Rol rol)
         {
-            await _rolService.AddAsync(rol);
+            await _rolRepository.AddAsync(rol);
             return CreatedAtAction(nameof(GetById), new { id = rol.IdRol }, rol);
         }
 
@@ -51,7 +51,7 @@ namespace Backend_CrmSG.Controllers.Seguridad
         {
             if (id != rol.IdRol)
                 return BadRequest("El ID del rol no coincide.");
-            await _rolService.UpdateAsync(rol);
+            await _rolRepository.UpdateAsync(rol);
             return NoContent();
         }
 
@@ -59,7 +59,7 @@ namespace Backend_CrmSG.Controllers.Seguridad
         [HttpDelete("{id}")]
         public async Task<IActionResult> Delete(int id)
         {
-            await _rolService.DeleteAsync(id);
+            await _rolRepository.DeleteAsync(id);
             return NoContent();
         }
     }

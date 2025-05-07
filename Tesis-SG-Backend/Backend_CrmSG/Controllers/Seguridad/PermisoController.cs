@@ -2,7 +2,7 @@
 using System.Collections.Generic;
 using System.Threading.Tasks;
 using Backend_CrmSG.Models.Seguridad;
-using Backend_CrmSG.Services.Seguridad;
+using Backend_CrmSG.Repositories;
 using Microsoft.AspNetCore.Authorization;
 
 namespace Backend_CrmSG.Controllers.Seguridad
@@ -12,18 +12,18 @@ namespace Backend_CrmSG.Controllers.Seguridad
     [Authorize]
     public class PermisoController : ControllerBase
     {
-        private readonly IPermisoService _permisoService;
+        private readonly IRepository<Permiso> _permisoRepository;
 
-        public PermisoController(IPermisoService permisoService)
+        public PermisoController(IRepository<Permiso> permisoRepository)
         {
-            _permisoService = permisoService;
+            _permisoRepository = permisoRepository;
         }
 
         // GET: api/Permiso
         [HttpGet]
         public async Task<IActionResult> GetAll()
         {
-            IEnumerable<Permiso> permisos = await _permisoService.GetAllAsync();
+            var permisos = await _permisoRepository.GetAllAsync();
             return Ok(permisos);
         }
 
@@ -31,7 +31,7 @@ namespace Backend_CrmSG.Controllers.Seguridad
         [HttpGet("{id}")]
         public async Task<IActionResult> GetById(int id)
         {
-            Permiso permiso = await _permisoService.GetByIdAsync(id);
+            var permiso = await _permisoRepository.GetByIdAsync(id);
             if (permiso == null)
                 return NotFound();
             return Ok(permiso);
@@ -41,7 +41,7 @@ namespace Backend_CrmSG.Controllers.Seguridad
         [HttpPost]
         public async Task<IActionResult> Post([FromBody] Permiso permiso)
         {
-            await _permisoService.AddAsync(permiso);
+            await _permisoRepository.AddAsync(permiso);
             return CreatedAtAction(nameof(GetById), new { id = permiso.IdPermiso }, permiso);
         }
 
@@ -51,7 +51,7 @@ namespace Backend_CrmSG.Controllers.Seguridad
         {
             if (id != permiso.IdPermiso)
                 return BadRequest("El ID del permiso no coincide.");
-            await _permisoService.UpdateAsync(permiso);
+            await _permisoRepository.UpdateAsync(permiso);
             return NoContent();
         }
 
@@ -59,7 +59,7 @@ namespace Backend_CrmSG.Controllers.Seguridad
         [HttpDelete("{id}")]
         public async Task<IActionResult> Delete(int id)
         {
-            await _permisoService.DeleteAsync(id);
+            await _permisoRepository.DeleteAsync(id);
             return NoContent();
         }
     }
