@@ -84,7 +84,7 @@ export default function Prospectos() {
 
     <Card className="border border-muted rounded-xl shadow-[0_4px_10px_rgba(0,0,0,0.12)]">
       <CardHeader>
-        <CardTitle>Lista de Prospectos</CardTitle>
+        <CardTitle>Lista de Prospectoddds</CardTitle>
       </CardHeader>
       <CardContent>
         <TablaCustom2
