@@ -49,6 +49,8 @@ builder.Services.AddCors(options =>
         .AllowAnyMethod());
 });
 
+
+
 // ------------------- JWT SERVICE LOCAL ---------------------------
 builder.Services.AddScoped<IJwtService, JwtService>();
 
@@ -140,7 +142,7 @@ builder.Services.AddScoped<IMenuService, MenuService>();
 builder.Services.AddScoped<IUsuarioRolService, UsuarioRolService>();
 builder.Services.AddScoped<EnsureMicrosoftUserExistsAttribute>();
 
-
+builder.WebHost.UseUrls("http://+:8080", "https://+:443");
 // ------------------ APP BUILD --------------------------------------
 var app = builder.Build();
 
