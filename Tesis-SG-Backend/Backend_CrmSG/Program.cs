@@ -2,7 +2,6 @@ using Microsoft.EntityFrameworkCore;
 using Backend_CrmSG.Data;
 using Backend_CrmSG.Repositories;
 using Backend_CrmSG.Services;
-using TesisBackend.Services;
 using Backend_CrmSG.Services.Catalogos;
 using Backend_CrmSG.Services.Seguridad;
 using Backend_CrmSG.Middleware;
@@ -10,6 +9,7 @@ using Microsoft.AspNetCore.Authentication.JwtBearer;
 using Microsoft.IdentityModel.Tokens;
 using System.Text;
 using Backend_CrmSG.Services.Producto;
+using Backend_CrmSG.Services.Validaciones;
 
 var builder = WebApplication.CreateBuilder(args);
 var jwtKey = builder.Configuration["Jwt:Key"]
@@ -119,9 +119,6 @@ builder.Services.AddSwaggerGen();
 
 // ------------------ INYECCIÓN DE SERVICIOS ------------------------
 builder.Services.AddScoped(typeof(IRepository<>), typeof(Repository<>));
-builder.Services.AddScoped<IProspectoService, ProspectoService>();
-builder.Services.AddScoped<IActividadService, ActividadService>();
-builder.Services.AddScoped<ISolicitudInversionService, SolicitudInversionService>();
 builder.Services.AddScoped<IJwtService, JwtService>();
 builder.Services.AddScoped<StoredProcedureService>();
 builder.Services.AddScoped<ProyeccionService>();
