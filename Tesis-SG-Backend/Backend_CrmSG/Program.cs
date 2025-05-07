@@ -2,10 +2,8 @@ using Microsoft.EntityFrameworkCore;
 using Backend_CrmSG.Data;
 using Backend_CrmSG.Repositories;
 using Backend_CrmSG.Services;
-using Backend_CrmSG.Services.Catalogos;
 using Backend_CrmSG.Services.Seguridad;
 using Backend_CrmSG.Middleware;
-using Microsoft.AspNetCore.Authentication.JwtBearer;
 using Microsoft.IdentityModel.Tokens;
 using System.Text;
 using Backend_CrmSG.Services.Producto;
@@ -130,12 +128,6 @@ builder.Services.AddHttpClient<IValidacionService, ValidacionService>();
 
 
 // Catálogos
-builder.Services.AddScoped<IOrigenClienteService, OrigenClienteService>();
-builder.Services.AddScoped<IAgenciaService, AgenciaService>();
-builder.Services.AddScoped<IPrioridadService, PrioridadService>();
-builder.Services.AddScoped<ITipoActividadService, TipoActividadService>();
-builder.Services.AddScoped<ITipoIdentificacionService, TipoIdentificacionService>();
-builder.Services.AddScoped<IProductoInteresService, ProductoInteresService>();
 builder.Services.AddScoped<IProductoService, ProductoService>();
 builder.Services.AddScoped<IConfiguracionProductoService, ConfiguracionProductoService>();
 

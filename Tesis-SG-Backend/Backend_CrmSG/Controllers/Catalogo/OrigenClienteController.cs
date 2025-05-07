@@ -1,28 +1,27 @@
 ﻿using Microsoft.AspNetCore.Mvc;
-using System.Collections.Generic;
-using System.Threading.Tasks;
-using Backend_CrmSG.Models.Catalogos;
-using Backend_CrmSG.Services.Catalogos;
+using Backend_CrmSG.Repositories;
 using Backend_CrmSG.Models;
+using Microsoft.AspNetCore.Authorization;
 
 namespace Backend_CrmSG.Controllers.Catalogos
 {
     [Route("api/[controller]")]
     [ApiController]
+    [Authorize]
     public class OrigenClienteController : ControllerBase
     {
-        private readonly IOrigenClienteService _origenClienteService;
+        private readonly IRepository<OrigenCliente> _origenClienteRepository;
 
-        public OrigenClienteController(IOrigenClienteService origenClienteService)
+        public OrigenClienteController(IRepository<OrigenCliente> origenClienteRepository)
         {
-            _origenClienteService = origenClienteService;
+            _origenClienteRepository = origenClienteRepository;
         }
 
         // GET: api/OrigenCliente
         [HttpGet]
         public async Task<ActionResult<IEnumerable<OrigenCliente>>> Get()
         {
-            var origenes = await _origenClienteService.GetAllAsync();
+            var origenes = await _origenClienteRepository.GetAllAsync();
             return Ok(origenes);
         }
 
@@ -30,7 +29,7 @@ namespace Backend_CrmSG.Controllers.Catalogos
         [HttpGet("{id}")]
         public async Task<ActionResult<OrigenCliente>> Get(int id)
         {
-            var origenCliente = await _origenClienteService.GetByIdAsync(id);
+            var origenCliente = await _origenClienteRepository.GetByIdAsync(id);
             if (origenCliente == null)
                 return NotFound();
             return Ok(origenCliente);
@@ -40,7 +39,7 @@ namespace Backend_CrmSG.Controllers.Catalogos
         [HttpPost]
         public async Task<ActionResult<OrigenCliente>> Post([FromBody] OrigenCliente origenCliente)
         {
-            await _origenClienteService.AddAsync(origenCliente);
+            await _origenClienteRepository.AddAsync(origenCliente);
             return CreatedAtAction(nameof(Get), new { id = origenCliente.IdOrigenCliente }, origenCliente);
         }
 
@@ -50,7 +49,7 @@ namespace Backend_CrmSG.Controllers.Catalogos
         {
             if (id != origenCliente.IdOrigenCliente)
                 return BadRequest();
-            await _origenClienteService.UpdateAsync(origenCliente);
+            await _origenClienteRepository.UpdateAsync(origenCliente);
             return NoContent();
         }
 
@@ -58,7 +57,7 @@ namespace Backend_CrmSG.Controllers.Catalogos
         [HttpDelete("{id}")]
         public async Task<IActionResult> Delete(int id)
         {
-            await _origenClienteService.DeleteAsync(id);
+            await _origenClienteRepository.DeleteAsync(id);
             return NoContent();
         }
     }

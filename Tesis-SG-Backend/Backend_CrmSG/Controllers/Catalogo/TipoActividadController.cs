@@ -2,7 +2,7 @@
 using System.Collections.Generic;
 using System.Threading.Tasks;
 using Backend_CrmSG.Models.Catalogos;
-using Backend_CrmSG.Services.Catalogos;
+using Backend_CrmSG.Repositories;
 
 namespace Backend_CrmSG.Controllers.Catalogos
 {
@@ -10,18 +10,18 @@ namespace Backend_CrmSG.Controllers.Catalogos
     [ApiController]
     public class TipoActividadController : ControllerBase
     {
-        private readonly ITipoActividadService _tipoActividadService;
+        private readonly IRepository<TipoActividad> _repository;
 
-        public TipoActividadController(ITipoActividadService tipoActividadService)
+        public TipoActividadController(IRepository<TipoActividad> repository)
         {
-            _tipoActividadService = tipoActividadService;
+            _repository = repository;
         }
 
         // GET: api/TipoActividad
         [HttpGet]
         public async Task<ActionResult<IEnumerable<TipoActividad>>> Get()
         {
-            var tipos = await _tipoActividadService.GetAllAsync();
+            var tipos = await _repository.GetAllAsync();
             return Ok(tipos);
         }
 
@@ -29,7 +29,7 @@ namespace Backend_CrmSG.Controllers.Catalogos
         [HttpGet("{id}")]
         public async Task<ActionResult<TipoActividad>> Get(int id)
         {
-            var tipo = await _tipoActividadService.GetByIdAsync(id);
+            var tipo = await _repository.GetByIdAsync(id);
             if (tipo == null)
                 return NotFound();
             return Ok(tipo);
@@ -39,7 +39,7 @@ namespace Backend_CrmSG.Controllers.Catalogos
         [HttpPost]
         public async Task<ActionResult<TipoActividad>> Post([FromBody] TipoActividad tipoActividad)
         {
-            await _tipoActividadService.AddAsync(tipoActividad);
+            await _repository.AddAsync(tipoActividad);
             return CreatedAtAction(nameof(Get), new { id = tipoActividad.IdTipoActividad }, tipoActividad);
         }
 
@@ -49,7 +49,7 @@ namespace Backend_CrmSG.Controllers.Catalogos
         {
             if (id != tipoActividad.IdTipoActividad)
                 return BadRequest();
-            await _tipoActividadService.UpdateAsync(tipoActividad);
+            await _repository.UpdateAsync(tipoActividad);
             return NoContent();
         }
 
@@ -57,7 +57,7 @@ namespace Backend_CrmSG.Controllers.Catalogos
         [HttpDelete("{id}")]
         public async Task<IActionResult> Delete(int id)
         {
-            await _tipoActividadService.DeleteAsync(id);
+            await _repository.DeleteAsync(id);
             return NoContent();
         }
     }
