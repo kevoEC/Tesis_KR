@@ -1,0 +1,62 @@
+trigger:
+- none
+ 
+schedules:
+  - cron: "59 23 * * *"
+    displayName: "Ejecución diaria a las 23:59 UTC"
+    branches:
+      include:
+        - main
+    always: true
+ 
+pool:
+  vmImage: 'windows-latest'
+ 
+variables:
+  solution: 'Tesis-SG-Backend/*.sln'
+  buildPlatform: 'Any CPU'
+  buildConfiguration: 'Release'
+ 
+steps:
+- task: NuGetToolInstaller@1
+  displayName: 'Install NuGet'
+ 
+- task: NuGetCommand@2
+  displayName: 'Restore NuGet packages'
+  inputs:
+    restoreSolution: '$(solution)'
+ 
+- task: VSBuild@1
+  displayName: 'Build Solution'
+  inputs:
+    solution: '$(solution)'
+    msbuildArgs: >
+      /p:DeployOnBuild=true
+      /p:WebPublishMethod=Package
+      /p:PackageAsSingleFile=true
+      /p:SkipInvalidConfigurations=true
+      /p:PackageLocation="$(build.artifactStagingDirectory)"
+    platform: '$(buildPlatform)'
+    configuration: '$(buildConfiguration)'
+ 
+- task: VSTest@2
+  displayName: 'Run Unit Tests'
+  inputs:
+    platform: '$(buildPlatform)'
+    configuration: '$(buildConfiguration)'
+ 
+- task: PublishBuildArtifacts@1
+  displayName: 'Publish Build Artifacts'
+  inputs:
+    PathtoPublish: '$(build.artifactStagingDirectory)'
+    ArtifactName: 'drop'
+    publishLocation: 'Container'
+ 
+- task: AzureRmWebAppDeployment@4
+  displayName: 'Deploy with MSBuild package'
+  inputs:
+    ConnectionType: 'AzureRM'
+    azureSubscription: 'SG-Connection-Des'
+    appType: 'webApp'
+    WebAppName: 'crm-kr'
+    packageForLinux: '$(build.artifactStagingDirectory)/NominaPortalSG.zip'
