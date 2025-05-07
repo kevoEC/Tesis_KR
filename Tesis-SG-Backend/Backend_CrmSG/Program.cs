@@ -136,7 +136,6 @@ builder.Services.AddScoped<IConfiguracionProductoService, ConfiguracionProductoS
 
 // Seguridad
 builder.Services.AddScoped<IUsuarioService, UsuarioService>();
-builder.Services.AddScoped<IRolService, RolService>();
 builder.Services.AddScoped<IMenuService, MenuService>();
 builder.Services.AddScoped<IUsuarioRolService, UsuarioRolService>();
 builder.Services.AddScoped<EnsureMicrosoftUserExistsAttribute>();
