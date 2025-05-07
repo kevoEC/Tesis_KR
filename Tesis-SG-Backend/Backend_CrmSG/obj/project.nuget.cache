@@ -1,8 +1,8 @@
 {
   "version": 2,
-  "dgSpecHash": "K8VX82bN1a8=",
+  "dgSpecHash": "xQMd99yYUpQ=",
   "success": true,
-  "projectFilePath": "D:\\Universidad\\Tesis\\Tesis-SG-Backend\\Backend_CrmSG\\Backend_CrmSG.csproj",
+  "projectFilePath": "D:\\Universidad\\Tesis\\Tesis-DevOps\\Tesis_KR\\Tesis-SG-Backend\\Backend_CrmSG\\Backend_CrmSG.csproj",
   "expectedPackageFiles": [
     "C:\\Users\\Kevito\\.nuget\\packages\\azure.core\\1.38.0\\azure.core.1.38.0.nupkg.sha512",
     "C:\\Users\\Kevito\\.nuget\\packages\\azure.identity\\1.11.4\\azure.identity.1.11.4.nupkg.sha512",
