@@ -230,7 +230,7 @@ export default function EntidadView({
                     ))}
                     <TableCell className="flex justify-end gap-2 py-3">
                       <Button variant="outline" onClick={() => onEditar(item)} className="text-sm">Editar</Button>
-                      <Button size="sm" variant="destructive" onClick={() => setConfirmDialog({ open: true, item })} className="text-sm bg-red-600 hover:bg-red-700 text-white">
+                      <Button variant="destructive" onClick={() => setConfirmDialog({ open: true, item })} className="text-sm bg-red-600 hover:bg-red-700 text-white">
                         Eliminar
                       </Button>
                     </TableCell>
