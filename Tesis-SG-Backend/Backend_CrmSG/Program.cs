@@ -41,7 +41,9 @@ builder.Services.AddCors(options =>
     options.AddPolicy("AllowFrontend", policy => policy
         .WithOrigins(
             "http://localhost:5173",  // Vite frontend original
-            "http://localhost:5174"   // Segundo frontend o entorno paralelo
+            "http://localhost:5174",   // Segundo frontend o entorno paralelo
+            "http://localhost:5175",   // Segundo frontend o entorno paralelo
+            "http://localhost:5176"   // Segundo frontend o entorno paralelo
         )
         .AllowAnyHeader()
         .AllowAnyMethod());
@@ -135,7 +137,6 @@ builder.Services.AddScoped<IConfiguracionProductoService, ConfiguracionProductoS
 // Seguridad
 builder.Services.AddScoped<IUsuarioService, UsuarioService>();
 builder.Services.AddScoped<IRolService, RolService>();
-builder.Services.AddScoped<IPermisoService, PermisoService>();
 builder.Services.AddScoped<IMenuService, MenuService>();
 builder.Services.AddScoped<IUsuarioRolService, UsuarioRolService>();
 builder.Services.AddScoped<EnsureMicrosoftUserExistsAttribute>();
