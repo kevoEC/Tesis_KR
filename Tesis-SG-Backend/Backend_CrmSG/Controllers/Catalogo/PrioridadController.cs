@@ -1,27 +1,27 @@
 ﻿using Microsoft.AspNetCore.Mvc;
-using System.Collections.Generic;
-using System.Threading.Tasks;
 using Backend_CrmSG.Models.Catalogos;
-using Backend_CrmSG.Services.Catalogos;
+using Backend_CrmSG.Repositories;
+using Microsoft.AspNetCore.Authorization;
 
 namespace Backend_CrmSG.Controllers.Catalogos
 {
     [Route("api/[controller]")]
     [ApiController]
+    [Authorize]
     public class PrioridadController : ControllerBase
     {
-        private readonly IPrioridadService _prioridadService;
+        private readonly IRepository<Prioridad> _prioridadRepository;
 
-        public PrioridadController(IPrioridadService prioridadService)
+        public PrioridadController(IRepository<Prioridad> prioridadRepository)
         {
-            _prioridadService = prioridadService;
+            _prioridadRepository = prioridadRepository;
         }
 
         // GET: api/Prioridad
         [HttpGet]
         public async Task<ActionResult<IEnumerable<Prioridad>>> Get()
         {
-            var prioridades = await _prioridadService.GetAllAsync();
+            var prioridades = await _prioridadRepository.GetAllAsync();
             return Ok(prioridades);
         }
 
@@ -29,7 +29,7 @@ namespace Backend_CrmSG.Controllers.Catalogos
         [HttpGet("{id}")]
         public async Task<ActionResult<Prioridad>> Get(int id)
         {
-            var prioridad = await _prioridadService.GetByIdAsync(id);
+            var prioridad = await _prioridadRepository.GetByIdAsync(id);
             if (prioridad == null)
                 return NotFound();
             return Ok(prioridad);
@@ -39,7 +39,7 @@ namespace Backend_CrmSG.Controllers.Catalogos
         [HttpPost]
         public async Task<ActionResult<Prioridad>> Post([FromBody] Prioridad prioridad)
         {
-            await _prioridadService.AddAsync(prioridad);
+            await _prioridadRepository.AddAsync(prioridad);
             return CreatedAtAction(nameof(Get), new { id = prioridad.IdPrioridad }, prioridad);
         }
 
@@ -49,7 +49,7 @@ namespace Backend_CrmSG.Controllers.Catalogos
         {
             if (id != prioridad.IdPrioridad)
                 return BadRequest();
-            await _prioridadService.UpdateAsync(prioridad);
+            await _prioridadRepository.UpdateAsync(prioridad);
             return NoContent();
         }
 
@@ -57,7 +57,7 @@ namespace Backend_CrmSG.Controllers.Catalogos
         [HttpDelete("{id}")]
         public async Task<IActionResult> Delete(int id)
         {
-            await _prioridadService.DeleteAsync(id);
+            await _prioridadRepository.DeleteAsync(id);
             return NoContent();
         }
     }

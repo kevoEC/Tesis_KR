@@ -3,13 +3,7 @@ import { useNavigate } from "react-router-dom";
 import { Input } from "@/components/ui/input";
 import { Label } from "@/components/ui/label";
 import { Button } from "@/components/ui/button";
-import {
-  Select,
-  SelectTrigger,
-  SelectValue,
-  SelectContent,
-  SelectItem,
-} from "@/components/ui/select";
+import { Select, SelectTrigger, SelectValue, SelectContent, SelectItem, } from "@/components/ui/select";
 import { Card, CardContent } from "@/components/ui/card";
 import { PlusCircle, ArrowLeft } from "lucide-react";
 import { toast } from "sonner";
@@ -84,21 +78,24 @@ export default function ProspectoForm() {
       idUsuarioCreacion: user?.id || null,
       idUsuarioModificacion: user?.id || null,
       idUsuarioPropietario: user?.id || null,
+      esCliente: false
     };
 
     try {
       await createProspecto(payload);
+     
       toast.success("Prospecto guardado correctamente");
       navigate("/prospecto/vista");
     } catch (error) {
       toast.error("Error al guardar prospecto");
       console.error("Error al guardar:", error);
+     
     }
   };
 
   return (
     <div className="p-6 max-w-6xl mx-auto">
-      <div className="flex items-center gap-4 mb-6">
+      {/* <div className="flex items-center gap-4 mb-6">
         <Button
           variant="link"
           onClick={() => navigate("/prospectos/vista")}
@@ -107,7 +104,7 @@ export default function ProspectoForm() {
           <ArrowLeft className="w-4 h-4 mr-2" /> Volver a Prospectos
         </Button>
         <h1 className="text-2xl font-bold text-gray-800">Crear Prospecto</h1>
-      </div>
+      </div> */}
 
       <Card className="shadow-xl border border-gray-200 rounded-2xl">
         <CardContent className="p-8">

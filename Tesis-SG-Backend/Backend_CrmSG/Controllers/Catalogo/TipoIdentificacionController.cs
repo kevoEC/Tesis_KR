@@ -2,7 +2,7 @@
 using System.Collections.Generic;
 using System.Threading.Tasks;
 using Backend_CrmSG.Models.Catalogos;
-using Backend_CrmSG.Services.Catalogos;
+using Backend_CrmSG.Repositories;
 
 namespace Backend_CrmSG.Controllers.Catalogos
 {
@@ -10,18 +10,18 @@ namespace Backend_CrmSG.Controllers.Catalogos
     [ApiController]
     public class TipoIdentificacionController : ControllerBase
     {
-        private readonly ITipoIdentificacionService _tipoIdentificacionService;
+        private readonly IRepository<TipoIdentificacion> _repository;
 
-        public TipoIdentificacionController(ITipoIdentificacionService tipoIdentificacionService)
+        public TipoIdentificacionController(IRepository<TipoIdentificacion> repository)
         {
-            _tipoIdentificacionService = tipoIdentificacionService;
+            _repository = repository;
         }
 
         // GET: api/TipoIdentificacion
         [HttpGet]
         public async Task<ActionResult<IEnumerable<TipoIdentificacion>>> Get()
         {
-            var tipos = await _tipoIdentificacionService.GetAllAsync();
+            var tipos = await _repository.GetAllAsync();
             return Ok(tipos);
         }
 
@@ -29,7 +29,7 @@ namespace Backend_CrmSG.Controllers.Catalogos
         [HttpGet("{id}")]
         public async Task<ActionResult<TipoIdentificacion>> Get(int id)
         {
-            var tipo = await _tipoIdentificacionService.GetByIdAsync(id);
+            var tipo = await _repository.GetByIdAsync(id);
             if (tipo == null)
                 return NotFound();
             return Ok(tipo);
@@ -39,7 +39,7 @@ namespace Backend_CrmSG.Controllers.Catalogos
         [HttpPost]
         public async Task<ActionResult<TipoIdentificacion>> Post([FromBody] TipoIdentificacion tipoIdentificacion)
         {
-            await _tipoIdentificacionService.AddAsync(tipoIdentificacion);
+            await _repository.AddAsync(tipoIdentificacion);
             return CreatedAtAction(nameof(Get), new { id = tipoIdentificacion.IdTipoIdentificacion }, tipoIdentificacion);
         }
 
@@ -49,7 +49,7 @@ namespace Backend_CrmSG.Controllers.Catalogos
         {
             if (id != tipoIdentificacion.IdTipoIdentificacion)
                 return BadRequest();
-            await _tipoIdentificacionService.UpdateAsync(tipoIdentificacion);
+            await _repository.UpdateAsync(tipoIdentificacion);
             return NoContent();
         }
 
@@ -57,7 +57,7 @@ namespace Backend_CrmSG.Controllers.Catalogos
         [HttpDelete("{id}")]
         public async Task<IActionResult> Delete(int id)
         {
-            await _tipoIdentificacionService.DeleteAsync(id);
+            await _repository.DeleteAsync(id);
             return NoContent();
         }
     }

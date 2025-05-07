@@ -2,26 +2,28 @@
 using System.Collections.Generic;
 using System.Threading.Tasks;
 using Backend_CrmSG.Models.Catalogos;
-using Backend_CrmSG.Services.Catalogos;
+using Backend_CrmSG.Repositories;
+using Microsoft.AspNetCore.Authorization;
 
 namespace Backend_CrmSG.Controllers.Catalogos
 {
     [Route("api/[controller]")]
     [ApiController]
+    [Authorize]
     public class AgenciaController : ControllerBase
     {
-        private readonly IAgenciaService _agenciaService;
+        private readonly IRepository<Agencia> _agenciaRepository;
 
-        public AgenciaController(IAgenciaService agenciaService)
+        public AgenciaController(IRepository<Agencia> agenciaRepository)
         {
-            _agenciaService = agenciaService;
+            _agenciaRepository = agenciaRepository;
         }
 
         // GET: api/Agencia
         [HttpGet]
         public async Task<ActionResult<IEnumerable<Agencia>>> Get()
         {
-            var agencias = await _agenciaService.GetAllAsync();
+            var agencias = await _agenciaRepository.GetAllAsync();
             return Ok(agencias);
         }
 
@@ -29,7 +31,7 @@ namespace Backend_CrmSG.Controllers.Catalogos
         [HttpGet("{id}")]
         public async Task<ActionResult<Agencia>> Get(int id)
         {
-            var agencia = await _agenciaService.GetByIdAsync(id);
+            var agencia = await _agenciaRepository.GetByIdAsync(id);
             if (agencia == null)
                 return NotFound();
             return Ok(agencia);
@@ -39,7 +41,7 @@ namespace Backend_CrmSG.Controllers.Catalogos
         [HttpPost]
         public async Task<ActionResult<Agencia>> Post([FromBody] Agencia agencia)
         {
-            await _agenciaService.AddAsync(agencia);
+            await _agenciaRepository.AddAsync(agencia);
             return CreatedAtAction(nameof(Get), new { id = agencia.IdAgencia }, agencia);
         }
 
@@ -49,7 +51,7 @@ namespace Backend_CrmSG.Controllers.Catalogos
         {
             if (id != agencia.IdAgencia)
                 return BadRequest();
-            await _agenciaService.UpdateAsync(agencia);
+            await _agenciaRepository.UpdateAsync(agencia);
             return NoContent();
         }
 
@@ -57,7 +59,7 @@ namespace Backend_CrmSG.Controllers.Catalogos
         [HttpDelete("{id}")]
         public async Task<IActionResult> Delete(int id)
         {
-            await _agenciaService.DeleteAsync(id);
+            await _agenciaRepository.DeleteAsync(id);
             return NoContent();
         }
     }

@@ -2,7 +2,7 @@
 using System.Collections.Generic;
 using System.Threading.Tasks;
 using Backend_CrmSG.Models.Catalogos;
-using Backend_CrmSG.Services.Catalogos;
+using Backend_CrmSG.Repositories;
 
 namespace Backend_CrmSG.Controllers.Catalogos
 {
@@ -10,18 +10,18 @@ namespace Backend_CrmSG.Controllers.Catalogos
     [ApiController]
     public class ProductoInteresController : ControllerBase
     {
-        private readonly IProductoInteresService _productoInteresService;
+        private readonly IRepository<ProductoInteres> _repository;
 
-        public ProductoInteresController(IProductoInteresService productoInteresService)
+        public ProductoInteresController(IRepository<ProductoInteres> repository)
         {
-            _productoInteresService = productoInteresService;
+            _repository = repository;
         }
 
         // GET: api/ProductoInteres
         [HttpGet]
         public async Task<ActionResult<IEnumerable<ProductoInteres>>> Get()
         {
-            var productos = await _productoInteresService.GetAllAsync();
+            var productos = await _repository.GetAllAsync();
             return Ok(productos);
         }
 
@@ -29,7 +29,7 @@ namespace Backend_CrmSG.Controllers.Catalogos
         [HttpGet("{id}")]
         public async Task<ActionResult<ProductoInteres>> Get(int id)
         {
-            var producto = await _productoInteresService.GetByIdAsync(id);
+            var producto = await _repository.GetByIdAsync(id);
             if (producto == null)
                 return NotFound();
             return Ok(producto);
@@ -39,7 +39,7 @@ namespace Backend_CrmSG.Controllers.Catalogos
         [HttpPost]
         public async Task<ActionResult<ProductoInteres>> Post([FromBody] ProductoInteres productoInteres)
         {
-            await _productoInteresService.AddAsync(productoInteres);
+            await _repository.AddAsync(productoInteres);
             return CreatedAtAction(nameof(Get), new { id = productoInteres.IdProductoInteres }, productoInteres);
         }
 
@@ -49,7 +49,7 @@ namespace Backend_CrmSG.Controllers.Catalogos
         {
             if (id != productoInteres.IdProductoInteres)
                 return BadRequest();
-            await _productoInteresService.UpdateAsync(productoInteres);
+            await _repository.UpdateAsync(productoInteres);
             return NoContent();
         }
 
@@ -57,7 +57,7 @@ namespace Backend_CrmSG.Controllers.Catalogos
         [HttpDelete("{id}")]
         public async Task<IActionResult> Delete(int id)
         {
-            await _productoInteresService.DeleteAsync(id);
+            await _repository.DeleteAsync(id);
             return NoContent();
         }
     }

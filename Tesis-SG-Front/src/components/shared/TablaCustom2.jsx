@@ -121,7 +121,11 @@ const TablaCustom2 = ({
         });
         doc.save(filename);
     };
-
+    const handleAgregarNuevo = () => {
+        if (onAgregarNuevoClick && mostrarAgregarNuevo) {
+            onAgregarNuevoClick(); // Simplemente llama a la función proporcionada
+        }
+    };
 
     return (
         <div className="space-y-4">
@@ -129,7 +133,8 @@ const TablaCustom2 = ({
                 {/* Botón Agregar Nuevo (izquierda) */}
                 {mostrarAgregarNuevo && (
                     <Button
-                        onClick={() => setModalOpen(true)}
+                        // onClick={() => setModalOpen(true)}
+                        onClick={handleAgregarNuevo}
                         className="bg-primary text-white hover:bg-primary/90 cursor-pointer flex items-center gap-2"
                     >
                         <FaPlus className="text-white" /> Agregar Nuevo
