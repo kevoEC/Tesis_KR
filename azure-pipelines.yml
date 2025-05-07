@@ -59,4 +59,4 @@ steps:
     azureSubscription: 'SG-Connection-Des'
     appType: 'webApp'
     WebAppName: 'crm-kr'
-    packageForLinux: '$(build.artifactStagingDirectory)/NominaPortalSG.zip'
+    packageForLinux: '$(build.artifactStagingDirectory)/Backend_CrmSG.zip'
