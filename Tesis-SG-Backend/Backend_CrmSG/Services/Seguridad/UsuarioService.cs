@@ -10,6 +10,8 @@ namespace Backend_CrmSG.Services.Seguridad
     public class UsuarioService : IUsuarioService
     {
         private readonly IRepository<Usuario> _usuarioRepository;
+        private readonly IRepository<TransaccionesValidacion> _transaccionRepository;
+        private readonly IRepository<TipoTransaccion> _tipoTransaccionRepository;
         // Si en el futuro necesitas acceder a UsuarioRol, Rol, Permiso, Menu, etc., 
         // puedes inyectar sus respectivos repositorios aquí.
         // private readonly IRepository<UsuarioRol> _usuarioRolRepository;
@@ -17,9 +19,14 @@ namespace Backend_CrmSG.Services.Seguridad
         // private readonly IRepository<Permiso> _permisoRepository;
         // private readonly IRepository<Menu> _menuRepository;
 
-        public UsuarioService(IRepository<Usuario> usuarioRepository)
+        public UsuarioService(
+            IRepository<Usuario> usuarioRepository,
+            IRepository<TransaccionesValidacion> transaccionRepository,
+            IRepository<TipoTransaccion> tipoTransaccionRepository)
         {
             _usuarioRepository = usuarioRepository;
+            _transaccionRepository = transaccionRepository;
+            _tipoTransaccionRepository = tipoTransaccionRepository;
         }
 
         // ========== Autenticación ==========
@@ -92,6 +99,56 @@ namespace Backend_CrmSG.Services.Seguridad
                 .GetAllAsync()
                 .ContinueWith(t => t.Result.FirstOrDefault(u => u.Email == email));
         }
+
+        public async Task<int> InsertarUsuarioParcialAsync(Usuario usuario)
+        {
+            await _usuarioRepository.AddAsync(usuario);
+            return usuario.IdUsuario; // Retorna el ID generado
+        }
+
+        public async Task<Usuario> ObtenerPorEmailOIdentificacion(string email, string identificacion)
+        {
+            var usuarios = await _usuarioRepository.GetAllAsync();
+            return usuarios.FirstOrDefault(u =>
+                u.Email == email || u.Identificacion == identificacion);
+        }
+
+        public async Task RegistrarTransaccionValidacionCorreo(int idUsuario, string email)
+        {
+            var tipos = await _tipoTransaccionRepository.GetAllAsync();
+            var tipoCorreo = tipos.FirstOrDefault(t => t.Nombre == "Correo");
+
+            if (tipoCorreo == null)
+                throw new Exception("No se encontró el tipo de transacción 'Correo'.");
+
+            var hash = GenerarHash(email + DateTime.UtcNow.ToString("yyyyMMddHHmmss"));
+
+            var transaccion = new TransaccionesValidacion
+            {
+                IdUsuario = idUsuario,
+                IdTipoTransaccion = tipoCorreo.IdTipoTransaccion,
+                HashValidacion = hash,
+                FechaCreacion = DateTime.UtcNow,
+                Expiracion = DateTime.UtcNow.AddMinutes(30),
+                Operacion = "Creacion",
+                Exitoso = false
+            };
+
+            await _transaccionRepository.AddAsync(transaccion);
+
+            // Aquí podrías enviar un correo con el link de validación que incluya el hash.
+        }
+
+        private string GenerarHash(string input)
+        {
+            using (var sha256 = System.Security.Cryptography.SHA256.Create())
+            {
+                var bytes = System.Text.Encoding.UTF8.GetBytes(input);
+                var hashBytes = sha256.ComputeHash(bytes);
+                return BitConverter.ToString(hashBytes).Replace("-", "").ToLower();
+            }
+        }
+
 
     }
 }

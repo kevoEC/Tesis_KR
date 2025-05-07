@@ -178,3 +178,14 @@ D:\Universidad\Tesis\Tesis-SG-Backend\Backend_CrmSG\bin\Debug\net8.0\runtimes\un
 D:\Universidad\Tesis\Tesis-SG-Backend\Backend_CrmSG\bin\Debug\net8.0\runtimes\win\lib\net8.0\Microsoft.Data.SqlClient.dll
 D:\Universidad\Tesis\Tesis-SG-Backend\Backend_CrmSG\bin\Debug\net8.0\runtimes\win\lib\net8.0\System.Diagnostics.EventLog.dll
 D:\Universidad\Tesis\Tesis-SG-Backend\Backend_CrmSG\bin\Debug\net8.0\runtimes\win\lib\net8.0\System.Security.Cryptography.Pkcs.dll
+D:\Universidad\Tesis\Tesis-DevOps\Tesis_KR\Tesis-SG-Backend\Backend_CrmSG\obj\Debug\net8.0\Backend_CrmSG.csproj.AssemblyReference.cache
+D:\Universidad\Tesis\Tesis-DevOps\Tesis_KR\Tesis-SG-Backend\Backend_CrmSG\obj\Debug\net8.0\Backend_CrmSG.GeneratedMSBuildEditorConfig.editorconfig
+D:\Universidad\Tesis\Tesis-DevOps\Tesis_KR\Tesis-SG-Backend\Backend_CrmSG\obj\Debug\net8.0\Backend_CrmSG.AssemblyInfoInputs.cache
+D:\Universidad\Tesis\Tesis-DevOps\Tesis_KR\Tesis-SG-Backend\Backend_CrmSG\obj\Debug\net8.0\Backend_CrmSG.AssemblyInfo.cs
+D:\Universidad\Tesis\Tesis-DevOps\Tesis_KR\Tesis-SG-Backend\Backend_CrmSG\obj\Debug\net8.0\Backend_CrmSG.csproj.CoreCompileInputs.cache
+D:\Universidad\Tesis\Tesis-DevOps\Tesis_KR\Tesis-SG-Backend\Backend_CrmSG\obj\Debug\net8.0\Backend_CrmSG.MvcApplicationPartsAssemblyInfo.cs
+D:\Universidad\Tesis\Tesis-DevOps\Tesis_KR\Tesis-SG-Backend\Backend_CrmSG\obj\Debug\net8.0\Backend_CrmSG.MvcApplicationPartsAssemblyInfo.cache
+D:\Universidad\Tesis\Tesis-DevOps\Tesis_KR\Tesis-SG-Backend\Backend_CrmSG\obj\Debug\net8.0\Backend_CrmSG.sourcelink.json
+D:\Universidad\Tesis\Tesis-DevOps\Tesis_KR\Tesis-SG-Backend\Backend_CrmSG\obj\Debug\net8.0\Backend_CrmSG.dll
+D:\Universidad\Tesis\Tesis-DevOps\Tesis_KR\Tesis-SG-Backend\Backend_CrmSG\obj\Debug\net8.0\refint\Backend_CrmSG.dll
+D:\Universidad\Tesis\Tesis-DevOps\Tesis_KR\Tesis-SG-Backend\Backend_CrmSG\obj\Debug\net8.0\Backend_CrmSG.pdb

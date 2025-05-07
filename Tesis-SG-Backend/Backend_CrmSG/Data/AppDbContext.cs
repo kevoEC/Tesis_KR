@@ -34,6 +34,10 @@ namespace Backend_CrmSG.Data
         public DbSet<CronogramaProyeccion> CronogramaProyeccion { get; set; }
 
         public DbSet<Documento> Documento { get; set; }
+
+        public DbSet<TipoTransaccion> TipoTransaccion { get; set; }
+        public DbSet<TransaccionesValidacion> TransaccionesValidacion { get; set; }
+
         protected override void OnModelCreating(ModelBuilder modelBuilder)
         {
             // Configuración de clave compuesta para UsuarioRol
@@ -41,9 +45,19 @@ namespace Backend_CrmSG.Data
                 .HasKey(ur => new { ur.IdUsuario, ur.IdRol });
 
             modelBuilder.Entity<Proyeccion>()
-            .Ignore(p => p.Producto)
-            .Ignore(p => p.ConfiguracionUsada)
-            .Ignore(p => p.SolicitudInversion);
+                .Ignore(p => p.Producto)
+                .Ignore(p => p.ConfiguracionUsada)
+                .Ignore(p => p.SolicitudInversion);
+
+            modelBuilder.Entity<TransaccionesValidacion>()
+                .HasOne(t => t.Usuario)
+                .WithMany()
+                .HasForeignKey(t => t.IdUsuario);
+
+            modelBuilder.Entity<TransaccionesValidacion>()
+                .HasOne(t => t.TipoTransaccion)
+                .WithMany(t => t.Transacciones)
+                .HasForeignKey(t => t.IdTipoTransaccion);
 
             base.OnModelCreating(modelBuilder);
         }

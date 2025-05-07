@@ -5,6 +5,7 @@ using Backend_CrmSG.DTOs;
 using Backend_CrmSG.Services.Seguridad;
 using System.Security.Claims;
 using System.IdentityModel.Tokens.Jwt;
+using Backend_CrmSG.DTOs.Seguridad;
 
 
 
@@ -138,5 +139,40 @@ namespace Backend_CrmSG.Controllers.Seguridad
             await _usuarioService.DeleteAsync(id);
             return NoContent();
         }
+
+        [HttpPost("registro-parcial")]
+        public async Task<IActionResult> RegistroParcial([FromBody] RegistroParcialDTO dto)
+        {
+            var usuarioExistente = await _usuarioService.ObtenerPorEmailOIdentificacion(dto.Email, dto.Identificacion);
+            if (usuarioExistente != null)
+            {
+                return Conflict("El correo o la identificación ya están registrados.");
+            }
+
+            var usuario = new Usuario
+            {
+                Email = dto.Email,
+                Identificacion = dto.Identificacion,
+                EsActivo = false,
+                ValidacionCorreo = false,
+                ValidacionTelefono = false,
+                AceptoTerminosCondiciones = dto.TerminosAceptados,
+                FechaCreacion = DateTime.UtcNow
+            };
+
+            var idUsuario = await _usuarioService.InsertarUsuarioParcialAsync(usuario);
+
+            // Crear una transacción de validación de correo
+            await _usuarioService.RegistrarTransaccionValidacionCorreo(idUsuario, usuario.Email);
+
+            return Ok(new
+            {
+                IdUsuario = idUsuario,
+                Mensaje = "Usuario creado exitosamente en estado inactivo. Se ha iniciado la validación de correo."
+            });
+        }
+
+
+
     }
 }
