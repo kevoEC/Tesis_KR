@@ -76,9 +76,6 @@ namespace Backend_CrmSG.Controllers.Seguridad
             });
         }
 
-
-
-
         // GET: api/Usuario/roles/5
         [HttpGet("roles/{idUsuario}")]
         public async Task<IActionResult> GetRoles(int idUsuario)
@@ -143,35 +140,59 @@ namespace Backend_CrmSG.Controllers.Seguridad
         [HttpPost("registro-parcial")]
         public async Task<IActionResult> RegistroParcial([FromBody] RegistroParcialDTO dto)
         {
-            var usuarioExistente = await _usuarioService.ObtenerPorEmailOIdentificacion(dto.Email, dto.Identificacion);
-            if (usuarioExistente != null)
+            try
             {
-                return Conflict("El correo o la identificación ya están registrados.");
+                var usuarioExistente = await _usuarioService.ObtenerPorEmailOIdentificacion(dto.Email, dto.Identificacion);
+                if (usuarioExistente != null)
+                {
+                    return Conflict(new
+                    {
+                        success = false,
+                        message = "El correo o la identificación ya están registrados."
+                    });
+                }
+
+                var usuario = new Usuario
+                {
+                    Email = dto.Email,
+                    Identificacion = dto.Identificacion,
+                    PrimerNombre = dto.PrimerNombre,
+                    SegundoNombre = dto.SegundoNombre,
+                    PrimerApellido = dto.PrimerApellido,
+                    SegundoApellido = dto.SegundoApellido,
+                    Contraseña = dto.Contraseña,
+                    Telefono = dto.Telefono,
+
+                    EsActivo = false,
+                    ValidacionCorreo = false,
+                    ValidacionTelefono = false,
+                    AceptoTerminosCondiciones = dto.TerminosAceptados,
+                    FechaCreacion = DateTime.UtcNow
+                };
+
+                var idUsuario = await _usuarioService.InsertarUsuarioParcialAsync(usuario);
+
+                // Crear transacción de validación
+                await _usuarioService.RegistrarTransaccionValidacionCorreo(idUsuario, usuario.Email);
+
+                return Ok(new
+                {
+                    success = true,
+                    idUsuario,
+                    message = "Usuario creado exitosamente en estado inactivo. Se ha iniciado la validación de correo."
+                });
             }
-
-            var usuario = new Usuario
+            catch (Exception ex)
             {
-                Email = dto.Email,
-                Identificacion = dto.Identificacion,
-                EsActivo = false,
-                ValidacionCorreo = false,
-                ValidacionTelefono = false,
-                AceptoTerminosCondiciones = dto.TerminosAceptados,
-                FechaCreacion = DateTime.UtcNow
-            };
-
-            var idUsuario = await _usuarioService.InsertarUsuarioParcialAsync(usuario);
-
-            // Crear una transacción de validación de correo
-            await _usuarioService.RegistrarTransaccionValidacionCorreo(idUsuario, usuario.Email);
-
-            return Ok(new
-            {
-                IdUsuario = idUsuario,
-                Mensaje = "Usuario creado exitosamente en estado inactivo. Se ha iniciado la validación de correo."
-            });
+                return StatusCode(500, new
+                {
+                    success = false,
+                    message = "Ocurrió un error inesperado al registrar el usuario.",
+                    details = ex.Message,
+                    stackTrace = ex.StackTrace
+                });
+            }
         }
-
 
 
     }

@@ -26,8 +26,13 @@ namespace Backend_CrmSG.Repositories
 
         public async Task<T> GetByIdAsync(int id)
         {
-            return await _dbSet.FindAsync(id);
+            var entity = await _dbSet.FindAsync(id);
+            if (entity == null)
+                throw new KeyNotFoundException($"{typeof(T).Name} con ID {id} no fue encontrado.");
+
+            return entity;
         }
+
 
         public async Task AddAsync(T entity)
         {

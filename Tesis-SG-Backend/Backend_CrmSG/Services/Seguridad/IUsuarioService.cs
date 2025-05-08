@@ -22,7 +22,8 @@ namespace Backend_CrmSG.Services.Seguridad
         Task UpdateAsync(Usuario usuario);
         Task DeleteAsync(int id);
         Task<Usuario?> BuscarPorCorreoAsync(string email);
-        Task<Usuario> ObtenerPorEmailOIdentificacion(string email, string identificacion);
+        Task<Usuario?> ObtenerPorEmailOIdentificacion(string email, string identificacion);
+
         Task<int> InsertarUsuarioParcialAsync(Usuario usuario);
         Task RegistrarTransaccionValidacionCorreo(int idUsuario, string email);
 

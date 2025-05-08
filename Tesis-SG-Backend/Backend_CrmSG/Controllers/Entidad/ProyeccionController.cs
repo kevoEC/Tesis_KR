@@ -72,7 +72,8 @@ namespace Backend_CrmSG.Controllers.Entidad
 
                 if (cronogramaEntity != null)
                 {
-                    cronograma = JsonSerializer.Deserialize<List<CronogramaCuotaDto>>(cronogramaEntity.PeriodosJson);
+                    cronograma = JsonSerializer.Deserialize<List<CronogramaCuotaDto>>(cronogramaEntity.PeriodosJson) ?? new List<CronogramaCuotaDto>();
+
                 }
 
                 return Ok(new

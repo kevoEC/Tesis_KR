@@ -3,6 +3,6 @@
     public class EquifaxRequestDto
     {
         public string tipoDocumento { get; set; } = "C";
-        public string numeroDocumento { get; set; }
+        public string? numeroDocumento { get; set; }
     }
 }

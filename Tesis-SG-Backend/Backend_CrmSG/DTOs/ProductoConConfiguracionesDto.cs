@@ -3,6 +3,6 @@ using Backend_CrmSG.Models.Catalogos.Producto;
 
 public class ProductoConConfiguracionesDto
 {
-    public Producto Producto { get; set; }
-    public IEnumerable<ConfiguracionProductoDto> Configuraciones { get; set; }
+    public Producto? Producto { get; set; }
+    public IEnumerable<ConfiguracionProductoDto>? Configuraciones { get; set; }
 }
