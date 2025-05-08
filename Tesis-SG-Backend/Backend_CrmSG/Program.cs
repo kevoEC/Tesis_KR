@@ -117,7 +117,27 @@ builder.Services.AddControllers(options =>
 });
 
 builder.Services.AddEndpointsApiExplorer();
-builder.Services.AddSwaggerGen();
+builder.Services.AddSwaggerGen(c =>
+{
+    c.SwaggerDoc("v1", new Microsoft.OpenApi.Models.OpenApiInfo
+    {
+        Title = "SG CONSULTING API",
+        Version = "v1",
+        Description = "API oficial de SG Consulting Group para gestión de CRM, inversiones y catálogos.",
+        Contact = new Microsoft.OpenApi.Models.OpenApiContact
+        {
+            Name = "Equipo de Tecnología SG",
+            Email = "soporte@sgconsulting.site",
+            Url = new Uri("https://sgconsulting.site")
+        },
+        License = new Microsoft.OpenApi.Models.OpenApiLicense
+        {
+            Name = "Licencia Interna SG",
+            Url = new Uri("https://sgconsulting.site/licencia")
+        }
+    });
+});
+
 
 // ------------------ INYECCIÓN DE SERVICIOS ------------------------
 builder.Services.AddScoped(typeof(IRepository<>), typeof(Repository<>));
@@ -146,11 +166,16 @@ builder.WebHost.UseUrls("http://+:8080", "https://+:443");
 // ------------------ APP BUILD --------------------------------------
 var app = builder.Build();
 
-if (app.Environment.IsDevelopment())
+if (app.Environment.IsDevelopment() || app.Environment.IsEnvironment("QA") || app.Environment.IsProduction())
 {
     app.UseSwagger();
-    app.UseSwaggerUI();
+    app.UseSwaggerUI(c =>
+    {
+        c.SwaggerEndpoint("/swagger/v1/swagger.json", "SG CONSULTING API v1");
+        c.RoutePrefix = "swagger"; // Accedes desde http://localhost:8080/swagger
+    });
 }
+
 
 app.UseMiddleware<ExceptionHandlingMiddleware>();
 app.UseHttpsRedirection();
