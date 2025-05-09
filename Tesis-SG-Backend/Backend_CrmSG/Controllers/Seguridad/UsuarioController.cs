@@ -161,7 +161,6 @@ namespace Backend_CrmSG.Controllers.Seguridad
                     PrimerApellido = dto.PrimerApellido,
                     SegundoApellido = dto.SegundoApellido,
                     Contraseña = dto.Contraseña,
-                    Telefono = dto.Telefono,
 
                     EsActivo = false,
                     ValidacionCorreo = false,
@@ -189,9 +188,11 @@ namespace Backend_CrmSG.Controllers.Seguridad
                     success = false,
                     message = "Ocurrió un error inesperado al registrar el usuario.",
                     details = ex.Message,
+                    inner = ex.InnerException?.Message,
                     stackTrace = ex.StackTrace
                 });
             }
+
         }
 
 

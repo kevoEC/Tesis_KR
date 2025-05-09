@@ -1,6 +1,6 @@
 ﻿using System.ComponentModel.DataAnnotations;
 
-namespace Backend_CrmSG.Models
+namespace Backend_CrmSG.Models.Entidades
 {
     public class Actividad
     {

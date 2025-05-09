@@ -1,6 +1,6 @@
 ﻿using Backend_CrmSG.Data;
 using Backend_CrmSG.DTOs;
-using Backend_CrmSG.Models;
+using Backend_CrmSG.Models.Entidades;
 using Microsoft.EntityFrameworkCore;
 using System.Text.Json;
 
