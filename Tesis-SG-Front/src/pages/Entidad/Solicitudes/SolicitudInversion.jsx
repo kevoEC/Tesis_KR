@@ -1,11 +1,39 @@
 import { useNavigate } from "react-router-dom";
 import EntidadView from "@/components/shared/VistaEntidad";
-import { deleteSolicitud } from "@/service/Entidades/SolicitudService";
+import {
+  getSolicitudes,
+  deleteSolicitud,
+} from "@/service/Entidades/SolicitudService";
 import TablaCustom2 from "@/components/shared/TablaCustom2";
-import { Card, CardHeader, CardTitle, CardContent, CardFooter } from "@/components/ui/card";
+import { Card, CardHeader, CardTitle, CardContent } from "@/components/ui/card";
+import {
+  Dialog,
+  DialogContent,
+  DialogHeader,
+  DialogTitle,
+  DialogDescription,
+} from "@/components/ui/dialog";
+import { useEffect, useState } from "react";
+import SolicitudInversionForm from "./SolicitudInversionForm";
 
 export default function SolicitudInversion() {
   const navigate = useNavigate();
+
+  const [solicitudes, setSolicitudes] = useState([]);
+  const [isDialogOpen, setIsDialogOpen] = useState(false);
+
+  useEffect(() => {
+    const fetchData = async () => {
+      try {
+        const data = await getSolicitudes(); // Ejecutar función async
+        setSolicitudes(data);
+      } catch (error) {
+        console.error("Error al cargar prospectos:", error);
+      }
+    };
+
+    fetchData();
+  }, []);
 
   // ✏️ Editar
   const handleEditar = (item) => {
@@ -21,26 +49,30 @@ export default function SolicitudInversion() {
     }
   };
 
+  const handleAbrirFormulario = () => {
+    setIsDialogOpen(true);
+  };
+  const handleCerrarDialog = () => {
+    setIsDialogOpen(false);
+  };
+
   const columnasSolicitud = [
-    { key: 'tipoActividad', label: 'ID' },
-    { key: 'asunto', label: 'Tipo Solicitud' },
-    { key: 'descripcion', label: 'Tipo Cliente' },
-    { key: 'duracion', label: 'Fecha de Creación' },
-    { key: 'vencimiento', label: 'Fecha de Modificación' },
-    { key: 'prioridad', label: 'Propietario' },
-    { key: 'prioridad', label: 'JSON Document' }
-  ]
+    { key: "tipoActividad", label: "ID" },
+    { key: "idTipoSolicitud", label: "Tipo Solicitud" },
+    { key: "descripcion", label: "Tipo Cliente" },
+    { key: "duracion", label: "Fecha de Creación" },
+    { key: "vencimiento", label: "Fecha de Modificación" },
+    { key: "prioridad", label: "Propietario" },
+    { key: "prioridad", label: "JSON Document" },
+  ];
 
   return (
     <div>
-
       <div>
-
-
         <EntidadView
           titulo="Solicitudes de Inversión"
-          entidad="solicitudinversion"  // para el endpoint /filtrados
-          ruta="solicitudes"            // para navegación
+          entidad="solicitudinversion" // para el endpoint /filtrados
+          ruta="solicitudes" // para navegación
           columnas={{
             idSolicitudInversion: "ID",
             idTipoSolicitud: "Tipo Solicitud",
@@ -55,7 +87,6 @@ export default function SolicitudInversion() {
         />
       </div>
       <div>
-
         <Card>
           <CardHeader>
             <CardTitle>Solicitudes de Inversión - Todos</CardTitle>
@@ -63,19 +94,32 @@ export default function SolicitudInversion() {
           <CardContent>
             <TablaCustom2
               columns={columnasSolicitud}
-              data={[]}
+              data={solicitudes}
               mostrarEditar={true}
               mostrarAgregarNuevo={true}
               mostrarEliminar={true}
+              onAgregarNuevoClick={handleAbrirFormulario}
               onEditarClick={handleEditar}
               onEliminarClick={handleEliminar}
             />
           </CardContent>
-          <CardFooter>
-
-          </CardFooter>
         </Card>
-
+        {/* Dialog para el formulario */}
+        <Dialog
+          open={isDialogOpen}
+          onOpenChange={setIsDialogOpen}
+          className="min-w-3xl"
+        >
+          <DialogContent className="min-w-3xl">
+            <DialogHeader>
+              <DialogTitle>Agregar Solicitud</DialogTitle>
+              <DialogDescription>
+                Completa la información de la nueva solicitud
+              </DialogDescription>
+            </DialogHeader>
+            <SolicitudInversionForm onClose={handleCerrarDialog} />
+          </DialogContent>
+        </Dialog>
       </div>
     </div>
   );

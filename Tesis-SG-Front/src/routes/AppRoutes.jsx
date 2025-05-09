@@ -14,28 +14,61 @@ const Politica = lazy(() => import("@/pages/Legal/PoliticaPrivacidad"));
 const DashboardPanel = lazy(() => import("@/pages/Panel/Dashboard"));
 
 const Prospectos = lazy(() => import("@/pages/Entidad/Prospectos/Prospectos"));
-const ProspectoForm = lazy(() => import("@/pages/Entidad/Prospectos/ProspectoForm"));
-const ProspectoDetalle = lazy(() => import("@/pages/Entidad/Prospectos/ProspectoDetalle"));
+const ProspectoForm = lazy(() =>
+  import("@/pages/Entidad/Prospectos/ProspectoForm")
+);
+const ProspectoDetalle = lazy(() =>
+  import("@/pages/Entidad/Prospectos/ProspectoDetalle")
+);
 
-const Solicitudes = lazy(() => import("@/pages/Entidad/Solicitudes/SolicitudInversion"));
-const SolicitudesForm = lazy(() => import("@/pages/Entidad/Solicitudes/SolicitudInversionForm"));
-const SolicitudesDetalle = lazy(() => import("@/pages/Entidad/Solicitudes/SolicitudesDetalle"));
+const Solicitudes = lazy(() =>
+  import("@/pages/Entidad/Solicitudes/SolicitudInversion")
+);
+const SolicitudesForm = lazy(() =>
+  import("@/pages/Entidad/Solicitudes/SolicitudInversionForm")
+);
+const SolicitudesDetalle = lazy(() =>
+  import("@/pages/Entidad/Solicitudes/SolicitudesDetalle")
+);
 
 const Agencias = lazy(() => import("@/pages/Catalogo/Agencia/Agencia"));
 const AgenciaForm = lazy(() => import("@/pages/Catalogo/Agencia/AgenciaForm"));
 
-const OrigenCliente = lazy(() => import("@/pages/Catalogo/OrigenPotencial/OrigenPotencial"));
-const OrigenClienteForm = lazy(() => import("@/pages/Catalogo/OrigenPotencial/OrigenClienteForm"));
+const OrigenCliente = lazy(() =>
+  import("@/pages/Catalogo/OrigenPotencial/OrigenPotencial")
+);
+const OrigenClienteForm = lazy(() =>
+  import("@/pages/Catalogo/OrigenPotencial/OrigenClienteForm")
+);
 
-const TipoProducto = lazy(() => import("@/pages/Catalogo/ProductoInteres/ProductoInteres"));
-const TipoProductoForm = lazy(() => import("@/pages/Catalogo/ProductoInteres/ProductoInteresForm"));
+const TipoProducto = lazy(() =>
+  import("@/pages/Catalogo/ProductoInteres/ProductoInteres")
+);
+const TipoProductoForm = lazy(() =>
+  import("@/pages/Catalogo/ProductoInteres/ProductoInteresForm")
+);
 
 const Prioridad = lazy(() => import("@/pages/Catalogo/Prioridad"));
+const PrioridadForm = lazy(() => import("@/pages/Catalogo/PrioridadForm"));
+
+const TipoSolicitud = lazy(() => import("@/pages/Catalogo/TipoSolicitud"));
+const TipoSolicitudForm = lazy(() =>
+  import("@/pages/Catalogo/TipoSolicitudForm")
+);
+
+const TipoCliente = lazy(() => import("@/pages/Catalogo/TipoCliente"));
+const TipoClienteForm = lazy(() => import("@/pages/Catalogo/TipoClienteForm"));
+
 const ProductoInteres = lazy(() => import("@/pages/Catalogo/ProductoInteres"));
 const TipoActividad = lazy(() => import("@/pages/Catalogo/TipoActividad"));
-const TipoIdentificacion = lazy(() => import("@/pages/Catalogo/TipoIdentificacion"));
 
-const Proyeccion = lazy(() => import("@/pages/Entidad/Proyecciones/ProyeccionNueva"));
+const TipoActividadForm = lazy(() =>
+  import("@/pages/Catalogo/TipoActividadForm")
+);
+
+const Proyeccion = lazy(() =>
+  import("@/pages/Entidad/Proyecciones/ProyeccionNueva")
+);
 const Pruebaflujo = lazy(() => import("@/pages/FlujoSolicitud"));
 
 export const publicRoutes = [
@@ -46,7 +79,6 @@ export const publicRoutes = [
   { path: "/legal/terminos", element: <Terminos /> },
   { path: "/legal/privacidad", element: <Politica /> },
   { path: "/prueba", element: <Pruebaflujo /> },
-
 ];
 
 export const protectedRoutes = [
@@ -55,7 +87,11 @@ export const protectedRoutes = [
 
   {
     path: "/debug/prueba",
-    element: <div style={{ color: "green", fontSize: "2rem" }}>✅ Hola desde Debug Route</div>,
+    element: (
+      <div style={{ color: "green", fontSize: "2rem" }}>
+        ✅ Hola desde Debug Route
+      </div>
+    ),
   },
 
   // Prospectos
@@ -80,20 +116,43 @@ export const protectedRoutes = [
   // Catálogo de origenes potenciales
   { path: "/catalogo/origenpotencial/vista", element: <OrigenCliente /> },
   { path: "/catalogo/origenpotencial/nuevo", element: <OrigenClienteForm /> },
-  { path: "/catalogo/origenpotencial/editar/:id", element: <OrigenClienteForm /> },
+  {
+    path: "/catalogo/origenpotencial/editar/:id",
+    element: <OrigenClienteForm />,
+  },
 
   // Catálogo de tipo de producto
   { path: "/catalogo/productointeres/vista", element: <TipoProducto /> },
   { path: "/catalogo/productointeres/nuevo", element: <TipoProductoForm /> },
-  { path: "/catalogo/productointeres/editar/:id", element: <TipoProductoForm /> },
+  {
+    path: "/catalogo/productointeres/editar/:id",
+    element: <TipoProductoForm />,
+  },
 
   // Otros catálogos generales
   { path: "/catalogo/prioridad/vista", element: <Prioridad /> },
+  { path: "/catalogo/prioridad/nuevo", element: <PrioridadForm /> },
+  { path: "/catalogo/prioridad/editar/:id", element: <PrioridadForm /> },
+
+  { path: "/catalogo/tiposolicitud/vista", element: <TipoSolicitud /> },
+  { path: "/catalogo/tiposolicitud/nuevo", element: <TipoSolicitudForm /> },
+  {
+    path: "/catalogo/tiposolicitud/editar/:id",
+    element: <TipoSolicitudForm />,
+  },
+
+  { path: "/catalogo/tipocliente/vista", element: <TipoCliente /> },
+  { path: "/catalogo/tipocliente/nuevo", element: <TipoClienteForm /> },
+  { path: "/catalogo/tipocliente/editar/:id", element: <TipoClienteForm /> },
+
   { path: "/catalogo/productointeres/vista", element: <ProductoInteres /> },
+
   { path: "/catalogo/tipoactividad/vista", element: <TipoActividad /> },
-  { path: "/catalogo/tipoidentificacion/vista", element: <TipoIdentificacion /> },
+  { path: "/catalogo/tipoactividad/nuevo", element: <TipoActividadForm /> },
+  {
+    path: "/catalogo/tipoactividad/editar/:id",
+    element: <TipoActividadForm />,
+  },
 ];
 
-export const fallbackRoutes = [
-  { path: "*", element: <NotFound /> },
-];
+export const fallbackRoutes = [{ path: "*", element: <NotFound /> }];

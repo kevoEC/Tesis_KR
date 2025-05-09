@@ -1,12 +1,22 @@
 import { useEffect, useState } from "react";
 import { useNavigate } from "react-router-dom";
 import EntidadView from "@/components/shared/VistaEntidad";
-import { getProspectos, deleteProspecto } from "@/service/Entidades/ProspectoService";
+import {
+  getProspectos,
+  deleteProspecto,
+} from "@/service/Entidades/ProspectoService";
 import TablaCustom2 from "@/components/shared/TablaCustom2";
-import { Card, CardHeader, CardTitle, CardContent } from "@/components/ui/card"
-import { Dialog, DialogTrigger, DialogContent, DialogHeader, DialogTitle, DialogDescription, DialogFooter } from "@/components/ui/dialog";
+import { Card, CardHeader, CardTitle, CardContent } from "@/components/ui/card";
+import {
+  Dialog,
+  DialogTrigger,
+  DialogContent,
+  DialogHeader,
+  DialogTitle,
+  DialogDescription,
+  DialogFooter,
+} from "@/components/ui/dialog";
 import ProspectoForm from "./ProspectoForm";
-
 
 export default function Prospectos() {
   const navigate = useNavigate();
@@ -50,33 +60,35 @@ export default function Prospectos() {
   };
 
   const columnas = [
-    { key: 'idProspecto', label: 'IdProspecto' },
-    { key: 'nombres', label: 'Nombres' },
-    { key: 'apellidoPaterno', label: 'Apellido Pat' },
-    { key: 'apellidoMaterno', label: 'Apellido Mat' },
-    { key: 'telefonoCelular', label: 'Celular' },
-    { key: 'correoElectronico', label: 'Correo' },
+    { key: "idProspecto", label: "IdProspecto" },
+    { key: "nombres", label: "Nombres" },
+    { key: "apellidoPaterno", label: "Apellido Pat" },
+    { key: "apellidoMaterno", label: "Apellido Mat" },
+    { key: "telefonoCelular", label: "Celular" },
+    { key: "correoElectronico", label: "Correo" },
     {
-      key: 'estado',
-      label: 'Estado',
+      key: "estado",
+      label: "Estado",
       render: (value) => (
         <span
-          className={`px-2 py-1 text-xs font-semibold rounded-full ${value ? 'bg-green-100 text-green-700' : 'bg-yellow-200 text-yellow-700'
-            }`}
+          className={`px-2 py-1 text-xs font-semibold rounded-full ${
+            value
+              ? "bg-green-100 text-green-700"
+              : "bg-yellow-200 text-yellow-700"
+          }`}
         >
-          {value ? 'Activo' : 'Inactivo'}
+          {value ? "Activo" : "Inactivo"}
         </span>
       ),
-    }
-
+    },
   ];
 
   return (
     <div>
       <EntidadView
         titulo="Prospectos"
-        entidad="prospecto"       // 🔗 Para el backend (API)
-        ruta="prospectos"         // 🌐 Para el frontend (rutas reales)
+        entidad="prospecto" // 🔗 Para el backend (API)
+        ruta="prospectos" // 🌐 Para el frontend (rutas reales)
         columnas={{
           nombres: "Nombres",
           apellidoPaterno: "Apellido Paterno",
@@ -84,14 +96,11 @@ export default function Prospectos() {
           telefonoCelular: "Teléfono Celular",
           correoElectronico: "Correo Electrónico",
           estado: "Estado",
-
         }}
         onEditar={handleEditar}
         onEliminar={handleEliminar}
       />
-      <div>
-
-      </div>
+      <div></div>
 
       <Card className="border border-muted rounded-xl shadow-[0_4px_10px_rgba(0,0,0,0.12)]">
         <CardHeader>
@@ -111,17 +120,21 @@ export default function Prospectos() {
         </CardContent>
       </Card>
       {/* Dialog para el formulario */}
-      <Dialog open={isDialogOpen} onOpenChange={setIsDialogOpen} className="min-w-3xl">
+      <Dialog
+        open={isDialogOpen}
+        onOpenChange={setIsDialogOpen}
+        className="min-w-3xl"
+      >
         <DialogContent className="min-w-3xl">
           <DialogHeader>
             <DialogTitle>Agregar Prospecto</DialogTitle>
-            <DialogDescription>Completa la información del nuevo prospecto</DialogDescription>
+            <DialogDescription>
+              Completa la información del nuevo prospecto
+            </DialogDescription>
           </DialogHeader>
           <ProspectoForm onClose={handleCerrarDialog} />
         </DialogContent>
       </Dialog>
-
     </div>
-
   );
 }

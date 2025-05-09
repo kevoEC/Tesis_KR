@@ -3,14 +3,25 @@ import { useNavigate, useParams } from "react-router-dom";
 import { useUI } from "@/hooks/useUI";
 import { getProyeccionesPorSolicitud } from "@/service/Entidades/ProyeccionService";
 import { Card, CardContent } from "@/components/ui/card";
-import { Table, TableHeader, TableRow, TableHead, TableBody, TableCell } from "@/components/ui/table";
+import {
+  Table,
+  TableHeader,
+  TableRow,
+  TableHead,
+  TableBody,
+  TableCell,
+} from "@/components/ui/table";
 import { Input } from "@/components/ui/input";
 import { Label } from "@/components/ui/label";
 import { Switch } from "@/components/ui/switch";
 import { Button } from "@/components/ui/button";
 import { PlusCircle } from "lucide-react";
 import {
-  Select, SelectTrigger, SelectValue, SelectContent, SelectItem
+  Select,
+  SelectTrigger,
+  SelectValue,
+  SelectContent,
+  SelectItem,
 } from "@/components/ui/select";
 
 export default function Proyeccion() {
@@ -41,12 +52,16 @@ export default function Proyeccion() {
 
   return (
     <div className="space-y-6 p-6">
-      <h2 className="text-xl font-semibold text-gray-800">Proyecciones vinculadas</h2>
+      <h2 className="text-xl font-semibold text-gray-800">
+        Proyecciones vinculadas
+      </h2>
 
       <div className="flex justify-end mb-2">
         <Button
           className="bg-blue-600 hover:bg-blue-700 text-white text-sm px-4 py-2 rounded-lg"
-          onClick={() => navigate(`/solicitudes/editar/${idSolicitud}/proyeccion/nueva`)}
+          onClick={() =>
+            navigate(`/solicitudes/editar/${idSolicitud}/proyeccion/nueva`)
+          }
         >
           <PlusCircle size={16} className="mr-2" />
           Agregar proyección
@@ -70,13 +85,19 @@ export default function Proyeccion() {
               <TableBody>
                 {loading ? (
                   <TableRow>
-                    <TableCell colSpan={6} className="text-center py-8 text-gray-500">
+                    <TableCell
+                      colSpan={6}
+                      className="text-center py-8 text-gray-500"
+                    >
                       Cargando...
                     </TableCell>
                   </TableRow>
                 ) : proyecciones.length === 0 ? (
                   <TableRow>
-                    <TableCell colSpan={6} className="text-center py-8 text-gray-500">
+                    <TableCell
+                      colSpan={6}
+                      className="text-center py-8 text-gray-500"
+                    >
                       No existen proyecciones para esta solicitud.
                     </TableCell>
                   </TableRow>
@@ -86,7 +107,9 @@ export default function Proyeccion() {
                       <TableCell>{p.proyeccionNombre}</TableCell>
                       <TableCell>{p.tasa.toFixed(2)}%</TableCell>
                       <TableCell>${p.capital}</TableCell>
-                      <TableCell>{new Date(p.fechaInicial).toLocaleDateString()}</TableCell>
+                      <TableCell>
+                        {new Date(p.fechaInicial).toLocaleDateString()}
+                      </TableCell>
                       <TableCell>{p.idProducto}</TableCell>
                       <TableCell>{p.idUsuarioCreacion}</TableCell>
                     </TableRow>
@@ -139,7 +162,9 @@ export default function Proyeccion() {
                 </SelectTrigger>
                 <SelectContent className="bg-white">
                   <SelectItem value="acepta">El Cliente Acepta</SelectItem>
-                  <SelectItem value="no-acepta">El Cliente No Acepta</SelectItem>
+                  <SelectItem value="no-acepta">
+                    El Cliente No Acepta
+                  </SelectItem>
                 </SelectContent>
               </Select>
             </FormGroup>
