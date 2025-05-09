@@ -1,7 +1,10 @@
 import { useEffect, useState } from "react";
 import CatalogoView from "@/components/shared/CatalogoView";
 import { useNavigate } from "react-router-dom";
-import { getOrigenes, deleteOrigen } from "@/service/Catalogos/OrigenClienteService";
+import {
+  getOrigenes,
+  deleteOrigen,
+} from "@/service/Catalogos/OrigenClienteService";
 
 export default function OrigenCliente() {
   const [origenes, setOrigenes] = useState([]);
@@ -12,13 +15,15 @@ export default function OrigenCliente() {
   }, []);
 
   const handleEditar = (item) => {
-    navigate(`/catalogo/origencliente/editar/${item.idOrigenCliente}`);
+    navigate(`/catalogo/origenpotencial/editar/${item.idOrigenCliente}`);
   };
 
   const handleEliminar = async (item) => {
     try {
       await deleteOrigen(item.idOrigenCliente);
-      setOrigenes((prev) => prev.filter((i) => i.idOrigenCliente !== item.idOrigenCliente));
+      setOrigenes((prev) =>
+        prev.filter((i) => i.idOrigenCliente !== item.idOrigenCliente)
+      );
     } catch (err) {
       console.error("Error al eliminar origen:", err);
     }
@@ -27,11 +32,11 @@ export default function OrigenCliente() {
   return (
     <CatalogoView
       titulo="Origen Cliente"
-      entidad="catalogo/origencliente"
+      entidad="catalogo/origenpotencial"
       data={origenes}
       columnas={{
         idOrigenCliente: "ID",
-        nombreOrigen: "Nombre del Origen"
+        nombreOrigen: "Nombre del Origen",
       }}
       onEditar={handleEditar}
       onEliminar={handleEliminar}

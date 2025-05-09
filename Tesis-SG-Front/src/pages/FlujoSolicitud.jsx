@@ -1,29 +1,76 @@
-import { useEffect } from "react";
-import { SolicitudStepperProvider } from "@/service/stepper/stepperSolicitud";
-import { TopTabs } from "@/components/solicitud/layout/MenusSolicitud";
-import StepperHeader from "@/components/solicitud/layout/StepperHeader";
-import StepperBody from "@/components/solicitud/layout/StepperBody";
-import { useUI } from "@/hooks/useUI";
+import { useState } from "react";
+import StepperHeader from "./StepperHeader";
+import StepperBody from "./StepperBody";
+import Identificacion from "@/components/solicitud/Identificacion";
+import Proyeccion from "@/components/solicitud/Proyeccion";
+import DatosGenerales from "@/components/solicitud/DatosGenerales";
+import ActividadEconomica from "@/components/solicitud/ActividadEconomica";
+import ContactoUbicacion from "@/components/solicitud/ContactoUbicacion";
+import Conyuge from "@/components/solicitud/Conyuge";
+import Banco from "@/components/solicitud/Banco";
+import Beneficiarios from "@/components/solicitud/Beneficiarios";
+import Finalizacion from "@/components/solicitud/Finalizacion";
 
-// ⚠️ Opcional: simula una solicitud habilitada para pruebas
-function useSimularHabilitacion() {
-  const { setSolicitudHabilitada } = useUI();
-  useEffect(() => {
-    sessionStorage.setItem("solicitudHabilitada", "true");
-    setSolicitudHabilitada(true);
-  }, [setSolicitudHabilitada]);
-}
+const pasos = [
+  { id: "identificacion", label: "Identificación" },
+  { id: "proyeccion", label: "Proyección" },
+  { id: "datos", label: "Datos generales" },
+  { id: "actividad", label: "Actividad económica" },
+  { id: "contacto", label: "Contacto y ubicación" },
+  { id: "conyuge", label: "Cónyuge" },
+  { id: "banco", label: "Banco" },
+  { id: "beneficiarios", label: "Beneficiarios" },
+  { id: "finalizacion", label: "Finalización" },
+];
+
+// asociamos cada paso a su componente
+const componentesPorPaso = {
+  identificacion: <Identificacion />,
+  proyeccion: <Proyeccion />,
+  datos: <DatosGenerales />,
+  actividad: <ActividadEconomica />,
+  contacto: <ContactoUbicacion />,
+  conyuge: <Conyuge />,
+  banco: <Banco />,
+  beneficiarios: <Beneficiarios />,
+  finalizacion: <Finalizacion />,
+};
 
 export default function FlujoSolicitud() {
-  useSimularHabilitacion();
+  // estado: id del paso activo
+  const [pasoActivo, setPasoActivo] = useState(pasos[0].id);
+
+  // avanzar al siguiente
+  const handleNext = () => {
+    const idx = pasos.findIndex((p) => p.id === pasoActivo);
+    if (idx < pasos.length - 1) {
+      setPasoActivo(pasos[idx + 1].id);
+    }
+  };
+
+  // retroceder
+  const handlePrev = () => {
+    const idx = pasos.findIndex((p) => p.id === pasoActivo);
+    if (idx > 0) {
+      setPasoActivo(pasos[idx - 1].id);
+    }
+  };
 
   return (
-    <SolicitudStepperProvider>
-      <div className="flex flex-col min-h-screen bg-gray-50">
-        <TopTabs active="general" />
-        <StepperHeader />
-        <StepperBody />
-      </div>
-    </SolicitudStepperProvider>
+    <div className="flex flex-col min-h-screen bg-gray-50">
+      <StepperHeader
+        pasos={pasos}
+        activo={pasoActivo}
+        onChange={(id) => setPasoActivo(id)}
+      />
+
+      <StepperBody
+        componente={componentesPorPaso[pasoActivo]}
+        onNext={handleNext}
+        onPrev={handlePrev}
+        isFirst={pasoActivo === pasos[0].id}
+        isLast={pasoActivo === pasos[pasos.length - 1].id}
+      />
+    </div>
   );
 }

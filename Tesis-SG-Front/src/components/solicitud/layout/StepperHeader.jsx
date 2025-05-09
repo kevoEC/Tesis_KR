@@ -12,21 +12,66 @@ import {
   DollarSign,
   Users,
   CheckCheck,
-  Info
+  Info,
 } from "lucide-react";
 import { motion } from "framer-motion";
 import { cn } from "@/lib/utils"; // Si usas clsx o una helper similar
 
 const pasosTemporales = [
-  { id: "identificacion", title: "Identificación", description: "Datos del solicitante", icon: User },
-  { id: "proyeccion", title: "Proyección", description: "Simulación financiera", icon: BarChart },
-  { id: "datos", title: "Datos generales", description: "Información personal", icon: FileText },
-  { id: "actividad", title: "Actividad económica", description: "Ingresos", icon: Banknote },
-  { id: "contacto", title: "Contacto y ubicación", description: "Dirección", icon: MapPin },
-  { id: "conyuge", title: "Cónyuge", description: "Datos cónyuge", icon: Heart },
-  { id: "banco", title: "Banco", description: "Cuentas bancarias", icon: DollarSign },
-  { id: "beneficiarios", title: "Beneficiarios", description: "Destinatarios", icon: Users },
-  { id: "finalizacion", title: "Finalización", description: "Resumen", icon: CheckCheck }
+  {
+    id: "identificacion",
+    title: "Identificación",
+    description: "Datos del solicitante",
+    icon: User,
+  },
+  {
+    id: "proyeccion",
+    title: "Proyección",
+    description: "Simulación financiera",
+    icon: BarChart,
+  },
+  {
+    id: "datos",
+    title: "Datos generales",
+    description: "Información personal",
+    icon: FileText,
+  },
+  {
+    id: "actividad",
+    title: "Actividad económica",
+    description: "Ingresos",
+    icon: Banknote,
+  },
+  {
+    id: "contacto",
+    title: "Contacto y ubicación",
+    description: "Dirección",
+    icon: MapPin,
+  },
+  {
+    id: "conyuge",
+    title: "Cónyuge",
+    description: "Datos cónyuge",
+    icon: Heart,
+  },
+  {
+    id: "banco",
+    title: "Banco",
+    description: "Cuentas bancarias",
+    icon: DollarSign,
+  },
+  {
+    id: "beneficiarios",
+    title: "Beneficiarios",
+    description: "Destinatarios",
+    icon: Users,
+  },
+  {
+    id: "finalizacion",
+    title: "Finalización",
+    description: "Resumen",
+    icon: CheckCheck,
+  },
 ];
 
 const erroresPorPaso = {
@@ -40,7 +85,9 @@ export default function StepperHeader() {
     <div className="flex items-center justify-between px-8 py-6 bg-white shadow-sm border-b border-gray-200 rounded-t-xl relative overflow-x-auto">
       {pasosTemporales.map((step, index) => {
         const isActive = step.id === currentStepId;
-        const currentIndex = pasosTemporales.findIndex(s => s.id === currentStepId);
+        const currentIndex = pasosTemporales.findIndex(
+          (s) => s.id === currentStepId
+        );
         const stepIndex = index;
         const isVisited = stepIndex < currentIndex;
         const hasError = erroresPorPaso[step.id] === true;
@@ -54,11 +101,13 @@ export default function StepperHeader() {
           ? "bg-green-100 text-green-600 border-green-400"
           : "bg-white text-gray-400 border-gray-300";
 
-        const iconToRender = hasError
-          ? <AlertCircle size={20} />
-          : isVisited
-          ? <CheckCircle size={20} />
-          : <Icon size={20} />;
+        const iconToRender = hasError ? (
+          <AlertCircle size={20} />
+        ) : isVisited ? (
+          <CheckCircle size={20} />
+        ) : (
+          <Icon size={20} />
+        );
 
         return (
           <div
@@ -87,7 +136,9 @@ export default function StepperHeader() {
               layout
               className={cn(
                 "mt-2 text-xs font-medium transition-colors",
-                isActive ? "text-blue-600" : "text-gray-700 group-hover:text-black"
+                isActive
+                  ? "text-blue-600"
+                  : "text-gray-700 group-hover:text-black"
               )}
             >
               {step.title}

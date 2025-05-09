@@ -1,26 +1,16 @@
 [
   {
-    "ContainingType": "TesisBackend.Controllers.ActividadController",
+    "ContainingType": "Backend_CrmSG.Controllers.Entidad.ActividadController",
     "Method": "Get",
     "RelativePath": "api/Actividad",
     "HttpMethod": "GET",
     "IsController": true,
     "Order": 0,
     "Parameters": [],
-    "ReturnTypes": [
-      {
-        "Type": "System.Collections.Generic.IEnumerable\u00601[[Backend_CrmSG.Models.Actividad, Backend_CrmSG, Version=1.0.0.0, Culture=neutral, PublicKeyToken=null]]",
-        "MediaTypes": [
-          "text/plain",
-          "application/json",
-          "text/json"
-        ],
-        "StatusCode": 200
-      }
-    ]
+    "ReturnTypes": []
   },
   {
-    "ContainingType": "TesisBackend.Controllers.ActividadController",
+    "ContainingType": "Backend_CrmSG.Controllers.Entidad.ActividadController",
     "Method": "Post",
     "RelativePath": "api/Actividad",
     "HttpMethod": "POST",
@@ -33,20 +23,10 @@
         "IsRequired": true
       }
     ],
-    "ReturnTypes": [
-      {
-        "Type": "Backend_CrmSG.Models.Actividad",
-        "MediaTypes": [
-          "text/plain",
-          "application/json",
-          "text/json"
-        ],
-        "StatusCode": 200
-      }
-    ]
+    "ReturnTypes": []
   },
   {
-    "ContainingType": "TesisBackend.Controllers.ActividadController",
+    "ContainingType": "Backend_CrmSG.Controllers.Entidad.ActividadController",
     "Method": "Get",
     "RelativePath": "api/Actividad/{id}",
     "HttpMethod": "GET",
@@ -59,20 +39,10 @@
         "IsRequired": true
       }
     ],
-    "ReturnTypes": [
-      {
-        "Type": "Backend_CrmSG.Models.Actividad",
-        "MediaTypes": [
-          "text/plain",
-          "application/json",
-          "text/json"
-        ],
-        "StatusCode": 200
-      }
-    ]
+    "ReturnTypes": []
   },
   {
-    "ContainingType": "TesisBackend.Controllers.ActividadController",
+    "ContainingType": "Backend_CrmSG.Controllers.Entidad.ActividadController",
     "Method": "Put",
     "RelativePath": "api/Actividad/{id}",
     "HttpMethod": "PUT",
@@ -93,7 +63,7 @@
     "ReturnTypes": []
   },
   {
-    "ContainingType": "TesisBackend.Controllers.ActividadController",
+    "ContainingType": "Backend_CrmSG.Controllers.Entidad.ActividadController",
     "Method": "Delete",
     "RelativePath": "api/Actividad/{id}",
     "HttpMethod": "DELETE",
@@ -103,22 +73,6 @@
       {
         "Name": "id",
         "Type": "System.Int32",
-        "IsRequired": true
-      }
-    ],
-    "ReturnTypes": []
-  },
-  {
-    "ContainingType": "TesisBackend.Controllers.ActividadController",
-    "Method": "ObtenerFiltradas",
-    "RelativePath": "api/Actividad/filtradas",
-    "HttpMethod": "POST",
-    "IsController": true,
-    "Order": 0,
-    "Parameters": [
-      {
-        "Name": "filtro",
-        "Type": "Backend_CrmSG.DTOs.ActividadFiltroDto",
         "IsRequired": true
       }
     ],
@@ -319,7 +273,7 @@
     "ReturnTypes": []
   },
   {
-    "ContainingType": "Backend_CrmSG.Controllers.DocumentoController",
+    "ContainingType": "Backend_CrmSG.Controllers.Documento.DocumentoController",
     "Method": "CrearDocumento",
     "RelativePath": "api/Documento",
     "HttpMethod": "POST",
@@ -335,7 +289,7 @@
     "ReturnTypes": []
   },
   {
-    "ContainingType": "Backend_CrmSG.Controllers.DocumentoController",
+    "ContainingType": "Backend_CrmSG.Controllers.Documento.DocumentoController",
     "Method": "ActualizarDocumento",
     "RelativePath": "api/Documento/{id}",
     "HttpMethod": "PUT",
@@ -356,7 +310,7 @@
     "ReturnTypes": []
   },
   {
-    "ContainingType": "Backend_CrmSG.Controllers.DocumentoController",
+    "ContainingType": "Backend_CrmSG.Controllers.Documento.DocumentoController",
     "Method": "DesactivarDocumento",
     "RelativePath": "api/Documento/{id}",
     "HttpMethod": "DELETE",
@@ -372,7 +326,7 @@
     "ReturnTypes": []
   },
   {
-    "ContainingType": "Backend_CrmSG.Controllers.DocumentoController",
+    "ContainingType": "Backend_CrmSG.Controllers.Documento.DocumentoController",
     "Method": "ObtenerDocumentosPorEntidad",
     "RelativePath": "api/Documento/entidad",
     "HttpMethod": "GET",
@@ -393,7 +347,7 @@
     "ReturnTypes": []
   },
   {
-    "ContainingType": "Backend_CrmSG.Controllers.DocumentoController",
+    "ContainingType": "Backend_CrmSG.Controllers.Documento.DocumentoController",
     "Method": "EliminarDocumentosPorMotivo",
     "RelativePath": "api/Documento/motivo/{idMotivo}",
     "HttpMethod": "DELETE",
@@ -983,7 +937,7 @@
     "ReturnTypes": []
   },
   {
-    "ContainingType": "TesisBackend.Controllers.ProspectoController",
+    "ContainingType": "Backend_CrmSG.Controllers.Entidad.ProspectoController",
     "Method": "Get",
     "RelativePath": "api/Prospecto",
     "HttpMethod": "GET",
@@ -993,7 +947,7 @@
     "ReturnTypes": []
   },
   {
-    "ContainingType": "TesisBackend.Controllers.ProspectoController",
+    "ContainingType": "Backend_CrmSG.Controllers.Entidad.ProspectoController",
     "Method": "Post",
     "RelativePath": "api/Prospecto",
     "HttpMethod": "POST",
@@ -1009,7 +963,7 @@
     "ReturnTypes": []
   },
   {
-    "ContainingType": "TesisBackend.Controllers.ProspectoController",
+    "ContainingType": "Backend_CrmSG.Controllers.Entidad.ProspectoController",
     "Method": "Get",
     "RelativePath": "api/Prospecto/{id}",
     "HttpMethod": "GET",
@@ -1025,7 +979,7 @@
     "ReturnTypes": []
   },
   {
-    "ContainingType": "TesisBackend.Controllers.ProspectoController",
+    "ContainingType": "Backend_CrmSG.Controllers.Entidad.ProspectoController",
     "Method": "Put",
     "RelativePath": "api/Prospecto/{id}",
     "HttpMethod": "PUT",
@@ -1046,7 +1000,7 @@
     "ReturnTypes": []
   },
   {
-    "ContainingType": "TesisBackend.Controllers.ProspectoController",
+    "ContainingType": "Backend_CrmSG.Controllers.Entidad.ProspectoController",
     "Method": "Delete",
     "RelativePath": "api/Prospecto/{id}",
     "HttpMethod": "DELETE",
@@ -1062,23 +1016,7 @@
     "ReturnTypes": []
   },
   {
-    "ContainingType": "TesisBackend.Controllers.ProspectoController",
-    "Method": "ObtenerFiltrados",
-    "RelativePath": "api/Prospecto/filtrados",
-    "HttpMethod": "POST",
-    "IsController": true,
-    "Order": 0,
-    "Parameters": [
-      {
-        "Name": "filtro",
-        "Type": "Backend_CrmSG.DTOs.ProspectoFiltroDto",
-        "IsRequired": true
-      }
-    ],
-    "ReturnTypes": []
-  },
-  {
-    "ContainingType": "Backend_CrmSG.Controllers.Catalogo.Producto.ProyeccionController",
+    "ContainingType": "Backend_CrmSG.Controllers.Entidad.ProyeccionController",
     "Method": "CrearProyeccion",
     "RelativePath": "api/Proyeccion",
     "HttpMethod": "POST",
@@ -1094,7 +1032,7 @@
     "ReturnTypes": []
   },
   {
-    "ContainingType": "Backend_CrmSG.Controllers.Catalogo.Producto.ProyeccionController",
+    "ContainingType": "Backend_CrmSG.Controllers.Entidad.ProyeccionController",
     "Method": "ActualizarProyeccionAsync",
     "RelativePath": "api/Proyeccion/{id}",
     "HttpMethod": "PUT",
@@ -1125,7 +1063,7 @@
     ]
   },
   {
-    "ContainingType": "Backend_CrmSG.Controllers.Catalogo.Producto.ProyeccionController",
+    "ContainingType": "Backend_CrmSG.Controllers.Entidad.ProyeccionController",
     "Method": "ObtenerCronograma",
     "RelativePath": "api/Proyeccion/{id}/cronograma",
     "HttpMethod": "GET",
@@ -1141,7 +1079,7 @@
     "ReturnTypes": []
   },
   {
-    "ContainingType": "Backend_CrmSG.Controllers.Catalogo.Producto.ProyeccionController",
+    "ContainingType": "Backend_CrmSG.Controllers.Entidad.ProyeccionController",
     "Method": "ObtenerProyeccionesPorSolicitud",
     "RelativePath": "api/Proyeccion/solicitud/{idSolicitudInversion}",
     "HttpMethod": "GET",
@@ -1236,7 +1174,7 @@
     "ReturnTypes": []
   },
   {
-    "ContainingType": "SolicitudInversionController",
+    "ContainingType": "Backend_CrmSG.Controllers.Entidad.SolicitudInversionController",
     "Method": "GetAll",
     "RelativePath": "api/SolicitudInversion",
     "HttpMethod": "GET",
@@ -1246,7 +1184,7 @@
     "ReturnTypes": []
   },
   {
-    "ContainingType": "SolicitudInversionController",
+    "ContainingType": "Backend_CrmSG.Controllers.Entidad.SolicitudInversionController",
     "Method": "Create",
     "RelativePath": "api/SolicitudInversion",
     "HttpMethod": "POST",
@@ -1262,7 +1200,7 @@
     "ReturnTypes": []
   },
   {
-    "ContainingType": "SolicitudInversionController",
+    "ContainingType": "Backend_CrmSG.Controllers.Entidad.SolicitudInversionController",
     "Method": "GetById",
     "RelativePath": "api/SolicitudInversion/{id}",
     "HttpMethod": "GET",
@@ -1278,7 +1216,7 @@
     "ReturnTypes": []
   },
   {
-    "ContainingType": "SolicitudInversionController",
+    "ContainingType": "Backend_CrmSG.Controllers.Entidad.SolicitudInversionController",
     "Method": "Update",
     "RelativePath": "api/SolicitudInversion/{id}",
     "HttpMethod": "PUT",
@@ -1299,7 +1237,7 @@
     "ReturnTypes": []
   },
   {
-    "ContainingType": "SolicitudInversionController",
+    "ContainingType": "Backend_CrmSG.Controllers.Entidad.SolicitudInversionController",
     "Method": "Delete",
     "RelativePath": "api/SolicitudInversion/{id}",
     "HttpMethod": "DELETE",
@@ -1309,22 +1247,6 @@
       {
         "Name": "id",
         "Type": "System.Int32",
-        "IsRequired": true
-      }
-    ],
-    "ReturnTypes": []
-  },
-  {
-    "ContainingType": "SolicitudInversionController",
-    "Method": "ObtenerFiltradas",
-    "RelativePath": "api/SolicitudInversion/filtradas",
-    "HttpMethod": "POST",
-    "IsController": true,
-    "Order": 0,
-    "Parameters": [
-      {
-        "Name": "filtro",
-        "Type": "Backend_CrmSG.DTOs.SolicitudInversionFiltroDto",
         "IsRequired": true
       }
     ],

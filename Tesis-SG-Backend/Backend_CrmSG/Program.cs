@@ -2,14 +2,12 @@ using Microsoft.EntityFrameworkCore;
 using Backend_CrmSG.Data;
 using Backend_CrmSG.Repositories;
 using Backend_CrmSG.Services;
-using TesisBackend.Services;
-using Backend_CrmSG.Services.Catalogos;
 using Backend_CrmSG.Services.Seguridad;
 using Backend_CrmSG.Middleware;
-using Microsoft.AspNetCore.Authentication.JwtBearer;
 using Microsoft.IdentityModel.Tokens;
 using System.Text;
 using Backend_CrmSG.Services.Producto;
+using Backend_CrmSG.Services.Validaciones;
 
 var builder = WebApplication.CreateBuilder(args);
 var jwtKey = builder.Configuration["Jwt:Key"]
@@ -43,7 +41,9 @@ builder.Services.AddCors(options =>
     options.AddPolicy("AllowFrontend", policy => policy
         .WithOrigins(
             "http://localhost:5173",  // Vite frontend original
-            "http://localhost:5174"   // Segundo frontend o entorno paralelo
+            "http://localhost:5174",   // Segundo frontend o entorno paralelo
+            "http://localhost:5175",   // Segundo frontend o entorno paralelo
+            "http://localhost:5176"   // Segundo frontend o entorno paralelo
         )
         .AllowAnyHeader()
         .AllowAnyMethod());
@@ -119,9 +119,6 @@ builder.Services.AddSwaggerGen();
 
 // ------------------ INYECCIÓN DE SERVICIOS ------------------------
 builder.Services.AddScoped(typeof(IRepository<>), typeof(Repository<>));
-builder.Services.AddScoped<IProspectoService, ProspectoService>();
-builder.Services.AddScoped<IActividadService, ActividadService>();
-builder.Services.AddScoped<ISolicitudInversionService, SolicitudInversionService>();
 builder.Services.AddScoped<IJwtService, JwtService>();
 builder.Services.AddScoped<StoredProcedureService>();
 builder.Services.AddScoped<ProyeccionService>();
@@ -133,20 +130,12 @@ builder.Services.AddHttpClient<IValidacionService, ValidacionService>();
 
 
 // Catálogos
-builder.Services.AddScoped<IOrigenClienteService, OrigenClienteService>();
-builder.Services.AddScoped<IAgenciaService, AgenciaService>();
-builder.Services.AddScoped<IPrioridadService, PrioridadService>();
-builder.Services.AddScoped<ITipoActividadService, TipoActividadService>();
-builder.Services.AddScoped<ITipoIdentificacionService, TipoIdentificacionService>();
-builder.Services.AddScoped<IProductoInteresService, ProductoInteresService>();
 builder.Services.AddScoped<IProductoService, ProductoService>();
 builder.Services.AddScoped<IConfiguracionProductoService, ConfiguracionProductoService>();
 
 
 // Seguridad
 builder.Services.AddScoped<IUsuarioService, UsuarioService>();
-builder.Services.AddScoped<IRolService, RolService>();
-builder.Services.AddScoped<IPermisoService, PermisoService>();
 builder.Services.AddScoped<IMenuService, MenuService>();
 builder.Services.AddScoped<IUsuarioRolService, UsuarioRolService>();
 builder.Services.AddScoped<EnsureMicrosoftUserExistsAttribute>();

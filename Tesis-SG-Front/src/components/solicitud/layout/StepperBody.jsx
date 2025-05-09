@@ -25,8 +25,10 @@ const componentes = {
 };
 
 const validaciones = {
-  identificacion: () => !!JSON.parse(sessionStorage.getItem("solicitud"))?.numeroDocumento,
-  proyeccion: () => !!JSON.parse(sessionStorage.getItem("solicitud"))?.proyeccion,
+  identificacion: () =>
+    !!JSON.parse(sessionStorage.getItem("solicitud"))?.numeroDocumento,
+  proyeccion: () =>
+    !!JSON.parse(sessionStorage.getItem("solicitud"))?.proyeccion,
   // agrega más si necesitas
 };
 
@@ -62,7 +64,8 @@ export default function StepperBody({ preview = false }) {
 
     return stepper.beforeNext(() => {
       if (!pasoValido) {
-        if (window.toast) toast.error("Debes completar este paso antes de continuar");
+        if (window.toast)
+          toast.error("Debes completar este paso antes de continuar");
         else alert("Debes completar este paso antes de continuar");
         return false;
       }

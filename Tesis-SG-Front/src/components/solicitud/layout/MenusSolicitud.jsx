@@ -9,7 +9,6 @@ import {
 
 // 👉 Paso 1: Importamos desde el archivo central del stepper
 import {
-  SolicitudStepperProvider,
   useSolicitudStepper,
   pasosSolicitud,
 } from "@/service/stepper/stepperSolicitud";
@@ -24,7 +23,8 @@ export function SidebarMenu() {
       <h2 className="text-lg font-semibold text-gray-800 mb-4">Formulario</h2>
       <div className="space-y-2">
         {pasosSolicitud.map((step) => {
-          const isDisabled = step.id !== "identificacion" && !solicitudHabilitada;
+          const isDisabled =
+            step.id !== "identificacion" && !solicitudHabilitada;
           const isActive = step.id === currentStep?.id;
 
           return (
@@ -79,7 +79,11 @@ export function TopTabs({ active, onChange }) {
     const payload = {
       identificacion: parsed.numeroDocumento,
       idTipoSolicitud:
-        parsed.tipoSolicitud === "Nueva" ? 1 : parsed.tipoSolicitud === "Renovación" ? 2 : 3,
+        parsed.tipoSolicitud === "Nueva"
+          ? 1
+          : parsed.tipoSolicitud === "Renovación"
+          ? 2
+          : 3,
       idTipoCliente: parsed.tipoCliente === "Natural" ? 1 : 2,
       idUsuarioPropietario: user?.idUsuario,
       jsonDocument: JSON.stringify(parsed),
@@ -102,7 +106,11 @@ export function TopTabs({ active, onChange }) {
     const payload = {
       identificacion: parsed.numeroDocumento,
       idTipoSolicitud:
-        parsed.tipoSolicitud === "Nueva" ? 1 : parsed.tipoSolicitud === "Renovación" ? 2 : 3,
+        parsed.tipoSolicitud === "Nueva"
+          ? 1
+          : parsed.tipoSolicitud === "Renovación"
+          ? 2
+          : 3,
       idTipoCliente: parsed.tipoCliente === "Natural" ? 1 : 2,
       idUsuarioPropietario: user?.idUsuario,
       jsonDocument: JSON.stringify(parsed),
@@ -137,11 +145,17 @@ export function TopTabs({ active, onChange }) {
 
       <div className="flex gap-3">
         {!solicitudId ? (
-          <Button onClick={crearSolicitud} className="bg-green-600 text-white hover:bg-green-700">
+          <Button
+            onClick={crearSolicitud}
+            className="bg-green-600 text-white hover:bg-green-700"
+          >
             Crear solicitud
           </Button>
         ) : (
-          <Button onClick={guardarSolicitud} className="bg-blue-600 text-white hover:bg-blue-700">
+          <Button
+            onClick={guardarSolicitud}
+            className="bg-blue-600 text-white hover:bg-blue-700"
+          >
             Guardar cambios
           </Button>
         )}

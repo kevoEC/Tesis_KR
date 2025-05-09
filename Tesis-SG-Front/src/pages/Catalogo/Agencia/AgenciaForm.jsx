@@ -5,7 +5,11 @@ import { Label } from "@/components/ui/label";
 import { Button } from "@/components/ui/button";
 import { Card, CardContent } from "@/components/ui/card";
 import { toast } from "sonner";
-import { getAgenciaById, createAgencia, updateAgencia } from "@/service/Catalogos/AgenciaService";
+import {
+  getAgenciaById,
+  createAgencia,
+  updateAgencia,
+} from "@/service/Catalogos/AgenciaService";
 import { ArrowLeft } from "lucide-react";
 
 export default function AgenciaForm() {
@@ -62,7 +66,11 @@ export default function AgenciaForm() {
   return (
     <div className="p-6 max-w-xl mx-auto">
       <div className="flex items-center gap-4 mb-6">
-        <Button variant="link" onClick={() => navigate("/catalogo/agencia/vista")} className="text-blue-600 px-0">
+        <Button
+          variant="link"
+          onClick={() => navigate("/catalogo/agencia/vista")}
+          className="text-blue-600 px-0"
+        >
           <ArrowLeft className="w-4 h-4 mr-2" /> Volver a Agencias
         </Button>
         <h1 className="text-2xl font-bold text-gray-800">
@@ -82,7 +90,10 @@ export default function AgenciaForm() {
                 required
               />
             </div>
-            <Button type="submit" className="bg-blue-600 hover:bg-blue-700 text-white">
+            <Button
+              type="submit"
+              className="bg-blue-600 hover:bg-blue-700 text-white"
+            >
               Guardar Agencia
             </Button>
           </form>
