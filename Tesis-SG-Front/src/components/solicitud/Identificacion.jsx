@@ -3,6 +3,7 @@ import { Card, CardContent } from "@/components/ui/card";
 import { Label } from "@/components/ui/label";
 import { Input } from "@/components/ui/input";
 import { Switch } from "@/components/ui/switch";
+import { getTipoIdentificacion } from "@/service/Catalogos/TipoIdentificacionService";
 import {
   Select,
   SelectTrigger,
@@ -20,6 +21,16 @@ import { useUI } from "@/hooks/useUI";
 
 export default function Identificacion() {
   const { notify, setSolicitudHabilitada } = useUI();
+
+  // estado para los tipos dinámicos
+  const [tiposIdentificacion, setTiposIdentificacion] = useState([]);
+
+  // carga al montar el componente
+  useEffect(() => {
+    getTipoIdentificacion().then((data) => {
+      setTiposIdentificacion(data);
+    });
+  }, []);
 
   const [form, setForm] = useState(() => {
     const stored = sessionStorage.getItem("solicitud");
@@ -226,13 +237,30 @@ export default function Identificacion() {
               options={["Natural", "Jurídico"]}
               disabled={bloquearCampos}
             />
-            <FormSelect
-              label="Tipo de documento"
-              value={form.tipoDocumento}
-              onChange={(val) => handleChange("tipoDocumento", val)}
-              options={["Cédula", "RUC", "Pasaporte"]}
-              disabled={bloquearCampos}
-            />
+            <div className="space-y-1">
+              <Label className="text-sm text-gray-700 font-medium">
+                Tipo de documento
+              </Label>
+              <Select
+                value={form.tipoDocumento}
+                onValueChange={(val) => handleChange("tipoDocumento", val)}
+                disabled={bloquearCampos}
+              >
+                <SelectTrigger className="text-sm">
+                  <SelectValue placeholder="Seleccione un tipo" />
+                </SelectTrigger>
+                <SelectContent className="bg-white">
+                  {tiposIdentificacion.map((t) => (
+                    <SelectItem
+                      key={t.idTipoIdentificacion}
+                      value={t.tipo} // o `t.idTipoIdentificacion.toString()` si quieres almacenar el id
+                    >
+                      {t.tipo}
+                    </SelectItem>
+                  ))}
+                </SelectContent>
+              </Select>
+            </div>
             <FormInput
               label="Número de identificación"
               value={form.numeroDocumento}
