@@ -4,20 +4,15 @@ import { Card, CardContent } from "@/components/ui/card";
 import { Button } from "@/components/ui/button";
 import { PlusCircle } from "lucide-react";
 import { toast } from "sonner";
-import {
-  Table,
-  TableHeader,
-  TableRow,
-  TableHead,
-  TableBody,
-  TableCell,
-} from "@/components/ui/table";
-
-import ActividadModal from "@/components/prospectos/ModalActividad";
+import { Table, TableHeader, TableRow, TableHead, TableBody, TableCell, } from "@/components/ui/table";
+import ModalActividad from "@/components/prospectos/ModalActividad";
 import { getProspectoById } from "@/service/Entidades/ProspectoService";
 import { getActividadesByProspectoId } from "@/service/Entidades/ActividadService";
 import { getSolicitudesByProspectoId } from "@/service/Entidades/SolicitudService";
 import TablaCustom2 from "@/components/shared/TablaCustom2";
+import { getPrioridades } from "@/service/Catalogos/PrioridadService";
+import { getTipoActividad } from "@/service/Catalogos/TipoActividadService";
+
 
 export default function ProspectoDetalle() {
   const { id } = useParams();
@@ -27,7 +22,32 @@ export default function ProspectoDetalle() {
   const [actividades, setActividades] = useState([]);
   const [solicitudes, setSolicitudes] = useState([]);
   const [modalOpen, setModalOpen] = useState(false);
+  const [modalEditarOpen, setModalEditarOpen] = useState(false);
   const [actividadEditar, setActividadEditar] = useState(null);
+
+  const [tiposActividad, setTiposActividad] = useState([]);
+  const [prioridades, setPrioridades] = useState([]);
+  const [catalogosCargados, setCatalogosCargados] = useState(false);
+
+  useEffect(() => {
+    const fetchCatalogos = async () => {
+      try {
+        const [tipos, prioridadesData] = await Promise.all([
+          getTipoActividad(),
+          getPrioridades(),
+        ]);
+        setTiposActividad(tipos);
+        setPrioridades(prioridadesData);
+        setCatalogosCargados(true); // ✅ importante
+      } catch (error) {
+        console.error("Error cargando catálogos:", error);
+      }
+    };
+  
+    fetchCatalogos();
+  }, []);
+  
+
 
   useEffect(() => {
     const cargar = async () => {
@@ -85,11 +105,13 @@ export default function ProspectoDetalle() {
   return (
     <div className="max-w-6xl mx-auto p-6 space-y-6">
       {/* Encabezado */}
-      <div className="flex items-center justify-between">
-        <h1 className="text-2xl font-bold text-gray-800">Detalle del Prospecto</h1>
+      <div>
         <Button variant="outline" onClick={() => navigate("/prospectos/vista")}>
           Volver a listado
         </Button>
+      </div>
+      <div className="flex items-center justify-between">
+        <h1 className="text-2xl font-bold text-gray-800">Detalle del Prospecto</h1>
       </div>
 
       {/* Información del prospecto */}
@@ -114,7 +136,7 @@ export default function ProspectoDetalle() {
         </Button>
       </div>
       <Card>
-        <CardContent className="p-0">
+        <CardContent className="p-6">
 
           <TablaCustom2
             columns={columnasActividad}
@@ -122,17 +144,15 @@ export default function ProspectoDetalle() {
             mostrarEditar={true}
             mostrarAgregarNuevo={true}
             mostrarEliminar={true}
-          // onEditarClick={handleEditar}
+            onAgregarNuevoClick={() => setModalOpen(true)}
+            onEditarClick={() => setModalEditarOpen(true)}
           // onEliminarClick={handleEliminar}
           />
 
         </CardContent>
       </Card>
-      <Card>
+      {/* <Card>
         <CardContent className="p-0">
-
-
-
           <Table>
             <TableHeader>
               <TableRow>
@@ -172,7 +192,7 @@ export default function ProspectoDetalle() {
             </TableBody>
           </Table>
         </CardContent>
-      </Card>
+      </Card> */}
 
       {/* Solicitudes de Inversión */}
       <div className="flex items-center justify-between mt-8">
@@ -187,7 +207,7 @@ export default function ProspectoDetalle() {
       </div>
 
       <Card>
-        <CardContent className="p-0">
+        <CardContent className="p-6">
           <TablaCustom2
             columns={columnasInversion}
             data={[]}
@@ -200,7 +220,7 @@ export default function ProspectoDetalle() {
         </CardContent>
       </Card>
 
-      <Card>
+      {/* <Card>
         <CardContent className="p-0">
           <Table>
             <TableHeader>
@@ -229,11 +249,11 @@ export default function ProspectoDetalle() {
             </TableBody>
           </Table>
         </CardContent>
-      </Card>
+      </Card> */}
 
       {/* Modal de Actividad */}
-      {modalOpen && (
-        <ActividadModal
+      {modalOpen && catalogosCargados && (
+        <ModalActividad
           open={modalOpen}
           onClose={() => {
             setModalOpen(false);
@@ -242,6 +262,22 @@ export default function ProspectoDetalle() {
           className="bg-amber-50"
           idProspecto={id}
           modo="crear"
+          onActividadCreada={handleActividadCreada}
+          tiposActividad={tiposActividad}
+          prioridades={prioridades}
+        />
+      )}
+
+      {modalEditarOpen && (
+        <ModalActividad
+          open={modalEditarOpen}
+          onClose={() => {
+            setModalEditarOpen(false);
+            setActividadEditar(null);
+          }}
+          className="bg-amber-50"
+          idProspecto={id}
+          modo="editar"
           onActividadCreada={handleActividadCreada}
         />
       )}

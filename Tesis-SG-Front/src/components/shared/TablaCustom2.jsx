@@ -30,6 +30,9 @@ const TablaCustom2 = ({
     const [itemsPerPage, setItemsPerPage] = useState(10);
     const [modalOpen, setModalOpen] = useState(false);
     const [newRowData, setNewRowData] = useState({});
+    const [confirmDialogOpen, setConfirmDialogOpen] = useState(false);
+    const [rowToDelete, setRowToDelete] = useState(null);
+
     console.log("🟢 Datos recibidos por la tabla:", data);
 
     useEffect(() => {
@@ -126,6 +129,18 @@ const TablaCustom2 = ({
             onAgregarNuevoClick(); // Simplemente llama a la función proporcionada
         }
     };
+    const handleOpenDeleteDialog = (row) => {
+        setRowToDelete(row);
+        setConfirmDialogOpen(true);
+    };
+    const handleConfirmDelete = () => {
+        if (onEliminarClick && rowToDelete) {
+            onEliminarClick(rowToDelete);
+        }
+        setConfirmDialogOpen(false);
+        setRowToDelete(null);
+    };
+
 
     return (
         <div className="space-y-4">
@@ -220,8 +235,9 @@ const TablaCustom2 = ({
                                         {mostrarEliminar && (
                                             <Button
                                                 size="sm"
-                                                className="bg-red-500 text-white cursor-pointer hover:bg-red-600"
-                                                onClick={() => onEliminarClick && onEliminarClick(row)}
+                                                className="bg-red-400 text-white cursor-pointer hover:bg-red-600"
+                                                onClick={() => handleOpenDeleteDialog(row)}
+
                                             >
                                                 <FaTrash className="mr-1" size={14} /> Eliminar
                                             </Button>
@@ -307,7 +323,25 @@ const TablaCustom2 = ({
                     </DialogFooter>
                 </DialogContent>
             </Dialog>
+
+
+            <Dialog open={confirmDialogOpen} onOpenChange={setConfirmDialogOpen}>
+                <DialogContent>
+                    <DialogHeader>Confirmar Eliminación</DialogHeader>
+                    <p>¿Estás seguro que deseas eliminar este registro?</p>
+                    <DialogFooter>
+                        <Button variant="danger" onClick={handleConfirmDelete}>
+                            Confirmar
+                        </Button>
+                        <Button variant="outline" onClick={() => setConfirmDialogOpen(false)}>
+                            Cancelar
+                        </Button>
+                    </DialogFooter>
+                </DialogContent>
+            </Dialog>
+
         </div>
+
     );
 };
 

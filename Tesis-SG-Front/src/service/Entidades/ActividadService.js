@@ -1,5 +1,25 @@
 // src/services/ActividadService.js
 
+import { API_BASE_URL } from "@/config";
+
+// Función auxiliar para manejar respuestas de la API
+const handleResponse = async (response) => {
+  if (!response.ok) {
+    const errorText = await response.text();
+    throw new Error(errorText || "Error en la solicitud");
+  }
+  return await response.json();
+};
+// Función para obtener el token actual desde localStorage
+const getAuthHeaders = () => {
+  const token = JSON.parse(localStorage.getItem("user"))?.token;
+  return {
+    "Content-Type": "application/json",
+    Authorization: `Bearer ${token}`,
+  };
+};
+
+
 let actividadesPorProspecto = {
   1: [
     {
@@ -29,16 +49,25 @@ export const getActividadesByProspectoId = async (idProspecto) => {
   return actividadesPorProspecto[idProspecto] || [];
 };
 
-export const createActividad = async (actividad) => {
-  const id = Date.now(); // ID simulado
-  const nueva = { ...actividad, idActividad: id };
-  const idP = actividad.idProspecto;
+// export const createActividad = async (actividad) => {
+//   //const id = Date.now(); // ID simulado
+//   const nueva = { ...actividad, idActividad: id };
+//   const idP = actividad.idProspecto;
 
-  if (!actividadesPorProspecto[idP]) actividadesPorProspecto[idP] = [];
-  actividadesPorProspecto[idP].push(nueva);
+//   if (!actividadesPorProspecto[idP]) actividadesPorProspecto[idP] = [];
+//   actividadesPorProspecto[idP].push(nueva);
 
-  console.log("🟢 Actividad creada:", nueva);
-  return nueva;
+//   console.log("🟢 Actividad creada:", nueva);
+//   return nueva;
+// };
+// 🟡 POST: Crear nuevo prospecto
+export const createActividad = async (data) => {
+  const res = await fetch(`${API_BASE_URL}/Actividad`, {
+    method: "POST",
+    headers: getAuthHeaders(),
+    body: JSON.stringify(data),
+  });
+  return handleResponse(res);
 };
 
 export const updateActividad = async (idActividad, data) => {

@@ -7,9 +7,8 @@ import { Label } from "@/components/ui/label";
 import { Input } from "@/components/ui/input";
 import { Button } from "@/components/ui/button";
 import { Select, SelectTrigger, SelectValue, SelectContent, SelectItem } from "@/components/ui/select";
-import {
-  Table, TableHeader, TableRow, TableHead, TableBody, TableCell
-} from "@/components/ui/table";
+import { Table, TableHeader, TableRow, TableHead, TableBody, TableCell } from "@/components/ui/table";
+import TablaCustom2 from "@/components/shared/TablaCustom2";
 
 function formatCurrency(value) {
   return `$${Number(value).toLocaleString("es-EC", { minimumFractionDigits: 2 })}`;
@@ -63,6 +62,7 @@ export default function ProyeccionNueva() {
       if (res.success) {
         setResumen(res.proyeccion);
         setCronograma(res.cronograma);
+        console.log("cronograma a mostrar: "+cronograma);
         notify.success("Cronograma generado correctamente.");
         setBloqueado(true);
       } else {
@@ -91,7 +91,10 @@ export default function ProyeccionNueva() {
       <Card className="border shadow-sm bg-white rounded-2xl">
         <CardContent className="p-6 space-y-6">
           <div className="grid grid-cols-1 md:grid-cols-3 gap-6">
-            <FormSelect label="Tipo de solicitud" value={form.tipoSolicitud} onChange={(val) => handleChange("tipoSolicitud", val)} options={["1", "2", "3"]} labels={["Nueva", "Renovación", "Incremento"]} disabled={bloqueado} />
+            <FormSelect label="Tipo de solicitud" value={form.tipoSolicitud} 
+            onChange={(val) => handleChange("tipoSolicitud", val)} options={["1", "2", "3"]} 
+            labels={["Nueva", "Renovación", "Incremento"]} disabled={bloqueado} />
+
             <FormSelect label="Producto" value={form.idProducto} onChange={(val) => handleChange("idProducto", val)} options={["1", "2", "3", "4", "5"]} labels={["Renta Fija", "Renta Periódica Mensual", "Renta Periódica Bimensual", "Renta Periódica Trimestral", "Renta Periódica Semestral"]} disabled={bloqueado} />
             <FormInput label="Capital" value={form.capital} onChange={(e) => handleChange("capital", parseFloat(e.target.value))} disabled={bloqueado} />
             <FormSelect label="Plazo" value={form.plazo} onChange={(val) => handleChange("plazo", val)} options={plazos} labels={plazos.map(p => `${p} meses`)} disabled={bloqueado} />
@@ -112,7 +115,7 @@ export default function ProyeccionNueva() {
 
       {cronograma.length > 0 && (
         <>
-          <Card className="mt-6 border rounded-2xl">
+          {/* <Card className="mt-6 border rounded-2xl">
             <CardContent className="p-4">
               <Table>
                 <TableHeader>
@@ -150,6 +153,33 @@ export default function ProyeccionNueva() {
                   ))}
                 </TableBody>
               </Table>
+            </CardContent>
+          </Card> */}
+          
+          <Card>
+            <CardContent>
+              <TablaCustom2
+              data={cronograma}
+              columns={[
+                { key: 'periodo', label: 'Período' },
+                { key: 'fechaInicial', label: 'Fecha Inicial' },
+                { key: 'fechaVencimiento', label: 'Fecha Vencimiento' },
+                { key: 'tasa', label: 'Tasa' },
+                { key: 'aporteAdicional', label: 'Aporte Adicional' },
+                { key: 'capitalOperacion', label: 'Capital ' },
+                { key: 'rentabilidad', label: 'Rentabilidad' },
+                { key: 'capitalRenta', label: 'Capital Renta ' },
+                { key: 'costoOperativo', label: 'Coste Operativo' },
+                { key: 'rentaAcumulada', label: 'Renta Acumulada' },
+                { key: 'capitalFinal', label: 'Capital Final' },
+                { key: 'montoPagar', label: 'Monto a Pagar' },
+              ]}
+              mostrarAgregarNuevo={false}
+              mostrarEditar={false}
+              mostrarEliminar={false}
+              />
+
+              
             </CardContent>
           </Card>
 
