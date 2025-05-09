@@ -69,6 +69,14 @@ export const protectedRoutes = [
   { path: "/solicitudes/editar/:id", element: <SolicitudesDetalle /> },
   { path: "/solicitudes/editar/:id/proyeccion/nueva", element: <Proyeccion /> },
 
+  //Proyección Express
+  { path: "proyeccion/vista", element: <Proyeccion /> },
+
+
+
+
+
+
   // Configuraciones generales
   { path: "/settings", element: <Settings /> },
 

@@ -9,9 +9,7 @@ import { Label } from "@/components/ui/label";
 import { Switch } from "@/components/ui/switch";
 import { Button } from "@/components/ui/button";
 import { PlusCircle } from "lucide-react";
-import {
-  Select, SelectTrigger, SelectValue, SelectContent, SelectItem
-} from "@/components/ui/select";
+import { Select, SelectTrigger, SelectValue, SelectContent, SelectItem } from "@/components/ui/select";
 
 export default function Proyeccion() {
   const { id: idSolicitud } = useParams();

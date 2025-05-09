@@ -97,7 +97,6 @@ export default function Prospectos() {
           telefonoCelular: "Teléfono Celular",
           correoElectronico: "Correo Electrónico",
           estado: "Estado",
-
         }}
         onEditar={handleEditar}
         onEliminar={handleEliminar}
