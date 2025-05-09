@@ -36,12 +36,17 @@ export default function Prospectos() {
   // 🔴 Eliminar
   const handleEliminar = async (item) => {
     try {
-      await deleteProspecto(item.id);
+      await deleteProspecto(item.idProspecto);
       // Si usas refetch dentro de VistaEntidad, lo puedes llamar aquí después
     } catch (err) {
       console.error("Error al eliminar prospecto:", err);
     }
   };
+  const handleDesactivar = async (item) => {
+
+
+  }
+
   const handleAbrirFormulario = () => {
     setIsDialogOpen(true);
   };
@@ -50,7 +55,15 @@ export default function Prospectos() {
   };
 
   const columnas = [
-    { key: 'idProspecto', label: 'IdProspecto' },
+    {
+      key: 'idProspecto',
+      label: 'IdProspecto',
+      render: (value) => (
+        <div className="text-end font-semibold text-gray-800">
+          {value}
+        </div>
+      ),
+    },
     { key: 'nombres', label: 'Nombres' },
     { key: 'apellidoPaterno', label: 'Apellido Pat' },
     { key: 'apellidoMaterno', label: 'Apellido Mat' },
@@ -68,11 +81,11 @@ export default function Prospectos() {
         </span>
       ),
     }
-
   ];
 
   return (
     <div>
+      {/* <div>
       <EntidadView
         titulo="Prospectos"
         entidad="prospecto"       // 🔗 Para el backend (API)
@@ -89,15 +102,15 @@ export default function Prospectos() {
         onEditar={handleEditar}
         onEliminar={handleEliminar}
       />
-      <div>
+      
 
-      </div>
+      </div> */}
 
       <Card className="border border-muted rounded-xl shadow-[0_4px_10px_rgba(0,0,0,0.12)]">
         <CardHeader>
           <CardTitle>Lista de Prospectos</CardTitle>
         </CardHeader>
-        <CardContent>
+        <CardContent className="p-6">
           <TablaCustom2
             columns={columnas}
             data={prospectos}
@@ -117,7 +130,7 @@ export default function Prospectos() {
             <DialogTitle>Agregar Prospecto</DialogTitle>
             <DialogDescription>Completa la información del nuevo prospecto</DialogDescription>
           </DialogHeader>
-          <ProspectoForm onClose={handleCerrarDialog} />
+          <ProspectoForm onClose={handleCerrarDialog}/>
         </DialogContent>
       </Dialog>
 

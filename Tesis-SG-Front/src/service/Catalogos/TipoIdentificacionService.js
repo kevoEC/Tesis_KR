@@ -9,13 +9,20 @@ const handleResponse = async (response) => {
     return await response.json();
   };
 
-  //  GET: Obtener todas los tipos de actividades
-  export const getTipoActividad = async () => {
-    const res = await fetch(`${API_BASE_URL}/TipoActividad`, {
+  //  GET: Obtener todas los tipos
+  export const getTiposIdentificacion = async () => {
+    const res = await fetch(`${API_BASE_URL}/TipoIdentificacion`, {
       headers: getAuthHeaders(),
     });
     return handleResponse(res);
   };
+    //  GET: Obtener todas los tipos
+    export const getTiposIdentificacionById = async () => {
+        const res = await fetch(`${API_BASE_URL}/TipoIdentificacion/${id}`, {
+          headers: getAuthHeaders(),
+        });
+        return handleResponse(res);
+      };
 
   const getAuthHeaders = () => {
     const token = JSON.parse(localStorage.getItem("user"))?.token;
