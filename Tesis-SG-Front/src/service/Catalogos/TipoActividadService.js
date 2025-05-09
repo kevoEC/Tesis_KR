@@ -47,11 +47,15 @@ export const createTipoActividad = async (data) => {
 
 // 🟠 PUT: Actualizar agencia
 export const updateTipoActividad = async (data) => {
-  const res = await fetch(`${API_BASE_URL}/TipoActividad/${data.idAgencia}`, {
-    method: "PUT",
-    headers: getAuthHeaders(),
-    body: JSON.stringify(data),
-  });
+  console.log(data);
+  const res = await fetch(
+    `${API_BASE_URL}/TipoActividad/${data.idTipoActividad}`,
+    {
+      method: "PUT",
+      headers: getAuthHeaders(),
+      body: JSON.stringify(data),
+    }
+  );
   return handleResponse(res);
 };
 

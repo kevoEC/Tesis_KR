@@ -47,7 +47,7 @@ export const createPrioridad = async (data) => {
 
 // 🟠 PUT: Actualizar agencia
 export const updatePrioridad = async (data) => {
-  const res = await fetch(`${API_BASE_URL}/Prioridad/${data.idAgencia}`, {
+  const res = await fetch(`${API_BASE_URL}/Prioridad/${data.idPrioridad}`, {
     method: "PUT",
     headers: getAuthHeaders(),
     body: JSON.stringify(data),

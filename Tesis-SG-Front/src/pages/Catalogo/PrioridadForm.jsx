@@ -28,7 +28,7 @@ export default function PrioridadForm() {
       const fetchData = async () => {
         try {
           const data = await getPrioridadById(id);
-          setPrioridad(data.prioridad);
+          setPrioridad(data.categoria);
         } catch (err) {
           console.error("Error al cargar prioridad:", err);
         }
@@ -41,8 +41,8 @@ export default function PrioridadForm() {
     e.preventDefault();
     try {
       const payload = {
-        idAgencia: isEdit ? parseInt(id) : 0,
-        prioridad,
+        idPrioridad: isEdit ? parseInt(id) : 0,
+        categoria: prioridad,
         ...(isEdit
           ? { idUsuarioModificacion: idUsuario }
           : { idUsuarioCreacion: idUsuario }),

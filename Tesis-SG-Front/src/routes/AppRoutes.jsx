@@ -59,6 +59,13 @@ const TipoSolicitudForm = lazy(() =>
 const TipoCliente = lazy(() => import("@/pages/Catalogo/TipoCliente"));
 const TipoClienteForm = lazy(() => import("@/pages/Catalogo/TipoClienteForm"));
 
+const TipoIdentificacion = lazy(() =>
+  import("@/pages/Catalogo/TipoIdentificacion")
+);
+const TipoIdentificacionForm = lazy(() =>
+  import("@/pages/Catalogo/TipoIdentificacionForm")
+);
+
 const ProductoInteres = lazy(() => import("@/pages/Catalogo/ProductoInteres"));
 const TipoActividad = lazy(() => import("@/pages/Catalogo/TipoActividad"));
 
@@ -105,6 +112,21 @@ export const protectedRoutes = [
   { path: "/solicitudes/editar/:id", element: <SolicitudesDetalle /> },
   { path: "/solicitudes/editar/:id/proyeccion/nueva", element: <Proyeccion /> },
 
+  // Proyecciones Express
+  { path: "/proyeccion/vista", element: <Prospectos /> },
+  // Inversiones
+  { path: "/inversiones/vista", element: <Prospectos /> },
+  // Clientes
+  { path: "/clientes/vista", element: <Prospectos /> },
+  // Tareas
+  { path: "/tareas/vista", element: <Prospectos /> },
+  // Casos
+  { path: "/casos/vista", element: <Prospectos /> },
+  // Pagos
+  { path: "/pagos/vista", element: <Prospectos /> },
+  // Calendario
+  { path: "/calendario/vista", element: <Prospectos /> },
+
   // Configuraciones generales
   { path: "/settings", element: <Settings /> },
 
@@ -144,6 +166,19 @@ export const protectedRoutes = [
   { path: "/catalogo/tipocliente/vista", element: <TipoCliente /> },
   { path: "/catalogo/tipocliente/nuevo", element: <TipoClienteForm /> },
   { path: "/catalogo/tipocliente/editar/:id", element: <TipoClienteForm /> },
+
+  {
+    path: "/catalogo/tipoidentificacion/vista",
+    element: <TipoIdentificacion />,
+  },
+  {
+    path: "/catalogo/tipoidentificacion/nuevo",
+    element: <TipoIdentificacionForm />,
+  },
+  {
+    path: "/catalogo/tipoidentificacion/editar/:id",
+    element: <TipoIdentificacionForm />,
+  },
 
   { path: "/catalogo/productointeres/vista", element: <ProductoInteres /> },
 

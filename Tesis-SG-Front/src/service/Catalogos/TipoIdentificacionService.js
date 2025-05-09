@@ -20,24 +20,24 @@ const getAuthHeaders = () => {
 };
 
 // 🟢 GET: Obtener todas las agencias
-export const getTipoSolicitud = async () => {
-  const res = await fetch(`${API_BASE_URL}/getTipoSolicitud`, {
+export const getTipoIdentificacion = async () => {
+  const res = await fetch(`${API_BASE_URL}/TipoIdentificacion`, {
     headers: getAuthHeaders(),
   });
   return handleResponse(res);
 };
 
 // 🔵 GET: Obtener agencia por ID
-export const getTipoSolicitudById = async (id) => {
-  const res = await fetch(`${API_BASE_URL}/getTipoSolicitud/${id}`, {
+export const getTipoIdentificacionById = async (id) => {
+  const res = await fetch(`${API_BASE_URL}/TipoIdentificacion/${id}`, {
     headers: getAuthHeaders(),
   });
   return handleResponse(res);
 };
 
 // 🟡 POST: Crear nueva agencia
-export const createTipoSolicitud = async (data) => {
-  const res = await fetch(`${API_BASE_URL}/getTipoSolicitud`, {
+export const createTipoIdentificacion = async (data) => {
+  const res = await fetch(`${API_BASE_URL}/TipoIdentificacion`, {
     method: "POST",
     headers: getAuthHeaders(),
     body: JSON.stringify(data),
@@ -46,21 +46,23 @@ export const createTipoSolicitud = async (data) => {
 };
 
 // 🟠 PUT: Actualizar agencia
-export const updateTipoSolicitud = async (data) => {
+export const updateTipoIdentificacion = async (data) => {
+  console.log(data);
   const res = await fetch(
-    `${API_BASE_URL}/getTipoSolicitud/${data.idTipoSolicitud}`,
+    `${API_BASE_URL}/TipoIdentificacion/${data.idTipoIdentificacion}`,
     {
       method: "PUT",
       headers: getAuthHeaders(),
       body: JSON.stringify(data),
     }
   );
+  console.log(res);
   return handleResponse(res);
 };
 
 // 🔴 DELETE: Eliminar agencia
-export const deleteTipoSolicitud = async (id) => {
-  const res = await fetch(`${API_BASE_URL}/getTipoSolicitud/${id}`, {
+export const deleteTipoIdentificacion = async (id) => {
+  const res = await fetch(`${API_BASE_URL}/TipoIdentificacion/${id}`, {
     method: "DELETE",
     headers: getAuthHeaders(),
   });

@@ -6,18 +6,18 @@ import { Button } from "@/components/ui/button";
 import { Card, CardContent } from "@/components/ui/card";
 import { toast } from "sonner";
 import {
-  getTipoActividadById,
-  createTipoActividad,
-  updateTipoActividad,
-} from "@/service/Catalogos/TipoActividadService";
+  getTipoIdentificacionById,
+  createTipoIdentificacion,
+  updateTipoIdentificacion,
+} from "@/service/Catalogos/TipoIdentificacionService";
 import { ArrowLeft } from "lucide-react";
 
-export default function TipoActividadForm() {
+export default function TipoIdentificacionForm() {
   const { id } = useParams();
-  const isEdit = !!id;
+  const isEdit = Boolean(id);
   const navigate = useNavigate();
 
-  const [tipoactividad, setTipoactividad] = useState("");
+  const [tipo, setTipoIdentificacion] = useState("");
 
   // Obtener ID del usuario logueado desde localStorage
   const user = JSON.parse(localStorage.getItem("user"));
@@ -25,41 +25,40 @@ export default function TipoActividadForm() {
 
   useEffect(() => {
     if (isEdit) {
-      const fetchData = async () => {
+      (async () => {
         try {
-          const data = await getTipoActividadById(id);
-          setTipoactividad(data.descripcion);
+          const data = await getTipoIdentificacionById(id);
+          setTipoIdentificacion(data.tipo);
         } catch (err) {
-          console.error("Error al cargar agencia:", err);
+          console.error("Error al cargar tipo de identificación:", err);
         }
-      };
-      fetchData();
+      })();
     }
-  }, [id]);
+  }, [id, isEdit]);
 
   const handleSubmit = async (e) => {
     e.preventDefault();
     try {
       const payload = {
-        idTipoActividad: isEdit ? parseInt(id) : 0,
-        descripcion: tipoactividad,
+        idTipoIdentificacion: isEdit ? parseInt(id, 10) : 0,
+        tipo,
         ...(isEdit
           ? { idUsuarioModificacion: idUsuario }
           : { idUsuarioCreacion: idUsuario }),
       };
 
       if (isEdit) {
-        await updateTipoActividad(payload);
-        toast.success("Tipo Actividad actualizada correctamente");
+        await updateTipoIdentificacion(payload);
+        toast.success("Tipo Identificación actualizado correctamente");
       } else {
-        await createTipoActividad(payload);
-        toast.success("Tipo Actividad creada correctamente");
+        await createTipoIdentificacion(payload);
+        toast.success("Tipo Identificación creado correctamente");
       }
 
-      navigate("/catalogo/tipoactividad/vista");
+      navigate("/catalogo/tipoidentificacion/vista");
     } catch (err) {
-      console.error("Error al guardar agencia:", err);
-      toast.error("Error al guardar la agencia");
+      console.error("Error al guardar tipo de identificación:", err);
+      toast.error("Error al guardar el tipo de identificación");
     }
   };
 
@@ -68,13 +67,13 @@ export default function TipoActividadForm() {
       <div className="flex items-center gap-4 mb-6">
         <Button
           variant="link"
-          onClick={() => navigate("/catalogo/tipoactividad/vista")}
+          onClick={() => navigate("/catalogo/tipoidentificacion/vista")}
           className="text-blue-600 px-0"
         >
-          <ArrowLeft className="w-4 h-4 mr-2" /> Volver a Tipo Actividad
+          <ArrowLeft className="w-4 h-4 mr-2" /> Volver a Tipo Identificación
         </Button>
         <h1 className="text-2xl font-bold text-gray-800">
-          {isEdit ? "Editar Tipo Actividad" : "Crear Tipo Actividad"}
+          {isEdit ? "Editar Tipo Identificación" : "Crear Tipo Identificación"}
         </h1>
       </div>
 
@@ -82,11 +81,11 @@ export default function TipoActividadForm() {
         <CardContent className="p-6">
           <form onSubmit={handleSubmit} className="space-y-4">
             <div>
-              <Label className="font-medium text-gray-700">Descripcion</Label>
+              <Label className="font-medium text-gray-700">Descripción</Label>
               <Input
-                placeholder="Ej: Quito"
-                value={tipoactividad}
-                onChange={(e) => setTipoactividad(e.target.value)}
+                placeholder="Ej: Cédula"
+                value={tipo}
+                onChange={(e) => setTipoIdentificacion(e.target.value)}
                 required
               />
             </div>
@@ -94,7 +93,7 @@ export default function TipoActividadForm() {
               type="submit"
               className="bg-blue-600 hover:bg-blue-700 text-white"
             >
-              Guardar Tipo Actividad
+              Guardar Tipo Identificación
             </Button>
           </form>
         </CardContent>

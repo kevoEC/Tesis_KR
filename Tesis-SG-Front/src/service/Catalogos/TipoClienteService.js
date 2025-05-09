@@ -47,7 +47,7 @@ export const createTipoCliente = async (data) => {
 
 // 🟠 PUT: Actualizar agencia
 export const updateTipoCliente = async (data) => {
-  const res = await fetch(`${API_BASE_URL}/TipoCliente/${data.idAgencia}`, {
+  const res = await fetch(`${API_BASE_URL}/TipoCliente/${data.idTipoCliente}`, {
     method: "PUT",
     headers: getAuthHeaders(),
     body: JSON.stringify(data),
