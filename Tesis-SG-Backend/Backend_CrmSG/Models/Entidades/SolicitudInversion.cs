@@ -1,7 +1,7 @@
 ﻿using System;
 using System.ComponentModel.DataAnnotations;
 
-namespace Backend_CrmSG.Models
+namespace Backend_CrmSG.Models.Entidades
 {
     public class SolicitudInversion
     {
@@ -22,5 +22,9 @@ namespace Backend_CrmSG.Models
         public int? IdUsuarioPropietario { get; set; }
 
         public string? JSONDocument { get; set; }
+
+        // Nuevos campos agregados
+        public int? IdProspecto { get; set; }
+        public int? IdCliente { get; set; }
     }
 }

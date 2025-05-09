@@ -5,6 +5,7 @@ using System.Threading.Tasks;
 using Backend_CrmSG.Repositories;
 using System.ComponentModel.DataAnnotations;
 using Microsoft.Data.SqlClient;
+using System.Linq.Expressions;
 
 namespace Backend_CrmSG.Repositories
 {
@@ -87,7 +88,34 @@ namespace Backend_CrmSG.Repositories
             return await _context.Set<T>().FromSqlRaw(sql, parameters).ToListAsync();
         }
 
+        public async Task<IEnumerable<T>> GetByPropertyAsync(string propertyName, object value)
+        {
+            try
+            {
+                var parameter = Expression.Parameter(typeof(T), "x");
+                var property = Expression.Property(parameter, propertyName);
 
+                // Convert value to the actual property type (e.g., int to int?)
+                var propertyType = property.Type;
+                var convertedValue = Convert.ChangeType(value, Nullable.GetUnderlyingType(propertyType) ?? propertyType);
+                var constant = Expression.Constant(convertedValue, propertyType);
+
+                var equal = Expression.Equal(property, constant);
+                var lambda = Expression.Lambda<Func<T, bool>>(equal, parameter);
+
+                return await _dbSet.Where(lambda).ToListAsync();
+            }
+            catch (Exception ex)
+            {
+                throw new ArgumentException(
+                    $"Error al filtrar por propiedad '{propertyName}' con valor '{value}': {ex.Message}", ex);
+            }
+        }
 
     }
+
+
+
+
 }
+

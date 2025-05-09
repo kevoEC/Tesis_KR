@@ -1,6 +1,6 @@
 ﻿using Backend_CrmSG.Data;
 using Backend_CrmSG.DTOs;
-using Backend_CrmSG.Models;
+using Backend_CrmSG.Models.Entidades;
 using Backend_CrmSG.Services;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;

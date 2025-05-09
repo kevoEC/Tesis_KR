@@ -3,6 +3,7 @@ using Backend_CrmSG.Models;
 using Backend_CrmSG.Models.Catalogos;
 using Backend_CrmSG.Models.Seguridad;
 using Backend_CrmSG.Models.Catalogos.Producto;
+using Backend_CrmSG.Models.Entidades;
 
 namespace Backend_CrmSG.Data
 {

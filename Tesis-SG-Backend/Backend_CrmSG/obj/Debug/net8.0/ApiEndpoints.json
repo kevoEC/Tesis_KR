@@ -19,7 +19,7 @@
     "Parameters": [
       {
         "Name": "actividad",
-        "Type": "Backend_CrmSG.Models.Actividad",
+        "Type": "Backend_CrmSG.Models.Entidades.Actividad",
         "IsRequired": true
       }
     ],
@@ -56,7 +56,7 @@
       },
       {
         "Name": "actividad",
-        "Type": "Backend_CrmSG.Models.Actividad",
+        "Type": "Backend_CrmSG.Models.Entidades.Actividad",
         "IsRequired": true
       }
     ],
@@ -72,6 +72,22 @@
     "Parameters": [
       {
         "Name": "id",
+        "Type": "System.Int32",
+        "IsRequired": true
+      }
+    ],
+    "ReturnTypes": []
+  },
+  {
+    "ContainingType": "Backend_CrmSG.Controllers.Entidad.ActividadController",
+    "Method": "GetPorProspecto",
+    "RelativePath": "api/Actividad/por-prospecto/{idProspecto}",
+    "HttpMethod": "GET",
+    "IsController": true,
+    "Order": 0,
+    "Parameters": [
+      {
+        "Name": "idProspecto",
         "Type": "System.Int32",
         "IsRequired": true
       }
@@ -956,7 +972,7 @@
     "Parameters": [
       {
         "Name": "prospecto",
-        "Type": "Backend_CrmSG.Models.Prospecto",
+        "Type": "Backend_CrmSG.Models.Entidades.Prospecto",
         "IsRequired": true
       }
     ],
@@ -993,7 +1009,7 @@
       },
       {
         "Name": "prospecto",
-        "Type": "Backend_CrmSG.Models.Prospecto",
+        "Type": "Backend_CrmSG.Models.Entidades.Prospecto",
         "IsRequired": true
       }
     ],
@@ -1193,7 +1209,7 @@
     "Parameters": [
       {
         "Name": "solicitud",
-        "Type": "Backend_CrmSG.Models.SolicitudInversion",
+        "Type": "Backend_CrmSG.Models.Entidades.SolicitudInversion",
         "IsRequired": true
       }
     ],
@@ -1230,7 +1246,7 @@
       },
       {
         "Name": "solicitud",
-        "Type": "Backend_CrmSG.Models.SolicitudInversion",
+        "Type": "Backend_CrmSG.Models.Entidades.SolicitudInversion",
         "IsRequired": true
       }
     ],
@@ -1247,6 +1263,53 @@
       {
         "Name": "id",
         "Type": "System.Int32",
+        "IsRequired": true
+      }
+    ],
+    "ReturnTypes": []
+  },
+  {
+    "ContainingType": "Backend_CrmSG.Controllers.Entidad.SolicitudInversionController",
+    "Method": "FiltrarPorId",
+    "RelativePath": "api/SolicitudInversion/filtrar",
+    "HttpMethod": "GET",
+    "IsController": true,
+    "Order": 0,
+    "Parameters": [
+      {
+        "Name": "por",
+        "Type": "System.String",
+        "IsRequired": false
+      },
+      {
+        "Name": "id",
+        "Type": "System.Int32",
+        "IsRequired": false
+      }
+    ],
+    "ReturnTypes": []
+  },
+  {
+    "ContainingType": "Backend_CrmSG.Controllers.Entidad.SolicitudInversionController",
+    "Method": "FiltrarPorId",
+    "RelativePath": "api/SolicitudInversion/por-prospecto/{idProspecto}",
+    "HttpMethod": "GET",
+    "IsController": true,
+    "Order": 0,
+    "Parameters": [
+      {
+        "Name": "por",
+        "Type": "System.String",
+        "IsRequired": false
+      },
+      {
+        "Name": "id",
+        "Type": "System.Int32",
+        "IsRequired": false
+      },
+      {
+        "Name": "idProspecto",
+        "Type": "",
         "IsRequired": true
       }
     ],
@@ -1490,7 +1553,7 @@
     "Parameters": [
       {
         "Name": "usuario",
-        "Type": "Backend_CrmSG.Models.Seguridad.Usuario",
+        "Type": "Usuario",
         "IsRequired": true
       }
     ],
@@ -1527,7 +1590,7 @@
       },
       {
         "Name": "usuario",
-        "Type": "Backend_CrmSG.Models.Seguridad.Usuario",
+        "Type": "Usuario",
         "IsRequired": true
       }
     ],

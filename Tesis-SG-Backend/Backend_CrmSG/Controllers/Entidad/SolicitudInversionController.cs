@@ -1,4 +1,4 @@
-﻿using Backend_CrmSG.Models;
+﻿using Backend_CrmSG.Models.Entidades;
 using Backend_CrmSG.Repositories;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
@@ -73,5 +73,31 @@ namespace Backend_CrmSG.Controllers.Entidad
             await _repository.DeleteAsync(id);
             return NoContent();
         }
+
+        [HttpGet("por-prospecto/{idProspecto}")]
+        [HttpGet("filtrar")]
+        public async Task<IActionResult> FiltrarPorId([FromQuery] string por, [FromQuery] int id)
+        {
+            // Validar parámetro 'por'
+            string? propertyName = por.ToLower() switch
+            {
+                "prospecto" => "IdProspecto",
+                "cliente" => "IdCliente",
+                _ => null
+            };
+
+            if (propertyName == null)
+            {
+                return BadRequest(new
+                {
+                    success = false,
+                    message = "Parámetro 'por' inválido. Debe ser 'prospecto' o 'cliente'."
+                });
+            }
+
+            var resultados = await _repository.GetByPropertyAsync(propertyName, id);
+            return Ok(resultados);
+        }
+
     }
 }

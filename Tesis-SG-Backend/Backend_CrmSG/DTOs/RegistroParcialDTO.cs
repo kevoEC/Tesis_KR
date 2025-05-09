@@ -12,7 +12,6 @@
         public string? SegundoApellido { get; set; }
 
         public required string Contraseña { get; set; }
-        public string? Telefono { get; set; }
     }
 
 
