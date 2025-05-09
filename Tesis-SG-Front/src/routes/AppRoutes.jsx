@@ -112,8 +112,6 @@ export const protectedRoutes = [
   { path: "/solicitudes/editar/:id", element: <SolicitudesDetalle /> },
   { path: "/solicitudes/editar/:id/proyeccion/nueva", element: <Proyeccion /> },
 
-  // Proyecciones Express
-  { path: "/proyeccion/vista", element: <Prospectos /> },
   // Inversiones
   { path: "/inversiones/vista", element: <Prospectos /> },
   // Clientes
@@ -188,6 +186,8 @@ export const protectedRoutes = [
     path: "/catalogo/tipoactividad/editar/:id",
     element: <TipoActividadForm />,
   },
+  //Proyección Express
+  { path: "proyeccion/vista", element: <Proyeccion /> },
 ];
 
 export const fallbackRoutes = [{ path: "*", element: <NotFound /> }];

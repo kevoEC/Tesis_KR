@@ -4,15 +4,21 @@ import { Card, CardContent } from "@/components/ui/card";
 import { Button } from "@/components/ui/button";
 import { PlusCircle } from "lucide-react";
 import { toast } from "sonner";
-import { Table, TableHeader, TableRow, TableHead, TableBody, TableCell, } from "@/components/ui/table";
+import {
+  Table,
+  TableHeader,
+  TableRow,
+  TableHead,
+  TableBody,
+  TableCell,
+} from "@/components/ui/table";
 import ModalActividad from "@/components/prospectos/ModalActividad";
 import { getProspectoById } from "@/service/Entidades/ProspectoService";
 import { getActividadesByProspectoId } from "@/service/Entidades/ActividadService";
 import { getSolicitudesByProspectoId } from "@/service/Entidades/SolicitudService";
 import TablaCustom2 from "@/components/shared/TablaCustom2";
-import { getPrioridades } from "@/service/Catalogos/PrioridadService";
+import { getPrioridad } from "@/service/Catalogos/PrioridadService";
 import { getTipoActividad } from "@/service/Catalogos/TipoActividadService";
-
 
 export default function ProspectoDetalle() {
   const { id } = useParams();
@@ -34,7 +40,7 @@ export default function ProspectoDetalle() {
       try {
         const [tipos, prioridadesData] = await Promise.all([
           getTipoActividad(),
-          getPrioridades(),
+          getPrioridad(),
         ]);
         setTiposActividad(tipos);
         setPrioridades(prioridadesData);
@@ -43,11 +49,9 @@ export default function ProspectoDetalle() {
         console.error("Error cargando catálogos:", error);
       }
     };
-  
+
     fetchCatalogos();
   }, []);
-  
-
 
   useEffect(() => {
     const cargar = async () => {
@@ -77,29 +81,32 @@ export default function ProspectoDetalle() {
   }
 
   const columnasActividad = [
-    { key: 'tipoActividad', label: 'Tipo' },
-    { key: 'asunto', label: 'Asunto' },
-    { key: 'descripcion', label: 'Descripción' },
-    { key: 'duracion', label: 'Duración' },
-    { key: 'vencimiento', label: 'Vencimiento' },
-    { key: 'prioridad', label: 'Prioridad' },
+    { key: "tipoActividad", label: "Tipo" },
+    { key: "asunto", label: "Asunto" },
+    { key: "descripcion", label: "Descripción" },
+    { key: "duracion", label: "Duración" },
+    { key: "vencimiento", label: "Vencimiento" },
+    { key: "prioridad", label: "Prioridad" },
     {
-      key: 'estado',
-      label: 'Estado',
+      key: "estado",
+      label: "Estado",
       render: (value) => (
         <span
-          className={`px-2 py-1 text-xs font-semibold rounded-full ${value ? 'bg-green-100 text-green-700' : 'bg-yellow-200 text-yellow-700'
-            }`}
+          className={`px-2 py-1 text-xs font-semibold rounded-full ${
+            value
+              ? "bg-green-100 text-green-700"
+              : "bg-yellow-200 text-yellow-700"
+          }`}
         >
-          {value ? 'Finalizada' : 'En Progreso'}
+          {value ? "Finalizada" : "En Progreso"}
         </span>
       ),
-    }
+    },
   ];
 
   const columnasInversion = [
-    { key: 'idProspecto', label: 'Número de Contacto' },
-    { key: 'nombres', label: 'Nombre de Prospecto' },
+    { key: "idProspecto", label: "Número de Contacto" },
+    { key: "nombres", label: "Nombre de Prospecto" },
   ];
 
   return (
@@ -111,18 +118,29 @@ export default function ProspectoDetalle() {
         </Button>
       </div>
       <div className="flex items-center justify-between">
-        <h1 className="text-2xl font-bold text-gray-800">Detalle del Prospecto</h1>
+        <h1 className="text-2xl font-bold text-gray-800">
+          Detalle del Prospecto
+        </h1>
       </div>
 
       {/* Información del prospecto */}
       <Card>
         <CardContent className="p-6 grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 gap-4">
-          <Info label="Nombre completo" value={`${prospecto.nombres} ${prospecto.apellidoPaterno} ${prospecto.apellidoMaterno}`} />
+          <Info
+            label="Nombre completo"
+            value={`${prospecto.nombres} ${prospecto.apellidoPaterno} ${prospecto.apellidoMaterno}`}
+          />
           <Info label="Correo" value={prospecto.correoElectronico} />
           <Info label="Teléfono" value={prospecto.telefonoCelular} />
-          <Info label="Tipo Identificación" value={prospecto.tipoIdentificacion?.nombre} />
+          <Info
+            label="Tipo Identificación"
+            value={prospecto.tipoIdentificacion?.nombre}
+          />
           <Info label="Origen del Cliente" value={prospecto.origen?.nombre} />
-          <Info label="Producto de Interés" value={prospecto.productoInteres?.nombre} />
+          <Info
+            label="Producto de Interés"
+            value={prospecto.productoInteres?.nombre}
+          />
           <Info label="Agencia" value={prospecto.agencia?.ciudad} />
         </CardContent>
       </Card>
@@ -130,14 +148,16 @@ export default function ProspectoDetalle() {
       {/* Actividades */}
       <div className="flex items-center justify-between mt-8">
         <h2 className="text-xl font-semibold text-gray-800">Actividades</h2>
-        <Button onClick={() => setModalOpen(true)} className="bg-blue-600 hover:bg-blue-700 text-white">
+        <Button
+          onClick={() => setModalOpen(true)}
+          className="bg-blue-600 hover:bg-blue-700 text-white"
+        >
           <PlusCircle className="w-4 h-4 mr-2" />
           Nueva Actividad
         </Button>
       </div>
       <Card>
         <CardContent className="p-6">
-
           <TablaCustom2
             columns={columnasActividad}
             data={actividades}
@@ -146,9 +166,8 @@ export default function ProspectoDetalle() {
             mostrarEliminar={true}
             onAgregarNuevoClick={() => setModalOpen(true)}
             onEditarClick={() => setModalEditarOpen(true)}
-          // onEliminarClick={handleEliminar}
+            // onEliminarClick={handleEliminar}
           />
-
         </CardContent>
       </Card>
       {/* <Card>
@@ -196,7 +215,9 @@ export default function ProspectoDetalle() {
 
       {/* Solicitudes de Inversión */}
       <div className="flex items-center justify-between mt-8">
-        <h2 className="text-xl font-semibold text-gray-800">Solicitudes de Inversión</h2>
+        <h2 className="text-xl font-semibold text-gray-800">
+          Solicitudes de Inversión
+        </h2>
         <Button
           onClick={() => navigate(`/solicitudes/nueva/${id}`)}
           className="bg-green-600 hover:bg-green-700 text-white"
@@ -214,8 +235,8 @@ export default function ProspectoDetalle() {
             mostrarEditar={true}
             mostrarAgregarNuevo={true}
             mostrarEliminar={true}
-          // onEditarClick={handleEditar}
-          // onEliminarClick={handleEliminar}
+            // onEditarClick={handleEditar}
+            // onEliminarClick={handleEliminar}
           />
         </CardContent>
       </Card>
