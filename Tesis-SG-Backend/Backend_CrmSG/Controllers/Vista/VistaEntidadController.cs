@@ -23,7 +23,8 @@ namespace Backend_CrmSG.Controllers.Vistas
             {
                 { "actividad", typeof(Models.Vistas.ActividadDetalle) },
                 { "prospecto", typeof(Models.Vistas.ProspectoDetalle) },
-                { "solicitudinversion", typeof(Models.Vistas.SolicitudInversionDetalle) }
+                { "solicitudinversion", typeof(Models.Vistas.SolicitudInversionDetalle) },
+                { "referencia" , typeof(ReferenciaDetalle) }
                 // Agrega aquí otras vistas como:
                 // { "solicitud", typeof(SolicitudInversionDetalle) }
             };
@@ -61,7 +62,8 @@ namespace Backend_CrmSG.Controllers.Vistas
     {
         { "actividad", typeof(ActividadDetalle) },
         { "prospecto", typeof(ProspectoDetalle) },
-        { "solicitud", typeof(SolicitudInversionDetalle) }
+        { "solicitud", typeof(SolicitudInversionDetalle) },
+        { "referencia" , typeof(ReferenciaDetalle) }
         // Agrega más vistas aquí si lo deseas
     };
 
