@@ -33,6 +33,7 @@ namespace Backend_CrmSG.Data
         public DbSet<Menu> Menu { get; set; }
         public DbSet<SolicitudInversion> SolicitudInversion { get; set; } // ← ESTA ES LA CLAVE
         public DbSet<Referencia> Referencia { get; set; } // ← esta línea
+        public DbSet<Beneficiario> Beneficiario { get; set; } // ← esta línea
 
         public DbSet<Producto> Producto { get; set; }
         public DbSet<ConfiguracionesProducto> ConfiguracionesProducto { get; set; } // ← ESTA ES LA CLAVE
@@ -50,6 +51,7 @@ namespace Backend_CrmSG.Data
         public DbSet<ProspectoDetalle> ProspectosDetalle { get; set; }
         public DbSet<SolicitudInversionDetalle> SolicitudesInversionDetalle { get; set; }
         public DbSet<ReferenciaDetalle> ReferenciasDetalle { get; set; } // ← esta línea
+        public DbSet<BeneficiarioDetalle> BeneficiariosDetalle { get; set; } // ← esta línea
 
 
         protected override void OnModelCreating(ModelBuilder modelBuilder)
@@ -78,6 +80,10 @@ namespace Backend_CrmSG.Data
             modelBuilder.Entity<ReferenciaDetalle>()
                 .HasNoKey()
                 .ToView("vw_ReferenciaDetalle");
+
+            modelBuilder.Entity<BeneficiarioDetalle>()
+                .HasNoKey()
+                .ToView("vw_BeneficiarioDetalle");
 
             base.OnModelCreating(modelBuilder);
         }
