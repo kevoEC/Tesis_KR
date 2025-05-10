@@ -76,6 +76,8 @@ const TipoActividadForm = lazy(() =>
 const Proyeccion = lazy(() =>
   import("@/pages/Entidad/Proyecciones/ProyeccionNueva")
 );
+
+const Adjunto = lazy(() => import("@/components/solicitud/Adjuntos"));
 const Pruebaflujo = lazy(() => import("@/pages/FlujoSolicitud"));
 
 export const publicRoutes = [
@@ -86,6 +88,7 @@ export const publicRoutes = [
   { path: "/legal/terminos", element: <Terminos /> },
   { path: "/legal/privacidad", element: <Politica /> },
   { path: "/prueba", element: <Pruebaflujo /> },
+  { path: "/adjunto/vista", element: <Adjunto /> },
 ];
 
 export const protectedRoutes = [

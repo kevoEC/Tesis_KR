@@ -26,14 +26,38 @@ export default function SolicitudInversion() {
     const fetchData = async () => {
       try {
         const data = await getSolicitudes(); // Ejecutar función async
-        setSolicitudes(data);
+
+        console.log("Inversiones", data.data);
+
+        setSolicitudes(data.data); // Almacenar solo las identificaciones
       } catch (error) {
-        console.error("Error al cargar prospectos:", error);
+        console.error("Error al cargar solicitudes:", error);
       }
     };
 
     fetchData();
   }, []);
+
+  // useEffect(() => {
+  //   const fetchData = async () => {
+  //     try {
+  //       const data = await getSolicitudes(); // Ejecutar función async
+
+  //       // Filtrar solo la parte de "identificacion"
+  //       const solicitudesFiltradas = data.data.map(
+  //         (item) => item.identificacion
+  //       );
+
+  //       console.log("Inversiones", solicitudesFiltradas);
+
+  //       setSolicitudes(solicitudesFiltradas); // Almacenar solo las identificaciones
+  //     } catch (error) {
+  //       console.error("Error al cargar solicitudes:", error);
+  //     }
+  //   };
+
+  //   fetchData();
+  // }, []);
 
   // ✏️ Editar
   const handleEditar = (item) => {
@@ -57,18 +81,15 @@ export default function SolicitudInversion() {
   };
 
   const columnasSolicitud = [
-    { key: "tipoActividad", label: "ID" },
-    { key: "idTipoSolicitud", label: "Tipo Solicitud" },
-    { key: "descripcion", label: "Tipo Cliente" },
-    { key: "duracion", label: "Fecha de Creación" },
-    { key: "vencimiento", label: "Fecha de Modificación" },
-    { key: "prioridad", label: "Propietario" },
-    { key: "prioridad", label: "JSON Document" },
+    { key: "idSolicitudInversion", label: "ID" },
+    { key: "nombreCompletoProspecto", label: "nombre Completo Prospecto" },
+    { key: "nombreCompletoCliente", label: "nombre Completo Cliente" },
+    { key: "nombrePropietario", label: "nombre Propietario" },
   ];
 
   return (
     <div>
-      <div>
+      {/* <div>
         <EntidadView
           titulo="Solicitudes de Inversión"
           entidad="solicitudinversion" // para el endpoint /filtrados
@@ -85,7 +106,7 @@ export default function SolicitudInversion() {
           onEditar={handleEditar}
           onEliminar={handleEliminar}
         />
-      </div>
+      </div> */}
       <div>
         <Card>
           <CardHeader>
