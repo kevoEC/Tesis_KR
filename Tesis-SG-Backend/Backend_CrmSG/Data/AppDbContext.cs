@@ -70,12 +70,8 @@ namespace Backend_CrmSG.Data
                 .ToView("vw_ProspectosDetalle");
 
             modelBuilder.Entity<SolicitudInversionDetalle>()
-            .HasNoKey()
-            .ToView("vw_SolicitudInversionDetalle"); // Asegúrate que este nombre coincida con el nombre real de la vista
-
-
-
-
+                .HasNoKey()
+                .ToView("vw_SolicitudIdentificacionVistaCompleta");
 
             base.OnModelCreating(modelBuilder);
         }
