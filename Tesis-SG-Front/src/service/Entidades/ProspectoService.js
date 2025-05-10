@@ -21,7 +21,7 @@ const getAuthHeaders = () => {
 
 // 🟢 GET: Listar todos los prospectos
 export const getProspectos = async () => {
-  const res = await fetch(`${API_BASE_URL}/Prospecto`, {
+  const res = await fetch(`${API_BASE_URL}/vista/prospecto`, {
     headers: getAuthHeaders(),
   });
   return handleResponse(res);

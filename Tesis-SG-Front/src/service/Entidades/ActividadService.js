@@ -45,21 +45,18 @@ let actividadesPorProspecto = {
   ],
 };
 
-export const getActividadesByProspectoId = async (idProspecto) => {
-  return actividadesPorProspecto[idProspecto] || [];
+// export const getActividadesByProspectoId = async (idProspecto) => {
+//   return actividadesPorProspecto[idProspecto] || [];
+// };
+
+// 🔵 GET: Obtener prospecto por ID
+export const getActividadesByProspectoId = async (id) => {
+  const res = await fetch(`${API_BASE_URL}/vista/actividad/filtrar?por=IdProspecto&id=${id}`, {
+    headers: getAuthHeaders(),
+  });
+  return handleResponse(res);
 };
 
-// export const createActividad = async (actividad) => {
-//   //const id = Date.now(); // ID simulado
-//   const nueva = { ...actividad, idActividad: id };
-//   const idP = actividad.idProspecto;
-
-//   if (!actividadesPorProspecto[idP]) actividadesPorProspecto[idP] = [];
-//   actividadesPorProspecto[idP].push(nueva);
-
-//   console.log("🟢 Actividad creada:", nueva);
-//   return nueva;
-// };
 // 🟡 POST: Crear nuevo prospecto
 export const createActividad = async (data) => {
   const res = await fetch(`${API_BASE_URL}/Actividad`, {
@@ -69,6 +66,8 @@ export const createActividad = async (data) => {
   });
   return handleResponse(res);
 };
+
+
 
 export const updateActividad = async (idActividad, data) => {
   const idP = data.idProspecto;

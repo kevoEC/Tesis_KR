@@ -87,7 +87,7 @@ export default function ModalActividad({
     };
 
     try {
-      console.warn("Payload a enviar:"+payload)
+      console.warn("Payload a enviar:" + payload)
       await createActividad(payload); // 🟢 Enviar al backend
       if (onSave) onSave(payload);   // 📣 Notificar al padre (por si necesita recargar)
       onClose();                     // 🔒 Cerrar el modal
@@ -96,6 +96,16 @@ export default function ModalActividad({
       alert("Hubo un error al crear la actividad. Intenta nuevamente.");
     }
   };
+
+  if (tiposActividad.length === 0 || prioridades.length === 0) {
+    return (
+      <Dialog open={open} onOpenChange={onClose}>
+        <DialogContent className="max-w-md text-center">
+          <p className="text-gray-600">Cargando catálogos...</p>
+        </DialogContent>
+      </Dialog>
+    );
+  }
 
 
 

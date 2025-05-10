@@ -57,18 +57,13 @@ export default function Prospectos() {
   const columnas = [
     {
       key: 'idProspecto',
-      label: 'IdProspecto',
+      label: 'Prospecto',
       render: (value) => (
         <div className="text-end font-semibold text-gray-800">
           {value}
         </div>
       ),
     },
-    { key: 'nombres', label: 'Nombres' },
-    { key: 'apellidoPaterno', label: 'Apellido Pat' },
-    { key: 'apellidoMaterno', label: 'Apellido Mat' },
-    { key: 'telefonoCelular', label: 'Celular' },
-    { key: 'correoElectronico', label: 'Correo' },
     {
       key: 'estado',
       label: 'Estado',
@@ -80,11 +75,21 @@ export default function Prospectos() {
           {value ? 'Activo' : 'Inactivo'}
         </span>
       ),
-    }
+    },
+    { key: 'nombres', label: 'Nombres' },
+    { key: 'apellidoPaterno', label: 'Apellido Pat' },
+    { key: 'apellidoMaterno', label: 'Apellido Mat' },
+    { key: 'tipoIdentificacion', label: 'Tipo ID' },
+    { key: 'telefonoCelular', label: 'Núm. Celular' },
+    { key: 'correoElectronico', label: 'Correo' },
+    { key: 'nombreOrigen', label: 'Origen' },
+    { key: 'productoInteres', label: 'Producto de Interés' },
+    { key: 'agencia', label: 'Agencia' },
+
   ];
 
   return (
-    <div>
+    <div className="p-4 sm:p-6 md:p-8 max-w-full">
       {/* <div>
       <EntidadView
         titulo="Prospectos"
@@ -101,15 +106,13 @@ export default function Prospectos() {
         onEditar={handleEditar}
         onEliminar={handleEliminar}
       />
-      
-
       </div> */}
 
-      <Card className="border border-muted rounded-xl shadow-[0_4px_10px_rgba(0,0,0,0.12)]">
+      <Card className="w-full border border-muted rounded-xl shadow-[0_4px_10px_rgba(0,0,0,0.12)]">
         <CardHeader>
-          <CardTitle>Lista de Prospectos</CardTitle>
+          <CardTitle className="text-3xl">Lista de Prospectos</CardTitle>
         </CardHeader>
-        <CardContent className="p-6">
+        <CardContent className="p-6 overflow-x-auto">
           <TablaCustom2
             columns={columnas}
             data={prospectos}
@@ -129,7 +132,7 @@ export default function Prospectos() {
             <DialogTitle>Agregar Prospecto</DialogTitle>
             <DialogDescription>Completa la información del nuevo prospecto</DialogDescription>
           </DialogHeader>
-          <ProspectoForm onClose={handleCerrarDialog}/>
+          <ProspectoForm onClose={handleCerrarDialog} />
         </DialogContent>
       </Dialog>
 

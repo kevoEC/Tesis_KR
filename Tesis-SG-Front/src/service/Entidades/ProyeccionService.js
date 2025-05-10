@@ -57,3 +57,14 @@ export const getCronogramaByProyeccionId = async (idProyeccion) => {
   );
   return handleResponse(res);
 };
+
+//Obtener la configuracion de 1 producto
+export const getConfiguracionByProductoId = async (idProducto) => {
+  const res = await fetch(
+    `${API_BASE_URL}/Producto/${idProducto}/configuraciones`,
+    {
+      headers: getAuthHeaders(),
+    }
+  );
+  return handleResponse(res);
+};
