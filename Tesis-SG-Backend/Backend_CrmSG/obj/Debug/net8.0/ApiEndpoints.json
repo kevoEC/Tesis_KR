@@ -1288,7 +1288,7 @@
       },
       {
         "Name": "dto",
-        "Type": "Backend_CrmSG.DTOs.SolicitudDTOs.SolicitudInversionDTO",
+        "Type": "Backend_CrmSG.DTOs.SolicitudDTOs.SolicitudInversionUpdateDTO",
         "IsRequired": true
       }
     ],

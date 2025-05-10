@@ -10,6 +10,18 @@ public static class SolicitudMapper
     {
         return new SolicitudInversionDTO
         {
+            IdSolicitudInversion = vista.IdSolicitudInversion,
+            IdUsuarioPropietario = vista.IdUsuarioPropietario,
+            IdProspecto = vista.IdProspecto,
+            IdCliente = vista.IdCliente,
+            NombreCompletoProspecto = vista.NombreCompletoProspecto,
+            NombreCompletoCliente = vista.NombreCompletoCliente,
+            NombrePropietario = vista.NombrePropietario,
+            NombreModificacion = vista.NombreModificacion,
+            FechaCreacion = vista.FechaCreacion,
+            FechaModificacion = vista.FechaModificacion,
+            IdUsuarioModificacion = vista.IdUsuarioModificacion,
+
             Identificacion = new IdentificacionDTO
             {
                 IdTipoSolicitud = vista.IdTipoSolicitud ?? 0,
@@ -143,9 +155,13 @@ public static class SolicitudMapper
 
     public static SolicitudInversion MapearParaCrear(SolicitudInversionCreateDTO dto)
     {
-        var jsonPayload = JsonSerializer.Serialize(dto.Identificacion, new JsonSerializerOptions
+        var jsonPayload = JsonSerializer.Serialize(new
         {
-            PropertyNamingPolicy = JsonNamingPolicy.CamelCase
+            identificacion = dto.Identificacion
+        }, new JsonSerializerOptions
+        {
+            PropertyNamingPolicy = JsonNamingPolicy.CamelCase,
+            WriteIndented = false
         });
 
         return new SolicitudInversion
@@ -158,6 +174,39 @@ public static class SolicitudMapper
             JSONDocument = jsonPayload
         };
     }
+
+
+
+    public static SolicitudInversion MapearParaActualizar(int id, SolicitudInversionUpdateDTO dto)
+    {
+        var jsonPayload = JsonSerializer.Serialize(new
+        {
+            identificacion = dto.Identificacion,
+            proyeccion = dto.Proyeccion,
+            datosGenerales = dto.DatosGenerales,
+            actividadEconomica = dto.ActividadEconomica,
+            datosEconomicos = dto.DatosEconomicos,
+            contactoUbicacion = dto.ContactoUbicacion,
+            banco = dto.Banco,
+            finalizacion = dto.Finalizacion,
+            adjuntos = dto.Adjuntos
+        }, new JsonSerializerOptions
+        {
+            PropertyNamingPolicy = JsonNamingPolicy.CamelCase,
+            WriteIndented = false
+        });
+
+        return new SolicitudInversion
+        {
+            IdSolicitudInversion = id,
+            FechaModificacion = DateTime.UtcNow,
+            IdUsuarioPropietario = dto.IdUsuarioPropietario,
+            IdProspecto = dto.IdProspecto,
+            IdCliente = dto.IdCliente,
+            JSONDocument = jsonPayload
+        };
+    }
+
 
 
 

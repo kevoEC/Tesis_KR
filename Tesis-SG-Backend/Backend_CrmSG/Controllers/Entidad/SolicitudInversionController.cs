@@ -82,21 +82,20 @@ namespace Backend_CrmSG.Controllers.Entidad
             }
         }
 
-
         [HttpPut("estructura/{id}")]
-        public async Task<IActionResult> UpdateDesdeDTO(int id, [FromBody] SolicitudInversionDTO dto)
+        public async Task<IActionResult> UpdateDesdeDTO(int id, [FromBody] SolicitudInversionUpdateDTO dto)
         {
             var existing = await _repository.GetByIdAsync(id);
             if (existing == null)
                 return NotFound();
 
-            existing.FechaModificacion = DateTime.Now;
-            existing.JSONDocument = System.Text.Json.JsonSerializer.Serialize(dto);
+            var updatedEntity = SolicitudMapper.MapearParaActualizar(id, dto);
 
-            await _repository.UpdateAsync(existing);
+            await _repository.UpdateAsync(updatedEntity);
 
             return Ok(new { success = true, message = "Solicitud actualizada correctamente." });
         }
+
 
 
         [HttpDelete("{id}")]
