@@ -22,6 +22,8 @@ namespace Backend_CrmSG.Controllers.Vistas
             var mapa = new Dictionary<string, Type>(StringComparer.OrdinalIgnoreCase)
             {
                 { "actividad", typeof(Models.Vistas.ActividadDetalle) },
+                { "prospecto", typeof(Models.Vistas.ProspectoDetalle) },
+                { "solicitudinversion", typeof(Models.Vistas.SolicitudInversionDetalle) }
                 // Agrega aquí otras vistas como:
                 // { "solicitud", typeof(SolicitudInversionDetalle) }
             };
@@ -59,6 +61,7 @@ namespace Backend_CrmSG.Controllers.Vistas
     {
         { "actividad", typeof(ActividadDetalle) },
         { "prospecto", typeof(ProspectoDetalle) },
+        { "solicitud", typeof(SolicitudInversionDetalle) }
         // Agrega más vistas aquí si lo deseas
     };
 
@@ -89,6 +92,46 @@ namespace Backend_CrmSG.Controllers.Vistas
             IEnumerable<object> resultados = await repo.GetAllAsync();
             return Ok(resultados);
         }
+
+        [HttpGet("solicitudinversion/filtrarDTO")]
+        public async Task<IActionResult> FiltrarVistaSolicitudInversionDTO([FromQuery] string por, [FromQuery] int id)
+        {
+            if (string.IsNullOrWhiteSpace(por))
+            {
+                return BadRequest(new { success = false, message = "Debe especificar el parámetro 'por'." });
+            }
+
+            var property = por.ToLower() switch
+            {
+                "prospecto" => "IdProspecto",
+                "cliente" => "IdCliente",
+                "solicitud" => "IdSolicitudInversion",
+                _ => null
+            };
+
+            if (property == null)
+            {
+                return BadRequest(new
+                {
+                    success = false,
+                    message = "Parámetro 'por' inválido. Use 'prospecto' o 'cliente'."
+                });
+            }
+
+            var repo = _serviceProvider.GetService<IRepository<SolicitudInversionDetalle>>();
+            if (repo == null)
+            {
+                return StatusCode(500, new { success = false, message = "No se pudo resolver el repositorio para la vista." });
+            }
+
+            var resultados = await repo.GetByPropertyAsync(property, id);
+
+            var mapeados = resultados.Select(SolicitudMapper.MapearDesdeVista).ToList();
+
+            return Ok(new { success = true, data = mapeados });
+        }
+
+
 
     }
 }

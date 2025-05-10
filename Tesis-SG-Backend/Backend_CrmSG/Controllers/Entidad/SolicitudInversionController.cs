@@ -2,8 +2,8 @@
 using Backend_CrmSG.Repositories;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
-using Backend_CrmSG.Helpers;
 using Backend_CrmSG.Models.Vistas;
+using Backend_CrmSG.DTOs.SolicitudDTOs;
 
 
 namespace Backend_CrmSG.Controllers.Entidad
@@ -29,18 +29,40 @@ namespace Backend_CrmSG.Controllers.Entidad
             return Ok(data);
         }
 
+        [HttpGet("detalle")]
+        public async Task<IActionResult> GetTodasConDetalle()
+        {
+            try
+            {
+                var vistas = await _vistaRepository.GetAllAsync();
+                var dtos = vistas.Select(SolicitudMapper.MapearDesdeVista).ToList();
+                return Ok(new { success = true, data = dtos });
+            }
+            catch (Exception ex)
+            {
+                return StatusCode(500, new
+                {
+                    success = false,
+                    message = "Ocurrió un error al obtener todas las solicitudes detalladas.",
+                    details = ex.Message
+                });
+            }
+        }
+
+
         [HttpGet("{id}")]
         public async Task<IActionResult> GetById(int id)
         {
             var item = await _repository.GetByIdAsync(id);
             return item == null ? NotFound() : Ok(item);
         }
-
-        [HttpPost]
-        public async Task<IActionResult> Create([FromBody] SolicitudInversion solicitud)
+        [HttpPost("estructura")]
+        public async Task<IActionResult> CreateDesdeDTO([FromBody] SolicitudInversionCreateDTO dto)
         {
             try
             {
+                var solicitud = SolicitudMapper.MapearParaCrear(dto);
+
                 await _repository.AddAsync(solicitud);
 
                 return Ok(new
@@ -54,23 +76,28 @@ namespace Backend_CrmSG.Controllers.Entidad
                 return BadRequest(new
                 {
                     success = false,
-                    message = "Ocurrió un error en el servidor. Intenta nuevamente.",
-                    details = ex.Message,
-                    inner = ex.InnerException?.Message,
-                    stack = ex.InnerException?.StackTrace
+                    message = "Error al crear la solicitud.",
+                    details = ex.Message
                 });
             }
         }
 
-        [HttpPut("{id}")]
-        public async Task<IActionResult> Update(int id, [FromBody] SolicitudInversion solicitud)
-        {
-            if (id != solicitud.IdSolicitudInversion)
-                return BadRequest();
 
-            await _repository.UpdateAsync(solicitud);
-            return NoContent();
+        [HttpPut("estructura/{id}")]
+        public async Task<IActionResult> UpdateDesdeDTO(int id, [FromBody] SolicitudInversionDTO dto)
+        {
+            var existing = await _repository.GetByIdAsync(id);
+            if (existing == null)
+                return NotFound();
+
+            existing.FechaModificacion = DateTime.Now;
+            existing.JSONDocument = System.Text.Json.JsonSerializer.Serialize(dto);
+
+            await _repository.UpdateAsync(existing);
+
+            return Ok(new { success = true, message = "Solicitud actualizada correctamente." });
         }
+
 
         [HttpDelete("{id}")]
         public async Task<IActionResult> Delete(int id)
@@ -113,7 +140,7 @@ namespace Backend_CrmSG.Controllers.Entidad
                 if (vista == null)
                     return NotFound(new { success = false, message = "Solicitud no encontrada" });
 
-                var dto = SolicitudMapper.MapearIdentificacion(vista);
+                var dto = SolicitudMapper.MapearDesdeVista(vista);
                 return Ok(new { success = true, data = dto });
             }
             catch (Exception ex)
@@ -125,7 +152,10 @@ namespace Backend_CrmSG.Controllers.Entidad
                     details = ex.Message
                 });
             }
+        
         }
+
+
 
 
 

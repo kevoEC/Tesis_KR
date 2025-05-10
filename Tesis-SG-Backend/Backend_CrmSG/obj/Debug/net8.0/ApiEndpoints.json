@@ -1201,22 +1201,6 @@
   },
   {
     "ContainingType": "Backend_CrmSG.Controllers.Entidad.SolicitudInversionController",
-    "Method": "Create",
-    "RelativePath": "api/SolicitudInversion",
-    "HttpMethod": "POST",
-    "IsController": true,
-    "Order": 0,
-    "Parameters": [
-      {
-        "Name": "solicitud",
-        "Type": "Backend_CrmSG.Models.Entidades.SolicitudInversion",
-        "IsRequired": true
-      }
-    ],
-    "ReturnTypes": []
-  },
-  {
-    "ContainingType": "Backend_CrmSG.Controllers.Entidad.SolicitudInversionController",
     "Method": "GetById",
     "RelativePath": "api/SolicitudInversion/{id}",
     "HttpMethod": "GET",
@@ -1226,27 +1210,6 @@
       {
         "Name": "id",
         "Type": "System.Int32",
-        "IsRequired": true
-      }
-    ],
-    "ReturnTypes": []
-  },
-  {
-    "ContainingType": "Backend_CrmSG.Controllers.Entidad.SolicitudInversionController",
-    "Method": "Update",
-    "RelativePath": "api/SolicitudInversion/{id}",
-    "HttpMethod": "PUT",
-    "IsController": true,
-    "Order": 0,
-    "Parameters": [
-      {
-        "Name": "id",
-        "Type": "System.Int32",
-        "IsRequired": true
-      },
-      {
-        "Name": "solicitud",
-        "Type": "Backend_CrmSG.Models.Entidades.SolicitudInversion",
         "IsRequired": true
       }
     ],
@@ -1270,6 +1233,16 @@
   },
   {
     "ContainingType": "Backend_CrmSG.Controllers.Entidad.SolicitudInversionController",
+    "Method": "GetTodasConDetalle",
+    "RelativePath": "api/SolicitudInversion/detalle",
+    "HttpMethod": "GET",
+    "IsController": true,
+    "Order": 0,
+    "Parameters": [],
+    "ReturnTypes": []
+  },
+  {
+    "ContainingType": "Backend_CrmSG.Controllers.Entidad.SolicitudInversionController",
     "Method": "GetDetalleById",
     "RelativePath": "api/SolicitudInversion/detalle/{id}",
     "HttpMethod": "GET",
@@ -1279,6 +1252,43 @@
       {
         "Name": "id",
         "Type": "System.Int32",
+        "IsRequired": true
+      }
+    ],
+    "ReturnTypes": []
+  },
+  {
+    "ContainingType": "Backend_CrmSG.Controllers.Entidad.SolicitudInversionController",
+    "Method": "CreateDesdeDTO",
+    "RelativePath": "api/SolicitudInversion/estructura",
+    "HttpMethod": "POST",
+    "IsController": true,
+    "Order": 0,
+    "Parameters": [
+      {
+        "Name": "dto",
+        "Type": "Backend_CrmSG.DTOs.SolicitudDTOs.SolicitudInversionCreateDTO",
+        "IsRequired": true
+      }
+    ],
+    "ReturnTypes": []
+  },
+  {
+    "ContainingType": "Backend_CrmSG.Controllers.Entidad.SolicitudInversionController",
+    "Method": "UpdateDesdeDTO",
+    "RelativePath": "api/SolicitudInversion/estructura/{id}",
+    "HttpMethod": "PUT",
+    "IsController": true,
+    "Order": 0,
+    "Parameters": [
+      {
+        "Name": "id",
+        "Type": "System.Int32",
+        "IsRequired": true
+      },
+      {
+        "Name": "dto",
+        "Type": "Backend_CrmSG.DTOs.SolicitudDTOs.SolicitudInversionDTO",
         "IsRequired": true
       }
     ],
@@ -2006,6 +2016,27 @@
         "Type": "System.String",
         "IsRequired": true
       },
+      {
+        "Name": "por",
+        "Type": "System.String",
+        "IsRequired": false
+      },
+      {
+        "Name": "id",
+        "Type": "System.Int32",
+        "IsRequired": false
+      }
+    ],
+    "ReturnTypes": []
+  },
+  {
+    "ContainingType": "Backend_CrmSG.Controllers.Vistas.VistaEntidadController",
+    "Method": "FiltrarVistaSolicitudInversionDTO",
+    "RelativePath": "api/vista/solicitudinversion/filtrarDTO",
+    "HttpMethod": "GET",
+    "IsController": true,
+    "Order": 0,
+    "Parameters": [
       {
         "Name": "por",
         "Type": "System.String",

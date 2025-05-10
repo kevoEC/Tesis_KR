@@ -8,13 +8,6 @@ namespace Backend_CrmSG.Models.Entidades
         [Key]
         public int IdSolicitudInversion { get; set; }
 
-        [StringLength(32)]
-        public string? Identificacion { get; set; }
-
-        public int? IdTipoSolicitud { get; set; }
-
-        public int? IdTipoCliente { get; set; }
-
         public DateTime? FechaCreacion { get; set; }
 
         public DateTime? FechaModificacion { get; set; }
