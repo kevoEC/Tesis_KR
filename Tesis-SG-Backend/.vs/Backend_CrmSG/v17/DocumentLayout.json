@@ -3,6 +3,10 @@
   "WorkspaceRootPath": "D:\\Tesis KR\\Tesis_KR\\Tesis-SG-Backend\\",
   "Documents": [
     {
+      "AbsoluteMoniker": "D:0:0:{88881720-DDFC-4CF2-AE03-0B7DABEF7FB1}|Backend_CrmSG\\Backend_CrmSG.csproj|d:\\tesis kr\\tesis_kr\\tesis-sg-backend\\backend_crmsg\\appsettings.json||{90A6B3A7-C1A3-4009-A288-E2FF89E96FA0}",
+      "RelativeMoniker": "D:0:0:{88881720-DDFC-4CF2-AE03-0B7DABEF7FB1}|Backend_CrmSG\\Backend_CrmSG.csproj|solutionrelative:backend_crmsg\\appsettings.json||{90A6B3A7-C1A3-4009-A288-E2FF89E96FA0}"
+    },
+    {
       "AbsoluteMoniker": "D:0:0:{88881720-DDFC-4CF2-AE03-0B7DABEF7FB1}|Backend_CrmSG\\Backend_CrmSG.csproj|d:\\tesis kr\\tesis_kr\\tesis-sg-backend\\backend_crmsg\\dtos\\solicituddtos\\identificaciondto.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
       "RelativeMoniker": "D:0:0:{88881720-DDFC-4CF2-AE03-0B7DABEF7FB1}|Backend_CrmSG\\Backend_CrmSG.csproj|solutionrelative:backend_crmsg\\dtos\\solicituddtos\\identificaciondto.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
     },
@@ -71,10 +75,6 @@
       "RelativeMoniker": "D:0:0:{88881720-DDFC-4CF2-AE03-0B7DABEF7FB1}|Backend_CrmSG\\Backend_CrmSG.csproj|solutionrelative:backend_crmsg\\properties\\launchsettings.json||{90A6B3A7-C1A3-4009-A288-E2FF89E96FA0}"
     },
     {
-      "AbsoluteMoniker": "D:0:0:{88881720-DDFC-4CF2-AE03-0B7DABEF7FB1}|Backend_CrmSG\\Backend_CrmSG.csproj|d:\\tesis kr\\tesis_kr\\tesis-sg-backend\\backend_crmsg\\appsettings.json||{90A6B3A7-C1A3-4009-A288-E2FF89E96FA0}",
-      "RelativeMoniker": "D:0:0:{88881720-DDFC-4CF2-AE03-0B7DABEF7FB1}|Backend_CrmSG\\Backend_CrmSG.csproj|solutionrelative:backend_crmsg\\appsettings.json||{90A6B3A7-C1A3-4009-A288-E2FF89E96FA0}"
-    },
-    {
       "AbsoluteMoniker": "D:0:0:{88881720-DDFC-4CF2-AE03-0B7DABEF7FB1}|Backend_CrmSG\\Backend_CrmSG.csproj|d:\\tesis kr\\tesis_kr\\tesis-sg-backend\\backend_crmsg\\models\\vistas\\actividaddetalle.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
       "RelativeMoniker": "D:0:0:{88881720-DDFC-4CF2-AE03-0B7DABEF7FB1}|Backend_CrmSG\\Backend_CrmSG.csproj|solutionrelative:backend_crmsg\\models\\vistas\\actividaddetalle.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
     },
@@ -138,11 +138,11 @@
       "DocumentGroups": [
         {
           "DockedWidth": 200,
-          "SelectedChildIndex": 3,
+          "SelectedChildIndex": 24,
           "Children": [
             {
               "$type": "Document",
-              "DocumentIndex": 4,
+              "DocumentIndex": 5,
               "Title": "SolicitudIdentificacionDTO.cs",
               "DocumentMoniker": "D:\\Tesis KR\\Tesis_KR\\Tesis-SG-Backend\\Backend_CrmSG\\DTOs\\SolicitudDTOs\\SolicitudIdentificacionDTO.cs",
               "RelativeDocumentMoniker": "Backend_CrmSG\\DTOs\\SolicitudDTOs\\SolicitudIdentificacionDTO.cs",
@@ -150,12 +150,11 @@
               "RelativeToolTip": "Backend_CrmSG\\DTOs\\SolicitudDTOs\\SolicitudIdentificacionDTO.cs",
               "ViewState": "AgIAAAAAAAAAAAAAAAAAAA4AAAA2AAAAAAAAAA==",
               "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
-              "WhenOpened": "2025-05-09T22:25:16.812Z",
-              "EditorCaption": ""
+              "WhenOpened": "2025-05-09T22:25:16.812Z"
             },
             {
               "$type": "Document",
-              "DocumentIndex": 1,
+              "DocumentIndex": 2,
               "Title": "SolicitudMapper.cs",
               "DocumentMoniker": "D:\\Tesis KR\\Tesis_KR\\Tesis-SG-Backend\\Backend_CrmSG\\Helpers\\SolicitudMapper.cs",
               "RelativeDocumentMoniker": "Backend_CrmSG\\Helpers\\SolicitudMapper.cs",
@@ -163,12 +162,11 @@
               "RelativeToolTip": "Backend_CrmSG\\Helpers\\SolicitudMapper.cs",
               "ViewState": "AgIAABYAAAAAAAAAAAAswDkAAAAAAAAAAAAAAA==",
               "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
-              "WhenOpened": "2025-05-09T22:24:39.816Z",
-              "EditorCaption": ""
+              "WhenOpened": "2025-05-09T22:24:39.816Z"
             },
             {
               "$type": "Document",
-              "DocumentIndex": 6,
+              "DocumentIndex": 7,
               "Title": "SolicitudInversionDetalle.cs",
               "DocumentMoniker": "D:\\Tesis KR\\Tesis_KR\\Tesis-SG-Backend\\Backend_CrmSG\\Models\\Vistas\\SolicitudInversionDetalle.cs",
               "RelativeDocumentMoniker": "Backend_CrmSG\\Models\\Vistas\\SolicitudInversionDetalle.cs",
@@ -176,25 +174,24 @@
               "RelativeToolTip": "Backend_CrmSG\\Models\\Vistas\\SolicitudInversionDetalle.cs",
               "ViewState": "AgIAAAAAAAAAAAAAAAAAAAQAAAA1AAAAAAAAAA==",
               "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
-              "WhenOpened": "2025-05-09T22:22:09.74Z",
-              "EditorCaption": ""
+              "WhenOpened": "2025-05-09T22:22:09.74Z"
             },
             {
               "$type": "Document",
-              "DocumentIndex": 0,
+              "DocumentIndex": 1,
               "Title": "IdentificacionDTO.cs",
               "DocumentMoniker": "D:\\Tesis KR\\Tesis_KR\\Tesis-SG-Backend\\Backend_CrmSG\\DTOs\\SolicitudDTOs\\IdentificacionDTO.cs",
               "RelativeDocumentMoniker": "Backend_CrmSG\\DTOs\\SolicitudDTOs\\IdentificacionDTO.cs",
               "ToolTip": "D:\\Tesis KR\\Tesis_KR\\Tesis-SG-Backend\\Backend_CrmSG\\DTOs\\SolicitudDTOs\\IdentificacionDTO.cs",
               "RelativeToolTip": "Backend_CrmSG\\DTOs\\SolicitudDTOs\\IdentificacionDTO.cs",
-              "ViewState": "AgIAABIAAAAAAAAAAAA3wAsAAAAwAAAAAAAAAA==",
+              "ViewState": "AgIAABMAAAAAAAAAAAAYwAsAAAAwAAAAAAAAAA==",
               "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
               "WhenOpened": "2025-05-09T22:06:09.458Z",
               "EditorCaption": ""
             },
             {
               "$type": "Document",
-              "DocumentIndex": 7,
+              "DocumentIndex": 8,
               "Title": "TipoSolicitudController.cs",
               "DocumentMoniker": "D:\\Tesis KR\\Tesis_KR\\Tesis-SG-Backend\\Backend_CrmSG\\Controllers\\Catalogo\\TipoSolicitudController.cs",
               "RelativeDocumentMoniker": "Backend_CrmSG\\Controllers\\Catalogo\\TipoSolicitudController.cs",
@@ -202,12 +199,11 @@
               "RelativeToolTip": "Backend_CrmSG\\Controllers\\Catalogo\\TipoSolicitudController.cs",
               "ViewState": "AgIAAA4AAAAAAAAAAAAewB8AAABbAAAAAAAAAA==",
               "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
-              "WhenOpened": "2025-05-09T21:32:44.288Z",
-              "EditorCaption": ""
+              "WhenOpened": "2025-05-09T21:32:44.288Z"
             },
             {
               "$type": "Document",
-              "DocumentIndex": 9,
+              "DocumentIndex": 10,
               "Title": "TipoClienteController.cs",
               "DocumentMoniker": "D:\\Tesis KR\\Tesis_KR\\Tesis-SG-Backend\\Backend_CrmSG\\Controllers\\Catalogo\\TipoClienteController.cs",
               "RelativeDocumentMoniker": "Backend_CrmSG\\Controllers\\Catalogo\\TipoClienteController.cs",
@@ -215,12 +211,11 @@
               "RelativeToolTip": "Backend_CrmSG\\Controllers\\Catalogo\\TipoClienteController.cs",
               "ViewState": "AgIAACgAAAAAAAAAAAAcwAoAAAA+AAAAAAAAAA==",
               "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
-              "WhenOpened": "2025-05-09T21:32:27.568Z",
-              "EditorCaption": ""
+              "WhenOpened": "2025-05-09T21:32:27.568Z"
             },
             {
               "$type": "Document",
-              "DocumentIndex": 10,
+              "DocumentIndex": 11,
               "Title": "TipoCliente.cs",
               "DocumentMoniker": "D:\\Tesis KR\\Tesis_KR\\Tesis-SG-Backend\\Backend_CrmSG\\Models\\Catalogos\\TipoCliente.cs",
               "RelativeDocumentMoniker": "Backend_CrmSG\\Models\\Catalogos\\TipoCliente.cs",
@@ -228,12 +223,11 @@
               "RelativeToolTip": "Backend_CrmSG\\Models\\Catalogos\\TipoCliente.cs",
               "ViewState": "AgIAAAAAAAAAAAAAAAAAAAkAAAASAAAAAAAAAA==",
               "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
-              "WhenOpened": "2025-05-09T21:31:06.274Z",
-              "EditorCaption": ""
+              "WhenOpened": "2025-05-09T21:31:06.274Z"
             },
             {
               "$type": "Document",
-              "DocumentIndex": 11,
+              "DocumentIndex": 12,
               "Title": "TipoIdentificacionController.cs",
               "DocumentMoniker": "D:\\Tesis KR\\Tesis_KR\\Tesis-SG-Backend\\Backend_CrmSG\\Controllers\\Catalogo\\TipoIdentificacionController.cs",
               "RelativeDocumentMoniker": "Backend_CrmSG\\Controllers\\Catalogo\\TipoIdentificacionController.cs",
@@ -241,12 +235,11 @@
               "RelativeToolTip": "Backend_CrmSG\\Controllers\\Catalogo\\TipoIdentificacionController.cs",
               "ViewState": "AgIAACAAAAAAAAAAAAAIwEAAAAAAAAAAAAAAAA==",
               "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
-              "WhenOpened": "2025-05-09T21:23:45.556Z",
-              "EditorCaption": ""
+              "WhenOpened": "2025-05-09T21:23:45.556Z"
             },
             {
               "$type": "Document",
-              "DocumentIndex": 12,
+              "DocumentIndex": 13,
               "Title": "TipoIdentificacion.cs",
               "DocumentMoniker": "D:\\Tesis KR\\Tesis_KR\\Tesis-SG-Backend\\Backend_CrmSG\\Models\\Catalogos\\TipoIdentificacion.cs",
               "RelativeDocumentMoniker": "Backend_CrmSG\\Models\\Catalogos\\TipoIdentificacion.cs",
@@ -254,12 +247,11 @@
               "RelativeToolTip": "Backend_CrmSG\\Models\\Catalogos\\TipoIdentificacion.cs",
               "ViewState": "AgIAAAAAAAAAAAAAAAAAAAsAAAAAAAAAAAAAAA==",
               "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
-              "WhenOpened": "2025-05-09T21:23:33.507Z",
-              "EditorCaption": ""
+              "WhenOpened": "2025-05-09T21:23:33.507Z"
             },
             {
               "$type": "Document",
-              "DocumentIndex": 8,
+              "DocumentIndex": 9,
               "Title": "TipoSolicitud.cs",
               "DocumentMoniker": "D:\\Tesis KR\\Tesis_KR\\Tesis-SG-Backend\\Backend_CrmSG\\Models\\Catalogos\\TipoSolicitud.cs",
               "RelativeDocumentMoniker": "Backend_CrmSG\\Models\\Catalogos\\TipoSolicitud.cs",
@@ -267,12 +259,11 @@
               "RelativeToolTip": "Backend_CrmSG\\Models\\Catalogos\\TipoSolicitud.cs",
               "ViewState": "AgIAAAAAAAAAAAAAAAAAAAgAAAANAAAAAAAAAA==",
               "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
-              "WhenOpened": "2025-05-09T21:23:21.54Z",
-              "EditorCaption": ""
+              "WhenOpened": "2025-05-09T21:23:21.54Z"
             },
             {
               "$type": "Document",
-              "DocumentIndex": 13,
+              "DocumentIndex": 14,
               "Title": "ProspectoDetalle.cs",
               "DocumentMoniker": "D:\\Tesis KR\\Tesis_KR\\Tesis-SG-Backend\\Backend_CrmSG\\Models\\Vistas\\ProspectoDetalle.cs",
               "RelativeDocumentMoniker": "Backend_CrmSG\\Models\\Vistas\\ProspectoDetalle.cs",
@@ -280,8 +271,7 @@
               "RelativeToolTip": "Backend_CrmSG\\Models\\Vistas\\ProspectoDetalle.cs",
               "ViewState": "AgIAAAAAAAAAAAAAAAAqwAsAAAAAAAAAAAAAAA==",
               "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
-              "WhenOpened": "2025-05-09T19:59:59.505Z",
-              "EditorCaption": ""
+              "WhenOpened": "2025-05-09T19:59:59.505Z"
             },
             {
               "$type": "Document",
@@ -293,12 +283,11 @@
               "RelativeToolTip": "Backend_CrmSG\\Controllers\\Entidad\\ProspectoController.cs",
               "ViewState": "AgIAAA0AAAAAAAAAAAAgwBkAAAA0AAAAAAAAAA==",
               "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
-              "WhenOpened": "2025-05-09T19:53:45.728Z",
-              "EditorCaption": ""
+              "WhenOpened": "2025-05-09T19:53:45.728Z"
             },
             {
               "$type": "Document",
-              "DocumentIndex": 2,
+              "DocumentIndex": 3,
               "Title": "AppDbContext.cs",
               "DocumentMoniker": "D:\\Tesis KR\\Tesis_KR\\Tesis-SG-Backend\\Backend_CrmSG\\Data\\AppDbContext.cs",
               "RelativeDocumentMoniker": "Backend_CrmSG\\Data\\AppDbContext.cs",
@@ -306,12 +295,11 @@
               "RelativeToolTip": "Backend_CrmSG\\Data\\AppDbContext.cs",
               "ViewState": "AgIAAA8AAAAAAAAAAAA8wE8AAAAsAAAAAAAAAA==",
               "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
-              "WhenOpened": "2025-05-09T19:47:44.27Z",
-              "EditorCaption": ""
+              "WhenOpened": "2025-05-09T19:47:44.27Z"
             },
             {
               "$type": "Document",
-              "DocumentIndex": 15,
+              "DocumentIndex": 16,
               "Title": "VistaEntidadController.cs",
               "DocumentMoniker": "D:\\Tesis KR\\Tesis_KR\\Tesis-SG-Backend\\Backend_CrmSG\\Controllers\\Vista\\VistaEntidadController.cs",
               "RelativeDocumentMoniker": "Backend_CrmSG\\Controllers\\Vista\\VistaEntidadController.cs",
@@ -319,8 +307,7 @@
               "RelativeToolTip": "Backend_CrmSG\\Controllers\\Vista\\VistaEntidadController.cs",
               "ViewState": "AgIAABIAAAAAAAAAAAA5wEgAAAAAAAAAAAAAAA==",
               "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
-              "WhenOpened": "2025-05-09T19:44:42.142Z",
-              "EditorCaption": ""
+              "WhenOpened": "2025-05-09T19:44:42.142Z"
             },
             {
               "$type": "Document",
@@ -332,12 +319,11 @@
               "RelativeToolTip": "Backend_CrmSG\\Models\\Vistas\\ActividadDetalle.cs",
               "ViewState": "AgIAAAkAAAAAAAAAAAA4wAYAAAAwAAAAAAAAAA==",
               "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
-              "WhenOpened": "2025-05-09T19:42:28.874Z",
-              "EditorCaption": ""
+              "WhenOpened": "2025-05-09T19:42:28.874Z"
             },
             {
               "$type": "Document",
-              "DocumentIndex": 14,
+              "DocumentIndex": 15,
               "Title": "Program.cs",
               "DocumentMoniker": "D:\\Tesis KR\\Tesis_KR\\Tesis-SG-Backend\\Backend_CrmSG\\Program.cs",
               "RelativeDocumentMoniker": "Backend_CrmSG\\Program.cs",
@@ -345,8 +331,7 @@
               "RelativeToolTip": "Backend_CrmSG\\Program.cs",
               "ViewState": "AgIAAKAAAAAAAAAAAAAUwJ0AAAAAAAAAAAAAAA==",
               "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
-              "WhenOpened": "2025-05-09T15:51:33.989Z",
-              "EditorCaption": ""
+              "WhenOpened": "2025-05-09T15:51:33.989Z"
             },
             {
               "$type": "Document",
@@ -358,8 +343,7 @@
               "RelativeToolTip": "Backend_CrmSG\\Services\\Seguridad\\IUsuarioService.cs",
               "ViewState": "AgIAAAAAAAAAAAAAAAAAABoAAAA/AAAAAAAAAA==",
               "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
-              "WhenOpened": "2025-05-09T15:27:32.182Z",
-              "EditorCaption": ""
+              "WhenOpened": "2025-05-09T15:27:32.182Z"
             },
             {
               "$type": "Document",
@@ -371,8 +355,7 @@
               "RelativeToolTip": "Backend_CrmSG\\Services\\Seguridad\\UsuarioService.cs",
               "ViewState": "AgIAADsAAAAAAAAAAAAIwBYAAAAzAAAAAAAAAA==",
               "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
-              "WhenOpened": "2025-05-09T15:27:16.475Z",
-              "EditorCaption": ""
+              "WhenOpened": "2025-05-09T15:27:16.475Z"
             },
             {
               "$type": "Document",
@@ -436,7 +419,7 @@
             },
             {
               "$type": "Document",
-              "DocumentIndex": 16,
+              "DocumentIndex": 17,
               "Title": "launchSettings.json",
               "DocumentMoniker": "D:\\Tesis KR\\Tesis_KR\\Tesis-SG-Backend\\Backend_CrmSG\\Properties\\launchSettings.json",
               "RelativeDocumentMoniker": "Backend_CrmSG\\Properties\\launchSettings.json",
@@ -444,18 +427,17 @@
               "RelativeToolTip": "Backend_CrmSG\\Properties\\launchSettings.json",
               "ViewState": "AgIAAAAAAAAAAAAAAAAAACkAAAAAAAAAAAAAAA==",
               "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.001642|",
-              "WhenOpened": "2025-05-08T23:19:15.024Z",
-              "EditorCaption": ""
+              "WhenOpened": "2025-05-08T23:19:15.024Z"
             },
             {
               "$type": "Document",
-              "DocumentIndex": 17,
+              "DocumentIndex": 0,
               "Title": "appsettings.json",
               "DocumentMoniker": "D:\\Tesis KR\\Tesis_KR\\Tesis-SG-Backend\\Backend_CrmSG\\appsettings.json",
               "RelativeDocumentMoniker": "Backend_CrmSG\\appsettings.json",
               "ToolTip": "D:\\Tesis KR\\Tesis_KR\\Tesis-SG-Backend\\Backend_CrmSG\\appsettings.json",
               "RelativeToolTip": "Backend_CrmSG\\appsettings.json",
-              "ViewState": "AgIAAAAAAAAAAAAAAAAAAAkAAAAiAAAAAAAAAA==",
+              "ViewState": "AgIAAAAAAAAAAAAAAAAAABYAAAAFAAAAAAAAAA==",
               "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.001642|",
               "WhenOpened": "2025-05-08T23:17:55.523Z",
               "EditorCaption": ""
@@ -470,12 +452,11 @@
               "RelativeToolTip": "Backend_CrmSG\\Models\\Entidades\\SolicitudInversion.cs",
               "ViewState": "AgIAAAAAAAAAAAAAAAAAABIAAAAAAAAAAAAAAA==",
               "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
-              "WhenOpened": "2025-05-08T23:14:26.351Z",
-              "EditorCaption": ""
+              "WhenOpened": "2025-05-08T23:14:26.351Z"
             },
             {
               "$type": "Document",
-              "DocumentIndex": 5,
+              "DocumentIndex": 6,
               "Title": "SolicitudInversionController.cs",
               "DocumentMoniker": "D:\\Tesis KR\\Tesis_KR\\Tesis-SG-Backend\\Backend_CrmSG\\Controllers\\Entidad\\SolicitudInversionController.cs",
               "RelativeDocumentMoniker": "Backend_CrmSG\\Controllers\\Entidad\\SolicitudInversionController.cs",
@@ -483,8 +464,7 @@
               "RelativeToolTip": "Backend_CrmSG\\Controllers\\Entidad\\SolicitudInversionController.cs",
               "ViewState": "AgIAAFYAAAAAAAAAAAAuwGkAAAAhAAAAAAAAAA==",
               "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
-              "WhenOpened": "2025-05-08T23:13:04.851Z",
-              "EditorCaption": ""
+              "WhenOpened": "2025-05-08T23:13:04.851Z"
             },
             {
               "$type": "Document",
@@ -508,8 +488,7 @@
               "RelativeToolTip": "Backend_CrmSG\\Controllers\\Entidad\\ActividadController.cs",
               "ViewState": "AgIAABQAAAAAAAAAAAAAwEcAAAAAAAAAAAAAAA==",
               "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
-              "WhenOpened": "2025-05-08T23:02:03.039Z",
-              "EditorCaption": ""
+              "WhenOpened": "2025-05-08T23:02:03.039Z"
             },
             {
               "$type": "Document",
@@ -521,12 +500,11 @@
               "RelativeToolTip": "Backend_CrmSG\\Repositories\\IRepository.cs",
               "ViewState": "AgIAAAAAAAAAAAAAAAAAAA8AAAAAAAAAAAAAAA==",
               "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
-              "WhenOpened": "2025-05-08T22:56:36.717Z",
-              "EditorCaption": ""
+              "WhenOpened": "2025-05-08T22:56:36.717Z"
             },
             {
               "$type": "Document",
-              "DocumentIndex": 3,
+              "DocumentIndex": 4,
               "Title": "Repository.cs",
               "DocumentMoniker": "D:\\Tesis KR\\Tesis_KR\\Tesis-SG-Backend\\Backend_CrmSG\\Repositories\\Repository.cs",
               "RelativeDocumentMoniker": "Backend_CrmSG\\Repositories\\Repository.cs",
@@ -534,8 +512,7 @@
               "RelativeToolTip": "Backend_CrmSG\\Repositories\\Repository.cs",
               "ViewState": "AgIAAD0AAAAAAAAAAAAtwBAAAAAmAAAAAAAAAA==",
               "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
-              "WhenOpened": "2025-05-08T22:56:33.032Z",
-              "EditorCaption": ""
+              "WhenOpened": "2025-05-08T22:56:33.032Z"
             },
             {
               "$type": "Document",
@@ -547,8 +524,7 @@
               "RelativeToolTip": "Backend_CrmSG\\Controllers\\Seguridad\\UsuarioController.cs",
               "ViewState": "AgIAAB4AAAAAAAAAAAAowDcAAAAmAAAAAAAAAA==",
               "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
-              "WhenOpened": "2025-05-08T17:00:25.239Z",
-              "EditorCaption": ""
+              "WhenOpened": "2025-05-08T17:00:25.239Z"
             }
           ]
         }
