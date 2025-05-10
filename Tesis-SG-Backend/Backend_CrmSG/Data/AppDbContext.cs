@@ -4,6 +4,7 @@ using Backend_CrmSG.Models.Catalogos;
 using Backend_CrmSG.Models.Seguridad;
 using Backend_CrmSG.Models.Catalogos.Producto;
 using Backend_CrmSG.Models.Entidades;
+using Backend_CrmSG.Models.Vistas;
 
 namespace Backend_CrmSG.Data
 {
@@ -18,6 +19,9 @@ namespace Backend_CrmSG.Data
         public DbSet<Prioridad> Prioridad { get; set; }
         public DbSet<Agencia> Agencia { get; set; }
         public DbSet<ProductoInteres> ProductoInteres { get; set; }
+        public DbSet<TipoCliente> TipoCliente { get; set; }
+        public DbSet<TipoSolicitud> TipoSolicitud { get; set; }
+
         // DbSets de tus tablas de entidades principales
         public DbSet<Prospecto> Prospecto { get; set; }
         public DbSet<Actividad> Actividad { get; set; }
@@ -39,6 +43,13 @@ namespace Backend_CrmSG.Data
         public DbSet<TipoTransaccion> TipoTransaccion { get; set; }
         public DbSet<TransaccionesValidacion> TransaccionesValidacion { get; set; }
 
+        // VISTAS
+
+        public DbSet<ActividadDetalle> ActividadesDetalle { get; set; } // ← esta línea
+        public DbSet<ProspectoDetalle> ProspectosDetalle { get; set; }
+        public DbSet<SolicitudInversionDetalle> SolicitudesInversionDetalle { get; set; }
+
+
         protected override void OnModelCreating(ModelBuilder modelBuilder)
         {
             // Configuración de clave compuesta para UsuarioRol
@@ -49,6 +60,22 @@ namespace Backend_CrmSG.Data
                 .Ignore(p => p.Producto)
                 .Ignore(p => p.ConfiguracionUsada)
                 .Ignore(p => p.SolicitudInversion);
+
+            modelBuilder.Entity<ActividadDetalle>()
+            .HasNoKey()
+            .ToView("vw_ActividadesConDetalle");
+
+            modelBuilder.Entity<ProspectoDetalle>()
+                .HasNoKey()
+                .ToView("vw_ProspectosDetalle");
+
+            modelBuilder.Entity<SolicitudInversionDetalle>()
+            .HasNoKey()
+            .ToView("vw_SolicitudInversionDetalle"); // Asegúrate que este nombre coincida con el nombre real de la vista
+
+
+
+
 
             base.OnModelCreating(modelBuilder);
         }

@@ -1270,6 +1270,22 @@
   },
   {
     "ContainingType": "Backend_CrmSG.Controllers.Entidad.SolicitudInversionController",
+    "Method": "GetDetalleById",
+    "RelativePath": "api/SolicitudInversion/detalle/{id}",
+    "HttpMethod": "GET",
+    "IsController": true,
+    "Order": 0,
+    "Parameters": [
+      {
+        "Name": "id",
+        "Type": "System.Int32",
+        "IsRequired": true
+      }
+    ],
+    "ReturnTypes": []
+  },
+  {
+    "ContainingType": "Backend_CrmSG.Controllers.Entidad.SolicitudInversionController",
     "Method": "FiltrarPorId",
     "RelativePath": "api/SolicitudInversion/filtrar",
     "HttpMethod": "GET",
@@ -1425,6 +1441,85 @@
     "ReturnTypes": []
   },
   {
+    "ContainingType": "Backend_CrmSG.Controllers.Catalogos.TipoClienteController",
+    "Method": "Get",
+    "RelativePath": "api/TipoCliente",
+    "HttpMethod": "GET",
+    "IsController": true,
+    "Order": 0,
+    "Parameters": [],
+    "ReturnTypes": []
+  },
+  {
+    "ContainingType": "Backend_CrmSG.Controllers.Catalogos.TipoClienteController",
+    "Method": "Post",
+    "RelativePath": "api/TipoCliente",
+    "HttpMethod": "POST",
+    "IsController": true,
+    "Order": 0,
+    "Parameters": [
+      {
+        "Name": "item",
+        "Type": "Backend_CrmSG.Models.Catalogos.TipoCliente",
+        "IsRequired": true
+      }
+    ],
+    "ReturnTypes": []
+  },
+  {
+    "ContainingType": "Backend_CrmSG.Controllers.Catalogos.TipoClienteController",
+    "Method": "Get",
+    "RelativePath": "api/TipoCliente/{id}",
+    "HttpMethod": "GET",
+    "IsController": true,
+    "Order": 0,
+    "Parameters": [
+      {
+        "Name": "id",
+        "Type": "System.Int32",
+        "IsRequired": true
+      }
+    ],
+    "ReturnTypes": []
+  },
+  {
+    "ContainingType": "Backend_CrmSG.Controllers.Catalogos.TipoClienteController",
+    "Method": "Put",
+    "RelativePath": "api/TipoCliente/{id}",
+    "HttpMethod": "PUT",
+    "IsController": true,
+    "Order": 0,
+    "Parameters": [
+      {
+        "Name": "id",
+        "Type": "System.Int32",
+        "IsRequired": true
+      },
+      {
+        "Name": "item",
+        "Type": "Backend_CrmSG.Models.Catalogos.TipoCliente",
+        "IsRequired": true
+      }
+    ],
+    "ReturnTypes": []
+  },
+  {
+    "ContainingType": "Backend_CrmSG.Controllers.Catalogos.TipoClienteController",
+    "Method": "Delete",
+    "RelativePath": "api/TipoCliente/{id}",
+    "HttpMethod": "DELETE",
+    "IsController": true,
+    "Order": 0,
+    "Parameters": [
+      {
+        "Name": "id",
+        "Type": "System.Int32",
+        "IsRequired": true
+      }
+    ],
+    "ReturnTypes": []
+  },
+  {
     "ContainingType": "Backend_CrmSG.Controllers.Catalogos.TipoIdentificacionController",
     "Method": "Get",
     "RelativePath": "api/TipoIdentificacion",
@@ -1521,6 +1616,85 @@
     "ContainingType": "Backend_CrmSG.Controllers.Catalogos.TipoIdentificacionController",
     "Method": "Delete",
     "RelativePath": "api/TipoIdentificacion/{id}",
+    "HttpMethod": "DELETE",
+    "IsController": true,
+    "Order": 0,
+    "Parameters": [
+      {
+        "Name": "id",
+        "Type": "System.Int32",
+        "IsRequired": true
+      }
+    ],
+    "ReturnTypes": []
+  },
+  {
+    "ContainingType": "Backend_CrmSG.Controllers.Catalogos.TipoSolicitudController",
+    "Method": "Get",
+    "RelativePath": "api/TipoSolicitud",
+    "HttpMethod": "GET",
+    "IsController": true,
+    "Order": 0,
+    "Parameters": [],
+    "ReturnTypes": []
+  },
+  {
+    "ContainingType": "Backend_CrmSG.Controllers.Catalogos.TipoSolicitudController",
+    "Method": "Post",
+    "RelativePath": "api/TipoSolicitud",
+    "HttpMethod": "POST",
+    "IsController": true,
+    "Order": 0,
+    "Parameters": [
+      {
+        "Name": "item",
+        "Type": "Backend_CrmSG.Models.Catalogos.TipoSolicitud",
+        "IsRequired": true
+      }
+    ],
+    "ReturnTypes": []
+  },
+  {
+    "ContainingType": "Backend_CrmSG.Controllers.Catalogos.TipoSolicitudController",
+    "Method": "Get",
+    "RelativePath": "api/TipoSolicitud/{id}",
+    "HttpMethod": "GET",
+    "IsController": true,
+    "Order": 0,
+    "Parameters": [
+      {
+        "Name": "id",
+        "Type": "System.Int32",
+        "IsRequired": true
+      }
+    ],
+    "ReturnTypes": []
+  },
+  {
+    "ContainingType": "Backend_CrmSG.Controllers.Catalogos.TipoSolicitudController",
+    "Method": "Put",
+    "RelativePath": "api/TipoSolicitud/{id}",
+    "HttpMethod": "PUT",
+    "IsController": true,
+    "Order": 0,
+    "Parameters": [
+      {
+        "Name": "id",
+        "Type": "System.Int32",
+        "IsRequired": true
+      },
+      {
+        "Name": "item",
+        "Type": "Backend_CrmSG.Models.Catalogos.TipoSolicitud",
+        "IsRequired": true
+      }
+    ],
+    "ReturnTypes": []
+  },
+  {
+    "ContainingType": "Backend_CrmSG.Controllers.Catalogos.TipoSolicitudController",
+    "Method": "Delete",
+    "RelativePath": "api/TipoSolicitud/{id}",
     "HttpMethod": "DELETE",
     "IsController": true,
     "Order": 0,
@@ -1799,6 +1973,48 @@
         "Name": "dto",
         "Type": "Backend_CrmSG.DTOs.LdsRequestDto",
         "IsRequired": true
+      }
+    ],
+    "ReturnTypes": []
+  },
+  {
+    "ContainingType": "Backend_CrmSG.Controllers.Vistas.VistaEntidadController",
+    "Method": "GetTodos",
+    "RelativePath": "api/vista/{entidad}",
+    "HttpMethod": "GET",
+    "IsController": true,
+    "Order": 0,
+    "Parameters": [
+      {
+        "Name": "entidad",
+        "Type": "System.String",
+        "IsRequired": true
+      }
+    ],
+    "ReturnTypes": []
+  },
+  {
+    "ContainingType": "Backend_CrmSG.Controllers.Vistas.VistaEntidadController",
+    "Method": "FiltrarVista",
+    "RelativePath": "api/vista/{entidad}/filtrar",
+    "HttpMethod": "GET",
+    "IsController": true,
+    "Order": 0,
+    "Parameters": [
+      {
+        "Name": "entidad",
+        "Type": "System.String",
+        "IsRequired": true
+      },
+      {
+        "Name": "por",
+        "Type": "System.String",
+        "IsRequired": false
+      },
+      {
+        "Name": "id",
+        "Type": "System.Int32",
+        "IsRequired": false
       }
     ],
     "ReturnTypes": []

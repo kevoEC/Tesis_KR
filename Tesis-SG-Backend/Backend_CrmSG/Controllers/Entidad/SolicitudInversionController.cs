@@ -2,6 +2,9 @@
 using Backend_CrmSG.Repositories;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
+using Backend_CrmSG.Helpers;
+using Backend_CrmSG.Models.Vistas;
+
 
 namespace Backend_CrmSG.Controllers.Entidad
 {
@@ -11,10 +14,12 @@ namespace Backend_CrmSG.Controllers.Entidad
     public class SolicitudInversionController : ControllerBase
     {
         private readonly IRepository<SolicitudInversion> _repository;
+        private readonly IRepository<SolicitudInversionDetalle> _vistaRepository;
 
-        public SolicitudInversionController(IRepository<SolicitudInversion> repository)
+        public SolicitudInversionController(IRepository<SolicitudInversion> repository, IRepository<SolicitudInversionDetalle> vistaRepository)
         {
             _repository = repository;
+            _vistaRepository = vistaRepository;
         }
 
         [HttpGet]
@@ -98,6 +103,31 @@ namespace Backend_CrmSG.Controllers.Entidad
             var resultados = await _repository.GetByPropertyAsync(propertyName, id);
             return Ok(resultados);
         }
+        [HttpGet("detalle/{id}")]
+        public async Task<IActionResult> GetDetalleById(int id)
+        {
+            try
+            {
+                var vistas = await _vistaRepository.GetByPropertyAsync("IdSolicitudInversion", id);
+                var vista = vistas.FirstOrDefault();
+                if (vista == null)
+                    return NotFound(new { success = false, message = "Solicitud no encontrada" });
+
+                var dto = SolicitudMapper.MapearIdentificacion(vista);
+                return Ok(new { success = true, data = dto });
+            }
+            catch (Exception ex)
+            {
+                return StatusCode(500, new
+                {
+                    success = false,
+                    message = "Ocurrió un error al obtener la solicitud.",
+                    details = ex.Message
+                });
+            }
+        }
+
+
 
     }
 }
