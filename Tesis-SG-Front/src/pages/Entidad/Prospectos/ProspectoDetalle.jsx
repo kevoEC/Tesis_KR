@@ -4,14 +4,8 @@ import { Card, CardContent } from "@/components/ui/card";
 import { Button } from "@/components/ui/button";
 import { PlusCircle } from "lucide-react";
 import { toast } from "sonner";
-import {
-  Table,
-  TableHeader,
-  TableRow,
-  TableHead,
-  TableBody,
-  TableCell,
-} from "@/components/ui/table";
+import { FaEdit, FaTrash, FaSort, FaSortUp, FaSortDown, FaPlus, FaFileExport, FaFilePdf, FaFileCsv, FaArrowLeft, FaArrowRight } from "react-icons/fa";
+import { Table, TableHeader, TableRow, TableHead, TableBody, TableCell, } from "@/components/ui/table";
 import ModalActividad from "@/components/prospectos/ModalActividad";
 import { getProspectoById } from "@/service/Entidades/ProspectoService";
 import { getActividadesByProspectoId } from "@/service/Entidades/ActividadService";
@@ -42,6 +36,8 @@ export default function ProspectoDetalle() {
           getTipoActividad(),
           getPrioridad(),
         ]);
+        console.log("🧾 tipos desde API:", tipos);
+        console.log("🧾 prioridades desde API:", prioridadesData);
         setTiposActividad(tipos);
         setPrioridades(prioridadesData);
         setCatalogosCargados(true); // ✅ importante
@@ -81,22 +77,31 @@ export default function ProspectoDetalle() {
   }
 
   const columnasActividad = [
-    { key: "tipoActividad", label: "Tipo" },
+    { key: "nombreTipoActividad", label: "Tipo" },
     { key: "asunto", label: "Asunto" },
-    { key: "descripcion", label: "Descripción" },
+    {
+      key: "descripcion",
+      label: "Descripción",
+      render: (value) => (
+        <span
+          className={`max-w-12`}
+        >
+          {value}
+        </span>
+      ),
+    },
     { key: "duracion", label: "Duración" },
     { key: "vencimiento", label: "Vencimiento" },
-    { key: "prioridad", label: "Prioridad" },
+    { key: "nombrePrioridad", label: "Prioridad" },
     {
       key: "estado",
       label: "Estado",
       render: (value) => (
         <span
-          className={`px-2 py-1 text-xs font-semibold rounded-full ${
-            value
-              ? "bg-green-100 text-green-700"
-              : "bg-yellow-200 text-yellow-700"
-          }`}
+          className={`px-2 py-1 text-xs font-semibold rounded-full ${value
+            ? "bg-green-100 text-green-700"
+            : "bg-yellow-200 text-yellow-700"
+            }`}
         >
           {value ? "Finalizada" : "En Progreso"}
         </span>
@@ -111,10 +116,12 @@ export default function ProspectoDetalle() {
 
   return (
     <div className="max-w-6xl mx-auto p-6 space-y-6">
-      {/* Encabezado */}
+      {/********************** Encabezado ***********************/}
       <div>
         <Button variant="outline" onClick={() => navigate("/prospectos/vista")}>
-          Volver a listado
+          <span className="flex items-center gap-1">
+            <FaArrowLeft /> Volver al Listado de Prospectos
+          </span>
         </Button>
       </div>
       <div className="flex items-center justify-between">
@@ -123,7 +130,7 @@ export default function ProspectoDetalle() {
         </h1>
       </div>
 
-      {/* Información del prospecto */}
+      {/*********  Información del prospecto ***********/}
       <Card>
         <CardContent className="p-6 grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 gap-4">
           <Info
@@ -134,23 +141,23 @@ export default function ProspectoDetalle() {
           <Info label="Teléfono" value={prospecto.telefonoCelular} />
           <Info
             label="Tipo Identificación"
-            value={prospecto.tipoIdentificacion?.nombre}
+            value={prospecto.tipoIdentificacion}
           />
-          <Info label="Origen del Cliente" value={prospecto.origen?.nombre} />
+          <Info label="Origen del Cliente" value={prospecto.nombreOrigen} />
           <Info
             label="Producto de Interés"
-            value={prospecto.productoInteres?.nombre}
+            value={prospecto.productoInteres}
           />
-          <Info label="Agencia" value={prospecto.agencia?.ciudad} />
+          <Info label="Agencia" value={prospecto.agencia} />
         </CardContent>
       </Card>
 
-      {/* Actividades */}
+      {/************ Actividades ***********/}
       <div className="flex items-center justify-between mt-8">
         <h2 className="text-xl font-semibold text-gray-800">Actividades</h2>
         <Button
           onClick={() => setModalOpen(true)}
-          className="bg-blue-600 hover:bg-blue-700 text-white"
+          className="bg-blue-600  text-white hover:bg-blue-200 hover:text-gray-700 hover:shadow-xl"
         >
           <PlusCircle className="w-4 h-4 mr-2" />
           Nueva Actividad
@@ -165,8 +172,12 @@ export default function ProspectoDetalle() {
             mostrarAgregarNuevo={true}
             mostrarEliminar={true}
             onAgregarNuevoClick={() => setModalOpen(true)}
-            onEditarClick={() => setModalEditarOpen(true)}
-            // onEliminarClick={handleEliminar}
+            onEditarClick={(actividad) => {
+              setActividadEditar(actividad); // <-- aquí ya tienes el id y todo
+              setModalEditarOpen(true);
+            }}
+          // onEditarClick={() => setModalEditarOpen(true)}
+          // onEliminarClick={handleEliminar}
           />
         </CardContent>
       </Card>
@@ -235,8 +246,8 @@ export default function ProspectoDetalle() {
             mostrarEditar={true}
             mostrarAgregarNuevo={true}
             mostrarEliminar={true}
-            // onEditarClick={handleEditar}
-            // onEliminarClick={handleEliminar}
+          // onEditarClick={handleEditar}
+          // onEliminarClick={handleEliminar}
           />
         </CardContent>
       </Card>
@@ -273,7 +284,7 @@ export default function ProspectoDetalle() {
       </Card> */}
 
       {/* Modal de Actividad */}
-      {modalOpen && catalogosCargados && (
+      {modalOpen && (
         <ModalActividad
           open={modalOpen}
           onClose={() => {
@@ -299,7 +310,10 @@ export default function ProspectoDetalle() {
           className="bg-amber-50"
           idProspecto={id}
           modo="editar"
+          actividadEditar={actividadEditar}
           onActividadCreada={handleActividadCreada}
+          tiposActividad={tiposActividad}
+          prioridades={prioridades}
         />
       )}
     </div>

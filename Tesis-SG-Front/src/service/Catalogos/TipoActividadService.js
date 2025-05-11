@@ -19,7 +19,7 @@ const getAuthHeaders = () => {
   };
 };
 
-// 🟢 GET: Obtener todas las agencias
+// 🟢 GET: Obtener todas las actividades
 export const getTipoActividad = async () => {
   const res = await fetch(`${API_BASE_URL}/TipoActividad`, {
     headers: getAuthHeaders(),
@@ -27,7 +27,7 @@ export const getTipoActividad = async () => {
   return handleResponse(res);
 };
 
-// 🔵 GET: Obtener agencia por ID
+// 🔵 GET: Obtener actividad por ID
 export const getTipoActividadById = async (id) => {
   const res = await fetch(`${API_BASE_URL}/TipoActividad/${id}`, {
     headers: getAuthHeaders(),
@@ -35,7 +35,7 @@ export const getTipoActividadById = async (id) => {
   return handleResponse(res);
 };
 
-// 🟡 POST: Crear nueva agencia
+// 🟡 POST: Crear nueva actividad
 export const createTipoActividad = async (data) => {
   const res = await fetch(`${API_BASE_URL}/TipoActividad`, {
     method: "POST",
@@ -45,7 +45,7 @@ export const createTipoActividad = async (data) => {
   return handleResponse(res);
 };
 
-// 🟠 PUT: Actualizar agencia
+// 🟠 PUT: Actualizar Actividad
 export const updateTipoActividad = async (data) => {
   console.log(data);
   const res = await fetch(
@@ -59,7 +59,7 @@ export const updateTipoActividad = async (data) => {
   return handleResponse(res);
 };
 
-// 🔴 DELETE: Eliminar agencia
+// 🔴 DELETE: Eliminar Actividad
 export const deleteTipoActividad = async (id) => {
   const res = await fetch(`${API_BASE_URL}/TipoActividad/${id}`, {
     method: "DELETE",

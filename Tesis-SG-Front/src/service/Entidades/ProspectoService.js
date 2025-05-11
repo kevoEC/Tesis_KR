@@ -21,7 +21,7 @@ const getAuthHeaders = () => {
 
 // 🟢 GET: Listar todos los prospectos
 export const getProspectos = async () => {
-  const res = await fetch(`${API_BASE_URL}/Prospecto`, {
+  const res = await fetch(`${API_BASE_URL}/vista/prospecto`, {
     headers: getAuthHeaders(),
   });
   return handleResponse(res);
@@ -29,11 +29,19 @@ export const getProspectos = async () => {
 
 // 🔵 GET: Obtener prospecto por ID
 export const getProspectoById = async (id) => {
-  const res = await fetch(`${API_BASE_URL}/Prospecto/${id}`, {
-    headers: getAuthHeaders(),
-  });
-  return handleResponse(res);
+  const res = await fetch(
+    `${API_BASE_URL}/vista/prospecto/filtrar?por=idProspecto&id=${id}`,
+    { headers: getAuthHeaders() }
+  );
+  const data = await handleResponse(res);
+
+  if (Array.isArray(data)) {
+    return data[0] || null; // devuelve el primer prospecto, o null si no hay
+  }
+
+  return data; // fallback por si el backend cambia
 };
+
 
 // 🟡 POST: Crear nuevo prospecto
 export const createProspecto = async (data) => {
