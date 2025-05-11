@@ -141,14 +141,14 @@ export default function ProspectoDetalle() {
           <Info label="Teléfono" value={prospecto.telefonoCelular} />
           <Info
             label="Tipo Identificación"
-            value={prospecto.tipoIdentificacion?.nombre}
+            value={prospecto.tipoIdentificacion}
           />
-          <Info label="Origen del Cliente" value={prospecto.origenCliente?.nombre} />
+          <Info label="Origen del Cliente" value={prospecto.nombreOrigen} />
           <Info
             label="Producto de Interés"
-            value={prospecto.productoInteres?.nombre}
+            value={prospecto.productoInteres}
           />
-          <Info label="Agencia" value={prospecto.agencia?.ciudad} />
+          <Info label="Agencia" value={prospecto.agencia} />
         </CardContent>
       </Card>
 

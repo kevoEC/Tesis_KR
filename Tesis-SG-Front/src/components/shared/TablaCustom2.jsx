@@ -192,159 +192,160 @@ const TablaCustom2 = ({
             </div>
 
 
-
-            <div className="w-full overflow-x-auto">
-                <Table className="min-w-full table-auto">
-                    <TableHeader>
-                        <TableRow>
-                            {columns.map((column) => (
-                                <TableHead
-                                    key={column.key}
-                                    onClick={() => column.label !== "Acciones" && handleSort(column.key)}
-                                    className="cursor-pointer select-none"
-                                >
-                                    <div className="flex items-center">
-                                        {column.label}
-                                        {column.label !== "Acciones" && getSortIndicator(column.key)}
-                                    </div>
-                                </TableHead>
-                            ))}
-                            {(mostrarEditar || mostrarEliminar) && <TableHead>Acciones</TableHead>}
-                        </TableRow>
-                    </TableHeader>
-                    <TableBody>
-                        {currentPageData.length > 0 ? (
-                            currentPageData.map((row, idx) => (
-                                <TableRow key={idx}>
-                                    {columns.map((col) => (
-                                        <TableCell key={col.key}>
-                                            {col.render ? col.render(row[col.key], row) : row[col.key]}
-                                        </TableCell>
-                                    ))}
-                                    {(mostrarEditar || mostrarEliminar) && (
-                                        <TableCell className="flex gap-2">
-                                            {mostrarEditar && (
-                                                <Button
-                                                    size="sm"
-                                                    className="bg-emerald-400 hover:bg-emerald-500 text-white cursor-pointer"
-                                                    onClick={() => onEditarClick && onEditarClick(row)}
-                                                >
-                                                    <FaEdit className="mr-1" /> Editar
-                                                </Button>
-
-                                            )}
-                                            {mostrarEliminar && (
-                                                <Button
-                                                    size="sm"
-                                                    className="bg-red-400 text-white cursor-pointer hover:bg-red-500"
-                                                    onClick={() => handleOpenDeleteDialog(row)}
-
-                                                >
-                                                    <FaTrash className="mr-1" size={14} /> Eliminar
-                                                </Button>
-
-
-                                            )}
-                                        </TableCell>
-                                    )}
-                                </TableRow>
-                            ))
-                        ) : (
+            <div className="max-w-full overflow-x-auto">
+                <div className="inline-block min-w-full align-middle">
+                    <Table className="table-auto">
+                        <TableHeader>
                             <TableRow>
-                                <TableCell colSpan={columns.length + 1} className="text-center text-muted py-4">
-                                    No hay datos registrados aún.
-                                </TableCell>
+                                {columns.map((column) => (
+                                    <TableHead
+                                        key={column.key}
+                                        onClick={() => column.label !== "Acciones" && handleSort(column.key)}
+                                        className="cursor-pointer select-none"
+                                    >
+                                        <div className="flex items-center">
+                                            {column.label}
+                                            {column.label !== "Acciones" && getSortIndicator(column.key)}
+                                        </div>
+                                    </TableHead>
+                                ))}
+                                {(mostrarEditar || mostrarEliminar) && <TableHead>Acciones</TableHead>}
                             </TableRow>
-                        )}
-                    </TableBody>
-                </Table>
+                        </TableHeader>
+                        <TableBody>
+                            {currentPageData.length > 0 ? (
+                                currentPageData.map((row, idx) => (
+                                    <TableRow key={idx}>
+                                        {columns.map((col) => (
+                                            <TableCell key={col.key}>
+                                                {col.render ? col.render(row[col.key], row) : row[col.key]}
+                                            </TableCell>
+                                        ))}
+                                        {(mostrarEditar || mostrarEliminar) && (
+                                            <TableCell className="flex gap-2">
+                                                {mostrarEditar && (
+                                                    <Button
+                                                        size="sm"
+                                                        className="bg-emerald-400 hover:bg-emerald-500 text-white cursor-pointer"
+                                                        onClick={() => onEditarClick && onEditarClick(row)}
+                                                    >
+                                                        <FaEdit className="mr-1" /> Editar
+                                                    </Button>
+
+                                                )}
+                                                {mostrarEliminar && (
+                                                    <Button
+                                                        size="sm"
+                                                        className="bg-red-400 text-white cursor-pointer hover:bg-red-500"
+                                                        onClick={() => handleOpenDeleteDialog(row)}
+
+                                                    >
+                                                        <FaTrash className="mr-1" size={14} /> Eliminar
+                                                    </Button>
+
+
+                                                )}
+                                            </TableCell>
+                                        )}
+                                    </TableRow>
+                                ))
+                            ) : (
+                                <TableRow>
+                                    <TableCell colSpan={columns.length + 1} className="text-center text-muted py-4">
+                                        No hay datos registrados aún.
+                                    </TableCell>
+                                </TableRow>
+                            )}
+                        </TableBody>
+                    </Table>
                 </div>
-                
-                <div className="flex flex-col md:flex-row justify-between items-center gap-4">
-                    <ReactPaginate
-                        previousLabel={
-                            <span className="flex items-center gap-1">
-                                <FaArrowLeft /> Anterior
-                            </span>
-                        }
-                        nextLabel={
-                            <span className="flex items-center gap-1">
-                                Siguiente <FaArrowRight />
-                            </span>
-                        }
-                        breakLabel="..."
-                        pageCount={Math.ceil(sortedData.length / itemsPerPage)}
-                        onPageChange={handlePageClick}
-                        containerClassName="flex gap-1 flex-wrap"
-                        pageClassName="px-3 py-1 border rounded hover:bg-gray-100"
-                        activeClassName="bg-blue-500 text-white"
-                        previousClassName="px-3 py-1 border rounded bg-gray-200 hover:bg-gray-300"
-                        nextClassName="px-3 py-1 border rounded bg-gray-200 hover:bg-gray-300"
-                        breakClassName="px-3 py-1"
-                        disabledClassName="opacity-50 cursor-not-allowed"
-                    />
-
-
-                    <div className="flex items-center gap-2">
-                        <label>Filas por página:</label>
-                        <select
-                            value={itemsPerPage}
-                            onChange={(e) => {
-                                setItemsPerPage(Number(e.target.value));
-                                setCurrentPage(0);
-                            }}
-                            className="border rounded px-2 py-1"
-                        >
-                            {[5, 10, 15, 20, 35, 50, 100].map((n) => (
-                                <option key={n}>{n}</option>
-                            ))}
-                        </select>
-                    </div>
-                </div>
-
-                <Dialog open={modalOpen} onOpenChange={setModalOpen}>
-                    <DialogContent>
-                        <DialogHeader>Agregar Nueva Fila</DialogHeader>
-                        <DialogTitle></DialogTitle>
-                        <div className="space-y-3">
-                            {columns.map((col) => (
-                                <div key={col.key}>
-                                    <label className="block text-sm">{col.label}</label>
-                                    <Input
-                                        name={col.key}
-                                        onChange={handleInputChange}
-                                    />
-                                </div>
-                            ))}
-                        </div>
-                        <DialogFooter>
-                            <Button onClick={handleAddRow}>Guardar</Button>
-                            <Button variant="outline" onClick={() => setModalOpen(false)}>
-                                Cancelar
-                            </Button>
-                        </DialogFooter>
-                    </DialogContent>
-                </Dialog>
-
-
-                <Dialog open={confirmDialogOpen} onOpenChange={setConfirmDialogOpen}>
-                    <DialogContent>
-                        <DialogHeader>Confirmar Eliminación</DialogHeader>
-                        <p>¿Estás seguro que deseas eliminar este registro?</p>
-                        <DialogFooter>
-                            <Button variant="danger" onClick={handleConfirmDelete}>
-                                Confirmar
-                            </Button>
-                            <Button variant="outline" onClick={() => setConfirmDialogOpen(false)}>
-                                Cancelar
-                            </Button>
-                        </DialogFooter>
-                    </DialogContent>
-                </Dialog>
-
             </div>
 
-            );
+            <div className="flex flex-col md:flex-row justify-between items-center gap-4">
+                <ReactPaginate
+                    previousLabel={
+                        <span className="flex items-center gap-1">
+                            <FaArrowLeft /> Anterior
+                        </span>
+                    }
+                    nextLabel={
+                        <span className="flex items-center gap-1">
+                            Siguiente <FaArrowRight />
+                        </span>
+                    }
+                    breakLabel="..."
+                    pageCount={Math.ceil(sortedData.length / itemsPerPage)}
+                    onPageChange={handlePageClick}
+                    containerClassName="flex gap-1 flex-wrap"
+                    pageClassName="px-3 py-1 border rounded hover:bg-gray-100"
+                    activeClassName="bg-blue-500 text-white"
+                    previousClassName="px-3 py-1 border rounded bg-gray-200 hover:bg-gray-300"
+                    nextClassName="px-3 py-1 border rounded bg-gray-200 hover:bg-gray-300"
+                    breakClassName="px-3 py-1"
+                    disabledClassName="opacity-50 cursor-not-allowed"
+                />
+
+
+                <div className="flex items-center gap-2">
+                    <label>Filas por página:</label>
+                    <select
+                        value={itemsPerPage}
+                        onChange={(e) => {
+                            setItemsPerPage(Number(e.target.value));
+                            setCurrentPage(0);
+                        }}
+                        className="border rounded px-2 py-1"
+                    >
+                        {[5, 10, 15, 20, 35, 50, 100].map((n) => (
+                            <option key={n}>{n}</option>
+                        ))}
+                    </select>
+                </div>
+            </div>
+
+            <Dialog open={modalOpen} onOpenChange={setModalOpen}>
+                <DialogContent>
+                    <DialogHeader>Agregar Nueva Fila</DialogHeader>
+                    <DialogTitle></DialogTitle>
+                    <div className="space-y-3">
+                        {columns.map((col) => (
+                            <div key={col.key}>
+                                <label className="block text-sm">{col.label}</label>
+                                <Input
+                                    name={col.key}
+                                    onChange={handleInputChange}
+                                />
+                            </div>
+                        ))}
+                    </div>
+                    <DialogFooter>
+                        <Button onClick={handleAddRow}>Guardar</Button>
+                        <Button variant="outline" onClick={() => setModalOpen(false)}>
+                            Cancelar
+                        </Button>
+                    </DialogFooter>
+                </DialogContent>
+            </Dialog>
+
+
+            <Dialog open={confirmDialogOpen} onOpenChange={setConfirmDialogOpen}>
+                <DialogContent>
+                    <DialogHeader>Confirmar Eliminación</DialogHeader>
+                    <p>¿Estás seguro que deseas eliminar este registro?</p>
+                    <DialogFooter>
+                        <Button variant="danger" onClick={handleConfirmDelete}>
+                            Confirmar
+                        </Button>
+                        <Button variant="outline" onClick={() => setConfirmDialogOpen(false)}>
+                            Cancelar
+                        </Button>
+                    </DialogFooter>
+                </DialogContent>
+            </Dialog>
+
+        </div>
+
+    );
 };
 
-            export default TablaCustom2;
+export default TablaCustom2;

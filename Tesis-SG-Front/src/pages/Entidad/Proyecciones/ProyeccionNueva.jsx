@@ -52,6 +52,7 @@ export default function ProyeccionNueva() {
   const [mostrarConfirmacion, setMostrarConfirmacion] = useState(false);
   const [accionPendiente, setAccionPendiente] = useState(null); // para disparar luego
   const [tasaSeleccionada, setTasaSeleccionada] = useState(null);
+  const [tasaValida, setTasaValida] = useState(false);
 
 
   const handleChange = (field, value) => {
@@ -88,9 +89,61 @@ export default function ProyeccionNueva() {
   //   }
   // };
 
+  const consultarTasa = async () => {
+    try {
+      const payload = {
+        ...form,
+        idProducto: parseInt(form.idProducto),
+        idOrigenCapital: parseInt(form.idOrigenCapital),
+        plazo: parseInt(form.plazo),
+        capital: parseFloat(form.capital)
+      };
+
+      const configuraciones = await getConfiguracionByProductoId(payload.idProducto);
+
+      const posibles = configuraciones.filter(config =>
+        config.idOrigen === payload.idOrigenCapital &&
+        config.plazo === payload.plazo
+      );
+
+      if (posibles.length === 0) {
+        notify.error("No hay configuraciones con ese origen y plazo.");
+        setTasaValida(false);
+        setTasaSeleccionada(null);
+        return;
+      }
+
+      const configSeleccionada = posibles.find(config =>
+        payload.capital >= config.montoMinimo &&
+        payload.capital <= config.montoMaximo
+      );
+
+      if (!configSeleccionada) {
+        notify.error("El capital ingresado no está en un rango válido para ese origen y plazo.");
+        setTasaValida(false);
+        setTasaSeleccionada(null);
+        return;
+      }
+
+      notify.success("Tasa encontrada correctamente.");
+      setTasaSeleccionada(configSeleccionada.taza);
+      setTasaValida(true);
+
+    } catch (error) {
+      console.error("Error al consultar tasa:", error);
+      notify.error("Error al consultar la tasa.");
+      setTasaValida(false);
+      setTasaSeleccionada(null);
+    }
+  };
 
 
   const ejecutarGenerar = async () => {
+    if (!tasaValida) {
+      notify.error("Debes consultar y validar la tasa antes de generar.");
+      return;
+    }
+
     try {
       const payload = {
         ...form,
@@ -100,34 +153,6 @@ export default function ProyeccionNueva() {
         idOrigenIncremento: form.idOrigenIncremento ? parseInt(form.idOrigenIncremento) : null,
         tipoSolicitud: parseInt(form.tipoSolicitud)
       };
-
-      console.log("Datos enviados a crearProyeccion:", JSON.stringify(payload));
-      const configuraciones = await getConfiguracionByProductoId(payload.idProducto);
-      console.log("Configuraciones obtenidas:", configuraciones);
-      // 🔍 Llamamos a la API para obtener las configuraciones
-      const posibles = configuraciones.filter(config =>
-        config.idOrigen === payload.idOrigenCapital &&
-        config.plazo === parseInt(payload.plazo)
-      );
-
-      if (posibles.length === 0) {
-        notify.error("No hay configuraciones con ese origen y plazo.");
-        return;
-      }
-      const configSeleccionada = posibles.find(config =>
-        payload.capital >= config.montoMinimo &&
-        payload.capital <= config.montoMaximo
-      );
-
-      if (!configSeleccionada) {
-        notify.error("El capital ingresado no está en un rango válido para ese origen y plazo.");
-        return;
-      }
-
-      console.log("Configuración seleccionada:", configSeleccionada);
-      console.log("Tasa asignada:", configSeleccionada.taza);
-      setTasaSeleccionada(configSeleccionada.taza);
-
 
       const res = await crearProyeccion(payload);
 
@@ -145,6 +170,7 @@ export default function ProyeccionNueva() {
       console.error("Error al generar proyección:", error);
     }
   };
+
 
   const handleGenerar = () => {
     if (!form.capital || !form.plazo || !form.fechaInicial) {
@@ -174,37 +200,97 @@ export default function ProyeccionNueva() {
         </Button>
       </div>
 
-      <Card className="border shadow-sm bg-white rounded-2xl">
-        <CardContent className="p-6 space-y-6">
-          <div className="grid grid-cols-1 md:grid-cols-3 gap-6">
-            <FormSelect label="Tipo de solicitud" value={form.tipoSolicitud}
-              onChange={(val) => handleChange("tipoSolicitud", val)} options={["1", "2", "3"]}
-              labels={["Nueva", "Renovación", "Incremento"]} disabled={bloqueado} />
+      <Card className="border border-gray-700 shadow-sm bg-white rounded-2xl">
+        <CardContent className="p-6 space-y-8">
 
-            <FormSelect label="Producto" value={form.idProducto} onChange={(val) => handleChange("idProducto", val)} options={["1", "2", "3", "4", "5"]} labels={["Renta Fija", "Renta Periódica Mensual", "Renta Periódica Bimensual", "Renta Periódica Trimestral", "Renta Periódica Semestral"]} disabled={bloqueado} />
-            <FormInput label="Capital" value={form.capital} onChange={(e) => handleChange("capital", parseFloat(e.target.value))} disabled={bloqueado} />
-            <FormSelect label="Plazo" value={form.plazo} onChange={(val) => handleChange("plazo", val)} options={plazos} labels={plazos.map(p => `${p} meses`)} disabled={bloqueado} />
-            <FormInput label="Fecha inicial" type="date" value={form.fechaInicial} onChange={(e) => handleChange("fechaInicial", e.target.value)} disabled={bloqueado} />
-            {mostrarAporte && <FormInput label="Aporte adicional" value={form.aporteAdicional ?? ""} onChange={(e) => handleChange("aporteAdicional", parseFloat(e.target.value))} disabled={bloqueado} />}
-            <FormSelect label="Origen del capital" value={form.idOrigenCapital} onChange={(val) => handleChange("idOrigenCapital", val)} options={["1", "2"]} labels={["Local", "Extranjero"]} disabled={bloqueado} />
-            {mostrarOrigenIncremento && <FormSelect label="Origen del incremento" value={form.idOrigenIncremento} onChange={(val) => handleChange("idOrigenIncremento", val)} options={["1", "2"]} labels={["Local", "Extranjero"]} disabled={bloqueado} />}
-            <FormInput label="Coste operativo" value={form.costeOperativo} onChange={(e) => handleChange("costeOperativo", parseFloat(e.target.value))} disabled={bloqueado} />
-            {tasaSeleccionada !== null && (
-              <div className="space-y-1">
-                <Label className="text-sm text-blue-700 font-medium">
-                  Tasa asignada: {tasaSeleccionada.toFixed(2)}%
-                </Label>
-              </div>
+          <h3 className="text-xl font-semibold text-gray-800">Datos para la proyección</h3>
+
+          <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-6">
+            <FormSelect label="Tipo de solicitud" value={form.tipoSolicitud}
+              onChange={(val) => handleChange("tipoSolicitud", val)}
+              options={["1"]}
+              labels={["Nueva"]}
+              // options={["1", "2", "3"]}
+              // labels={["Nueva", "Renovación", "Incremento"]}
+              disabled={bloqueado} />
+
+            <FormSelect label="Producto" value={form.idProducto}
+              onChange={(val) => handleChange("idProducto", val)}
+              options={["1", "2", "3", "4", "5"]}
+              labels={["Renta Fija", "Renta Periódica Mensual", "Renta Periódica Bimensual", "Renta Periódica Trimestral", "Renta Periódica Semestral"]}
+              disabled={bloqueado} />
+
+            <FormInput label="Capital" value={form.capital}
+              onChange={(e) => handleChange("capital", parseFloat(e.target.value))}
+              disabled={bloqueado} />
+
+            <FormSelect label="Plazo" value={form.plazo}
+              onChange={(val) => handleChange("plazo", val)}
+              options={plazos}
+              labels={plazos.map(p => `${p} meses`)}
+              disabled={bloqueado} />
+
+            <FormInput label="Fecha inicial" type="date" value={form.fechaInicial}
+              onChange={(e) => handleChange("fechaInicial", e.target.value)}
+              disabled={bloqueado} />
+
+            {mostrarAporte && (
+              <FormInput label="Aporte adicional" value={form.aporteAdicional ?? ""}
+                onChange={(e) => handleChange("aporteAdicional", parseFloat(e.target.value))}
+                disabled={bloqueado} />
             )}
+
+            <FormSelect label="Origen del capital" value={form.idOrigenCapital}
+              onChange={(val) => handleChange("idOrigenCapital", val)}
+              options={["1", "2"]}
+              labels={["Local", "Extranjero"]}
+              disabled={bloqueado} />
+
+            {mostrarOrigenIncremento && (
+              <FormSelect label="Origen del incremento" value={form.idOrigenIncremento}
+                onChange={(val) => handleChange("idOrigenIncremento", val)}
+                options={["1", "2"]}
+                labels={["Local", "Extranjero"]}
+                disabled={bloqueado} />
+            )}
+
+            <FormInput label="Coste operativo" value={form.costeOperativo}
+              onChange={(e) => handleChange("costeOperativo", parseFloat(e.target.value))}
+              disabled={bloqueado} />
           </div>
 
-          <div className="flex justify-end">
-            <Button onClick={handleGenerar} disabled={bloqueado} className="bg-blue-600 hover:bg-blue-700 text-white">
+          {tasaSeleccionada !== null && (
+            <div className="bg-blue-100 border border-blue-300 rounded-xl p-4 flex items-center justify-between">
+              <div>
+                <p className="text-sm text-blue-600 font-medium">Tasa asignada</p>
+                <p className="text-3xl font-bold text-blue-800">{tasaSeleccionada.toFixed(2)}%</p>
+              </div>
+              {/* <div className="text-sm text-blue-500 italic">Basada en capital, origen y plazo</div> */}
+            </div>
+          )}
+
+          <div className="flex flex-col sm:flex-row justify-end gap-4 pt-4">
+            <Button
+              onClick={consultarTasa}
+              disabled={bloqueado}
+              className="bg-blue-600 hover:bg-blue-800 text-white shadow"
+            >
+              Consultar tasa
+            </Button>
+
+            <Button
+              onClick={handleGenerar}
+              disabled={bloqueado || !tasaValida}
+              className="bg-green-600 hover:bg-green-800 text-white shadow"
+            >
               Generar cronograma
             </Button>
           </div>
         </CardContent>
       </Card>
+
+   
+
 
       {cronograma.length > 0 && (
         <>
