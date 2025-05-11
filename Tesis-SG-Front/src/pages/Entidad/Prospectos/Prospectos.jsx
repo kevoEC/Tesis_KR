@@ -36,12 +36,17 @@ export default function Prospectos() {
   // 🔴 Eliminar
   const handleEliminar = async (item) => {
     try {
-      await deleteProspecto(item.id);
+      await deleteProspecto(item.idProspecto);
       // Si usas refetch dentro de VistaEntidad, lo puedes llamar aquí después
     } catch (err) {
       console.error("Error al eliminar prospecto:", err);
     }
   };
+  const handleDesactivar = async (item) => {
+
+
+  }
+
   const handleAbrirFormulario = () => {
     setIsDialogOpen(true);
   };
@@ -50,12 +55,15 @@ export default function Prospectos() {
   };
 
   const columnas = [
-    { key: 'idProspecto', label: 'IdProspecto' },
-    { key: 'nombres', label: 'Nombres' },
-    { key: 'apellidoPaterno', label: 'Apellido Pat' },
-    { key: 'apellidoMaterno', label: 'Apellido Mat' },
-    { key: 'telefonoCelular', label: 'Celular' },
-    { key: 'correoElectronico', label: 'Correo' },
+    {
+      key: 'idProspecto',
+      label: 'Prospecto',
+      render: (value) => (
+        <div className="text-end font-semibold text-gray-800">
+          {value}
+        </div>
+      ),
+    },
     {
       key: 'estado',
       label: 'Estado',
@@ -67,12 +75,22 @@ export default function Prospectos() {
           {value ? 'Activo' : 'Inactivo'}
         </span>
       ),
-    }
+    },
+    { key: 'nombres', label: 'Nombres' },
+    { key: 'apellidoPaterno', label: 'Apellido Pat' },
+    { key: 'apellidoMaterno', label: 'Apellido Mat' },
+    { key: 'tipoIdentificacion', label: 'Tipo ID' },
+    { key: 'telefonoCelular', label: 'Núm. Celular' },
+    { key: 'correoElectronico', label: 'Correo' },
+    { key: 'nombreOrigen', label: 'Origen' },
+    { key: 'productoInteres', label: 'Producto de Interés' },
+    { key: 'agencia', label: 'Agencia' },
 
   ];
 
   return (
-    <div>
+    <div className="p-4 sm:p-6 md:p-8 max-w-full">
+      {/* <div>
       <EntidadView
         titulo="Prospectos"
         entidad="prospecto"       // 🔗 Para el backend (API)
@@ -84,20 +102,17 @@ export default function Prospectos() {
           telefonoCelular: "Teléfono Celular",
           correoElectronico: "Correo Electrónico",
           estado: "Estado",
-
         }}
         onEditar={handleEditar}
         onEliminar={handleEliminar}
       />
-      <div>
+      </div> */}
 
-      </div>
-
-      <Card className="border border-muted rounded-xl shadow-[0_4px_10px_rgba(0,0,0,0.12)]">
+      <Card className="w-full border border-muted rounded-xl shadow-[0_4px_10px_rgba(0,0,0,0.12)]">
         <CardHeader>
-          <CardTitle>Lista de Prospectos</CardTitle>
+          <CardTitle className="text-3xl">Lista de Prospectos</CardTitle>
         </CardHeader>
-        <CardContent>
+        <CardContent className="p-6 overflow-x-auto">
           <TablaCustom2
             columns={columnas}
             data={prospectos}

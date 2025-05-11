@@ -1,0 +1,17 @@
+{
+    // Desactiva validación incorrecta del CSS estándar sobre @apply, @theme, etc.
+    "css.validate": false,
+    "scss.validate": false,
+    "less.validate": false,
+  
+    // Extensión oficial de Tailwind CSS (si la tienes)
+    "tailwindCSS.experimental.classRegex": [
+      "className=\"([^\"]*)\"",
+      "class=\"([^\"]*)\""
+    ],
+  
+    // Soporte para alias si usas `@/` con jsconfig
+    "javascript.preferences.importModuleSpecifier": "non-relative",
+    "typescript.preferences.importModuleSpecifier": "non-relative"
+  }
+  

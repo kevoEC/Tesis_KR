@@ -11,6 +11,10 @@ import { createProspecto } from "@/service/Entidades/ProspectoService";
 import { useAuth } from "@/hooks/useAuth";
 import { useContext } from "react";
 import { CatalogContext } from "@/contexts/CatalogContext";
+import { getAgencias } from "@/service/Catalogos/AgenciaService";
+import { getProductosInteres } from "@/service/Catalogos/ProductoInteresService";
+import { getOrigenes } from "@/service/Catalogos/OrigenClienteService";
+import { getTipoIdentificacion } from "@/service/Catalogos/TipoIdentificacionService";
 
 export default function ProspectoForm() {
   const navigate = useNavigate();
@@ -36,24 +40,57 @@ export default function ProspectoForm() {
   });
 
   useEffect(() => {
-    setCatalogos({
-      tipoIdentificaciones: [
-        { id: 1, nombre: "Cédula" },
-        { id: 2, nombre: "Pasaporte" },
-      ],
-      origenes: [
-        { id: 1, nombre: "Publicidad" },
-        { id: 2, nombre: "Recomendación" },
-      ],
-      productos: [
-        { id: 1, nombre: "Inversión A" },
-        { id: 2, nombre: "Inversión B" },
-      ],
-      agencias: [
-        { id: 1, ciudad: "Quito" },
-        { id: 2, ciudad: "Guayaquil" },
-      ],
-    });
+    const cargarCatalogos = async () => {
+      try {
+        console.log("🔄 Iniciando carga de catálogos...");
+
+        const [agencias, productos, origenes, tipoIdentificaciones] =
+          await Promise.all([
+            getAgencias(),
+            getProductosInteres(),
+            getOrigenes(),
+            getTipoIdentificacion(),
+          ]);
+
+        console.log("📦 Agencias recibidas:", agencias);
+        console.log("📦 Productos recibidos:", productos);
+        console.log("📦 Orígenes recibidos:", origenes);
+        console.log(
+          "📦 Tipos de identificación recibidos:",
+          tipoIdentificaciones
+        );
+
+        setCatalogos({
+          agencias,
+          productos,
+          origenes,
+          tipoIdentificaciones,
+        });
+
+        // Verificación de catálogos vacíos
+        const vacios = [];
+        if (!agencias || agencias.length === 0) vacios.push("Agencias");
+        if (!productos || productos.length === 0)
+          vacios.push("Productos de Interés");
+        if (!origenes || origenes.length === 0)
+          vacios.push("Orígenes del Cliente");
+        if (!tipoIdentificaciones || tipoIdentificaciones.length === 0)
+          vacios.push("Tipos de Identificación");
+
+        if (vacios.length > 0) {
+          toast.warning(
+            `Los siguientes catálogos están vacíos: ${vacios.join(", ")}`
+          );
+        } else {
+          console.log("✅ Todos los catálogos se cargaron correctamente.");
+        }
+      } catch (error) {
+        console.error("❌ Error al cargar catálogos:", error);
+        toast.error("No se pudieron cargar todos los catálogos");
+      }
+    };
+
+    cargarCatalogos();
   }, []);
 
   const handleChange = (key, value) => {
@@ -78,34 +115,22 @@ export default function ProspectoForm() {
       idUsuarioCreacion: user?.id || null,
       idUsuarioModificacion: user?.id || null,
       idUsuarioPropietario: user?.id || null,
-      esCliente: false
+      esCliente: false,
     };
 
     try {
       await createProspecto(payload);
-     
+
       toast.success("Prospecto guardado correctamente");
       navigate("/prospecto/vista");
     } catch (error) {
       toast.error("Error al guardar prospecto");
       console.error("Error al guardar:", error);
-     
     }
   };
 
   return (
     <div className="p-6 max-w-6xl mx-auto">
-      {/* <div className="flex items-center gap-4 mb-6">
-        <Button
-          variant="link"
-          onClick={() => navigate("/prospectos/vista")}
-          className="text-blue-600 px-0"
-        >
-          <ArrowLeft className="w-4 h-4 mr-2" /> Volver a Prospectos
-        </Button>
-        <h1 className="text-2xl font-bold text-gray-800">Crear Prospecto</h1>
-      </div> */}
-
       <Card className="shadow-xl border border-gray-200 rounded-2xl">
         <CardContent className="p-8">
           <form
@@ -125,7 +150,9 @@ export default function ProspectoForm() {
               <Input
                 placeholder="Ej: Pérez"
                 value={form.apellidoPaterno}
-                onChange={(e) => handleChange("apellidoPaterno", e.target.value)}
+                onChange={(e) =>
+                  handleChange("apellidoPaterno", e.target.value)
+                }
                 required
               />
             </FormGroup>
@@ -134,7 +161,9 @@ export default function ProspectoForm() {
               <Input
                 placeholder="Ej: Gutiérrez"
                 value={form.apellidoMaterno}
-                onChange={(e) => handleChange("apellidoMaterno", e.target.value)}
+                onChange={(e) =>
+                  handleChange("apellidoMaterno", e.target.value)
+                }
                 required
               />
             </FormGroup>
@@ -172,8 +201,11 @@ export default function ProspectoForm() {
                 </SelectTrigger>
                 <SelectContent className="bg-white">
                   {catalogos.tipoIdentificaciones.map((item) => (
-                    <SelectItem key={item.id} value={item.id.toString()}>
-                      {item.nombre}
+                    <SelectItem
+                      key={item.idTipoIdentificacion}
+                      value={item.idTipoIdentificacion.toString()}
+                    >
+                      {item.tipo}
                     </SelectItem>
                   ))}
                 </SelectContent>
@@ -191,8 +223,11 @@ export default function ProspectoForm() {
                 </SelectTrigger>
                 <SelectContent className="bg-white">
                   {catalogos.origenes.map((item) => (
-                    <SelectItem key={item.id} value={item.id.toString()}>
-                      {item.nombre}
+                    <SelectItem
+                      key={item.idOrigenCliente}
+                      value={item.idOrigenCliente.toString()}
+                    >
+                      {item.nombreOrigen}
                     </SelectItem>
                   ))}
                 </SelectContent>
@@ -210,7 +245,10 @@ export default function ProspectoForm() {
                 </SelectTrigger>
                 <SelectContent className="bg-white">
                   {catalogos.productos.map((item) => (
-                    <SelectItem key={item.id} value={item.id.toString()}>
+                    <SelectItem
+                      key={item.idProductoInteres}
+                      value={item.idProductoInteres.toString()}
+                    >
                       {item.nombre}
                     </SelectItem>
                   ))}
@@ -227,7 +265,10 @@ export default function ProspectoForm() {
                 </SelectTrigger>
                 <SelectContent className="bg-white">
                   {catalogos.agencias.map((item) => (
-                    <SelectItem key={item.id} value={item.id.toString()}>
+                    <SelectItem
+                      key={item.idAgencia}
+                      value={item.idAgencia.toString()}
+                    >
                       {item.ciudad}
                     </SelectItem>
                   ))}
