@@ -3,6 +3,7 @@ import { Card, CardContent } from "@/components/ui/card";
 import { Label } from "@/components/ui/label";
 import { Input } from "@/components/ui/input";
 import { Switch } from "@/components/ui/switch";
+import { toast } from "sonner";
 import { getTipoIdentificacion } from "@/service/Catalogos/TipoIdentificacionService";
 import {
   Select,
@@ -18,9 +19,11 @@ import {
 } from "@/service/Entidades/SolicitudService";
 import { Loader2 } from "lucide-react";
 import { useUI } from "@/hooks/useUI";
+import { getSolicitudById } from "@/service/Entidades/SolicitudService";
 
-export default function Identificacion() {
+export default function Identificacion({ id }) {
   const { notify, setSolicitudHabilitada } = useUI();
+  const [solicitudes, setSolicitudes] = useState([]);
 
   // estado para los tipos dinámicos
   const [tiposIdentificacion, setTiposIdentificacion] = useState([]);
@@ -31,6 +34,20 @@ export default function Identificacion() {
       setTiposIdentificacion(data);
     });
   }, []);
+
+  useEffect(() => {
+    const cargar = async () => {
+      try {
+        const solicitudes = await getSolicitudById(id);
+        setSolicitudes(solicitudes);
+        console.log(solicitudes);
+      } catch (error) {
+        toast.error("Error al cargar solicitudes: " + error.message);
+      }
+    };
+
+    cargar();
+  }, [id]);
 
   const [form, setForm] = useState(() => {
     const stored = sessionStorage.getItem("solicitud");

@@ -1,4 +1,3 @@
-
 import { API_BASE_URL } from "@/config";
 
 // 👉 Reutilizamos lógica compartida
@@ -20,16 +19,19 @@ const getAuthHeaders = () => {
 
 // Solicitudes CRUD
 export const getSolicitudes = async () => {
-  const res = await fetch(`${API_BASE_URL}/SolicitudInversion`, {
+  const res = await fetch(`${API_BASE_URL}/solicitudinversion/detalle`, {
     headers: getAuthHeaders(),
   });
   return handleResponse(res);
 };
 
 export const getSolicitudById = async (id) => {
-  const res = await fetch(`${API_BASE_URL}/SolicitudInversion/${id}`, {
-    headers: getAuthHeaders(),
-  });
+  const res = await fetch(
+    `${API_BASE_URL}/vista/solicitudinversion/filtrarDTO?por=solicitud&id=${id}`,
+    {
+      headers: getAuthHeaders(),
+    }
+  );
   return handleResponse(res);
 };
 
@@ -43,11 +45,14 @@ export const createSolicitud = async (data) => {
 };
 
 export const updateSolicitud = async (id, data) => {
-  const res = await fetch(`${API_BASE_URL}/SolicitudInversion/${id}`, {
-    method: "PUT",
-    headers: getAuthHeaders(),
-    body: JSON.stringify(data),
-  });
+  const res = await fetch(
+    `${API_BASE_URL}/solicitudinversion/estructura/${id}`,
+    {
+      method: "PUT",
+      headers: getAuthHeaders(),
+      body: JSON.stringify(data),
+    }
+  );
   return handleResponse(res);
 };
 
@@ -69,9 +74,12 @@ export const getSolicitudesFiltradas = async (filtro) => {
 };
 
 export const getSolicitudesByProspectoId = async (idProspecto) => {
-  const res = await fetch(`${API_BASE_URL}/SolicitudInversion/prospecto/${idProspecto}`, {
-    headers: getAuthHeaders(),
-  });
+  const res = await fetch(
+    `${API_BASE_URL}/SolicitudInversion/prospecto/${idProspecto}`,
+    {
+      headers: getAuthHeaders(),
+    }
+  );
   if (res.status === 404) return [];
   return handleResponse(res);
 };
@@ -107,7 +115,9 @@ export const validarLDS = async ({
     (primerApellido || "") +
     " " +
     (segundoApellido || "")
-  ).trim().toUpperCase();
+  )
+    .trim()
+    .toUpperCase();
 
   const res = await fetch(`${API_BASE_URL}/Validacion/lds`, {
     method: "POST",

@@ -10,6 +10,7 @@ import Conyuge from "@/components/solicitud/Conyuge";
 import Banco from "@/components/solicitud/Banco";
 import Beneficiarios from "@/components/solicitud/Beneficiarios";
 import Finalizacion from "@/components/solicitud/Finalizacion";
+import Adjuntos from "@/components/solicitud/Adjuntos";
 
 const pasos = [
   { id: "identificacion", label: "Identificación" },
@@ -21,6 +22,7 @@ const pasos = [
   { id: "banco", label: "Banco" },
   { id: "beneficiarios", label: "Beneficiarios" },
   { id: "finalizacion", label: "Finalización" },
+  { id: "adjuntos", label: "Adjuntos" },
 ];
 
 // asociamos cada paso a su componente
@@ -34,6 +36,7 @@ const componentesPorPaso = {
   banco: <Banco />,
   beneficiarios: <Beneficiarios />,
   finalizacion: <Finalizacion />,
+  adjuntos: <Adjuntos />,
 };
 
 export default function FlujoSolicitud() {

@@ -51,43 +51,58 @@ import Conyuge from "@/components/solicitud/Conyuge";
 import Banco from "@/components/solicitud/Banco";
 import Beneficiarios from "@/components/solicitud/Beneficiarios";
 import Finalizacion from "@/components/solicitud/Finalizacion";
-//import Adjuntos              from "@/components/solicitud/Adjuntos";
-//import TareasSolicitudes     from "@/components/solicitud/TareasSolicitudes";
-
-const steps = [
-  {
-    id: "identificacion",
-    label: "Identificación",
-    component: <Identificacion />,
-  },
-  { id: "proyeccion", label: "Proyección", component: <Proyeccion /> },
-  { id: "datos", label: "Datos generales", component: <DatosGenerales /> },
-  {
-    id: "actividad",
-    label: "Actividad económica",
-    component: <ActividadEconomica />,
-  },
-  {
-    id: "contacto",
-    label: "Contacto y ubicación",
-    component: <ContactoUbicacion />,
-  },
-  { id: "conyuge", label: "Cónyuge", component: <Conyuge /> },
-  { id: "banco", label: "Banco", component: <Banco /> },
-  { id: "beneficiarios", label: "Beneficiarios", component: <Beneficiarios /> },
-  { id: "finalizacion", label: "Finalización", component: <Finalizacion /> },
-
-  // --- aquí añades tus dos nuevas pestañas ---
-  { id: "adjuntos", label: "Adjuntos", component: <DatosGenerales /> },
-  {
-    id: "tareas",
-    label: "Tareas de solicitudes",
-    component: <DatosGenerales />,
-  },
-];
+import Adjuntos from "@/components/solicitud/Adjuntos";
+import { useParams, useNavigate } from "react-router-dom";
+//import TareasSolicitudes from "@/components/solicitud/TareasSolicitudes";
 
 export default function SimpleStepper() {
   const [current, setCurrent] = useState(0);
+
+  const { id } = useParams();
+
+  const steps = [
+    {
+      id: "identificacion",
+      label: "Identificación",
+      component: <Identificacion id={id} />,
+    },
+    { id: "proyeccion", label: "Proyección", component: <Proyeccion /> },
+    {
+      id: "datos",
+      label: "Datos generales",
+      component: <DatosGenerales id={id} />,
+    },
+    {
+      id: "actividad",
+      label: "Actividad económica",
+      component: <ActividadEconomica id={id} />,
+    },
+    {
+      id: "contacto",
+      label: "Contacto y ubicación",
+      component: <ContactoUbicacion id={id} />,
+    },
+    { id: "conyuge", label: "Cónyuge", component: <Conyuge id={id} /> },
+    { id: "banco", label: "Banco", component: <Banco id={id} /> },
+    {
+      id: "beneficiarios",
+      label: "Beneficiarios",
+      component: <Beneficiarios id={id} />,
+    },
+    {
+      id: "finalizacion",
+      label: "Finalización",
+      component: <Finalizacion id={id} />,
+    },
+
+    // --- aquí añades tus dos nuevas pestañas ---
+    { id: "adjuntos", label: "Adjuntos", component: <Adjuntos id={id} /> },
+    {
+      id: "tareas",
+      label: "Tareas de solicitudes",
+      component: <DatosGenerales id={id} />,
+    },
+  ];
 
   const goNext = () => setCurrent((c) => Math.min(c + 1, steps.length - 1));
   const goPrev = () => setCurrent((c) => Math.max(c - 1, 0));
