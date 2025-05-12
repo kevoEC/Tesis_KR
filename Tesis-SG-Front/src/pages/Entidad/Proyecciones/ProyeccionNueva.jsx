@@ -288,10 +288,6 @@ export default function ProyeccionNueva() {
           </div>
         </CardContent>
       </Card>
-
-   
-
-
       {cronograma.length > 0 && (
         <>
           {/* <Card className="mt-6 border rounded-2xl">

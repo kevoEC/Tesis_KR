@@ -38,7 +38,7 @@ export default function Proyeccion() {
   }, [idSolicitud]);
 
   return (
-    <div className="space-y-6 p-6">
+    <div className="space-y-6 px-4 sm:px-6 py-6">
       <h2 className="text-xl font-semibold text-gray-800">Proyecciones vinculadas</h2>
 
       <div className="flex justify-end mb-2">
@@ -52,7 +52,7 @@ export default function Proyeccion() {
       </div>
 
       <Card>
-        <CardContent className="p-4">
+        <CardContent className="space-y-6 px-4 sm:px-6 py-6">
           <div className="overflow-x-auto">
             <Table>
               <TableHeader>
