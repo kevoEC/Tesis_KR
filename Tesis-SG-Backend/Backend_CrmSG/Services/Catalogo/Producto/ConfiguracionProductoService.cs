@@ -20,7 +20,8 @@ namespace Backend_CrmSG.Services.Producto
         public ConfiguracionProductoService(IRepository<ConfiguracionesProducto> repository, IConfiguration configuration, AppDbContext context)
         {
             _repository = repository;
-            _connectionString = configuration.GetConnectionString("DefaultConnection");
+            _connectionString = configuration.GetConnectionString("DefaultConnection")
+                ?? throw new InvalidOperationException("La cadena de conexión 'DefaultConnection' no está configurada.");
             _context = context;
         }
 

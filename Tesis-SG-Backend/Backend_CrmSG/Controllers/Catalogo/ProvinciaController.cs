@@ -1,0 +1,67 @@
+﻿// Controllers/Catalogos/ProvinciaController.cs
+using Microsoft.AspNetCore.Mvc;
+using Backend_CrmSG.Models.Catalogos;
+using Backend_CrmSG.Repositories;
+using Microsoft.AspNetCore.Authorization;
+
+namespace Backend_CrmSG.Controllers.Catalogos
+{
+    [Route("api/[controller]")]
+    [ApiController]
+    [Authorize]
+    public class ProvinciaController : ControllerBase
+    {
+        private readonly IRepository<Provincia> _repo;
+
+        public ProvinciaController(IRepository<Provincia> repo)
+        {
+            _repo = repo;
+        }
+
+        [HttpGet]
+        public async Task<ActionResult<IEnumerable<Provincia>>> Get()
+        {
+            var lista = await _repo.GetAllAsync();
+            return Ok(lista);
+        }
+
+        [HttpGet("{id}")]
+        public async Task<ActionResult<Provincia>> Get(int id)
+        {
+            var item = await _repo.GetByIdAsync(id);
+            if (item == null)
+                return NotFound();
+            return Ok(item);
+        }
+
+        [HttpGet("por-pais/{idPais}")]
+        public async Task<ActionResult<IEnumerable<Provincia>>> GetPorPais(int idPais)
+        {
+            var lista = await _repo.GetByPropertyAsync(nameof(Provincia.IdPais), idPais);
+            return Ok(lista);
+        }
+
+        [HttpPost]
+        public async Task<ActionResult<Provincia>> Post([FromBody] Provincia item)
+        {
+            await _repo.AddAsync(item);
+            return CreatedAtAction(nameof(Get), new { id = item.IdProvincia }, item);
+        }
+
+        [HttpPut("{id}")]
+        public async Task<IActionResult> Put(int id, [FromBody] Provincia item)
+        {
+            if (id != item.IdProvincia)
+                return BadRequest();
+            await _repo.UpdateAsync(item);
+            return NoContent();
+        }
+
+        [HttpDelete("{id}")]
+        public async Task<IActionResult> Delete(int id)
+        {
+            await _repo.DeleteAsync(id);
+            return NoContent();
+        }
+    }
+}

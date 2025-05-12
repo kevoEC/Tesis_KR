@@ -11,9 +11,10 @@ public class StoredProcedureService
     public string ConnectionString => _connectionString;
 
 
-    public StoredProcedureService(IConfiguration config)
+    public StoredProcedureService(IConfiguration configuration)
     {
-        _connectionString = config.GetConnectionString("DefaultConnection");
+        _connectionString = configuration.GetConnectionString("DefaultConnection")
+            ?? throw new InvalidOperationException("La cadena de conexión 'DefaultConnection' no está configurada.");
     }
 
     public async Task<LoginResultDto> EjecutarLoginSP(string email, string password)

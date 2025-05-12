@@ -1,6 +1,6 @@
 ﻿using Backend_CrmSG.Data;
 using Backend_CrmSG.DTOs;
-using Backend_CrmSG.Models;
+using Backend_CrmSG.Models.Entidades;
 using Backend_CrmSG.Services;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
@@ -72,7 +72,8 @@ namespace Backend_CrmSG.Controllers.Entidad
 
                 if (cronogramaEntity != null)
                 {
-                    cronograma = JsonSerializer.Deserialize<List<CronogramaCuotaDto>>(cronogramaEntity.PeriodosJson);
+                    cronograma = JsonSerializer.Deserialize<List<CronogramaCuotaDto>>(cronogramaEntity.PeriodosJson) ?? new List<CronogramaCuotaDto>();
+
                 }
 
                 return Ok(new

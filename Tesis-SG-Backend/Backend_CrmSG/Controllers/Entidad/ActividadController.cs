@@ -1,4 +1,4 @@
-﻿using Backend_CrmSG.Models;
+﻿using Backend_CrmSG.Models.Entidades;
 using Backend_CrmSG.Repositories;
 using Microsoft.AspNetCore.Mvc;
 
@@ -59,5 +59,13 @@ namespace Backend_CrmSG.Controllers.Entidad
             await _actividadRepository.DeleteAsync(id);
             return NoContent();
         }
+
+        [HttpGet("por-prospecto/{idProspecto}")]
+        public async Task<IActionResult> GetPorProspecto(int idProspecto)
+        {
+            var actividades = await _actividadRepository.GetByPropertyAsync("IdProspecto", idProspecto);
+            return Ok(actividades);
+        }
+
     }
 }

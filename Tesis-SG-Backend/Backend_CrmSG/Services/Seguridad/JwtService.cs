@@ -39,10 +39,21 @@ namespace Backend_CrmSG.Services.Seguridad
         // ✅ NUEVO MÉTODO: para uso directo con claims desde SP
         public string GenerateTokenFromClaims(List<Claim> claims)
         {
-            var key = Encoding.UTF8.GetBytes(_configuration["Jwt:Key"]);
-            var issuer = _configuration["Jwt:Issuer"];
-            var audience = _configuration["Jwt:Audience"];
-            var expiresInMinutes = Convert.ToDouble(_configuration["Jwt:ExpiresInMinutes"]);
+            var keyString = _configuration["Jwt:Key"]
+                ?? throw new InvalidOperationException("La clave JWT (Jwt:Key) no está configurada en appsettings.json.");
+
+            var key = Encoding.UTF8.GetBytes(keyString);
+
+            var issuer = _configuration["Jwt:Issuer"]
+                ?? throw new InvalidOperationException("El issuer JWT (Jwt:Issuer) no está configurado.");
+
+            var audience = _configuration["Jwt:Audience"]
+                ?? throw new InvalidOperationException("El audience JWT (Jwt:Audience) no está configurado.");
+
+            var expiresInConfig = _configuration["Jwt:ExpiresInMinutes"]
+                ?? throw new InvalidOperationException("La duración del token (Jwt:ExpiresInMinutes) no está configurada.");
+
+            var expiresInMinutes = Convert.ToDouble(expiresInConfig);
 
             var tokenDescriptor = new SecurityTokenDescriptor
             {
@@ -58,5 +69,6 @@ namespace Backend_CrmSG.Services.Seguridad
 
             return tokenHandler.WriteToken(token);
         }
+
     }
 }

@@ -106,12 +106,13 @@ namespace Backend_CrmSG.Services.Seguridad
             return usuario.IdUsuario; // Retorna el ID generado
         }
 
-        public async Task<Usuario> ObtenerPorEmailOIdentificacion(string email, string identificacion)
+        public async Task<Usuario?> ObtenerPorEmailOIdentificacion(string email, string identificacion)
         {
             var usuarios = await _usuarioRepository.GetAllAsync();
             return usuarios.FirstOrDefault(u =>
                 u.Email == email || u.Identificacion == identificacion);
         }
+
 
         public async Task RegistrarTransaccionValidacionCorreo(int idUsuario, string email)
         {
