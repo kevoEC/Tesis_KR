@@ -46,4 +46,14 @@ export const editarReferencia = async (id, data) => {
     });
     return handleResponse(res);
   };
+
+  // ❌ Eliminar referencia por ID
+export const eliminarReferencia = async (id) => {
+    const res = await fetch(`${API_BASE_URL}/referencia/${id}`, {
+      method: "DELETE",
+      headers: getAuthHeaders(),
+    });
+    return handleResponse(res);
+  };
+  
   

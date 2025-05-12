@@ -81,7 +81,7 @@ export default function DatosGenerales() {
   }, []);
 
 
-  // 🟡 Editar
+  /**********Editar********************* */
   const handleEditar = (item) => {
     setNuevoDato({
       idReferencia: item.idReferencia,
@@ -97,6 +97,29 @@ export default function DatosGenerales() {
     setModoEdicion(true);
     setModalAbierto(true);
   };
+  /*********Eliminar************ */
+  const handleEliminar = async (item) => {
+    if (!window.confirm(`¿Estás seguro de eliminar la referencia "${item.nombreReferencia}"?`)) {
+      return;
+    }
+
+    try {
+      await eliminarReferencia(item.idReferencia);
+      toast.success("Referencia eliminada", {
+        description: `"${item.nombreReferencia}" fue eliminada correctamente.`,
+      });
+
+      // Recargar lista
+      const dataActualizada = await getReferenciasPorSolicitud(id);
+      setReferencias(dataActualizada);
+    } catch (error) {
+      console.error("Error al eliminar referencia:", error);
+      toast.error("Error al eliminar", {
+        description: "No se pudo eliminar la referencia. Intenta de nuevo.",
+      });
+    }
+  };
+
 
 
   const columnas = [
@@ -247,7 +270,7 @@ export default function DatosGenerales() {
               mostrarEliminar={true}
               onAgregarNuevoClick={handleAbrirFormulario}
               onEditarClick={handleEditar}
-            // onEliminarClick={handleEliminar}
+              onEliminarClick={handleEliminar}
             />
 
           </CardContent>
