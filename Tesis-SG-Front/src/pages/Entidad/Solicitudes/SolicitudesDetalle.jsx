@@ -1,46 +1,4 @@
-// import { useEffect, useState } from "react";
-// import { useParams } from "react-router-dom";
-// import { getSolicitudById } from "@/service/Entidades/SolicitudService";
-// import { useUI } from "@/hooks/useUI";
-// import { Scoped } from "@/service/stepper/stepperSolicitud";
-// import TopTabs from "@/components/solicitud/layout/TopTabs";
-// import StepperHeader from "@/components/solicitud/layout/StepperHeader";
-// import StepperBody from "@/components/solicitud/layout/StepperBody";
-
-// export default function SolicitudesDetalle() {
-//   const { id } = useParams();
-//   const { setSolicitudId, setSolicitudHabilitada } = useUI();
-
-//   const [errores, setErrores] = useState({});
-
-//   useEffect(() => {
-//     const fetch = async () => {
-//       try {
-//         const solicitud = await getSolicitudById(id);
-//         const parsed = JSON.parse(solicitud.jsonDocument);
-//         setSolicitudId(solicitud.idSolicitudInversion);
-//         sessionStorage.setItem("solicitud", JSON.stringify(parsed));
-//         sessionStorage.setItem("solicitudHabilitada", "true");
-//         setSolicitudHabilitada(true);
-//       } catch (err) {
-//         console.error("Error cargando solicitud:", err);
-//       }
-//     };
-//     fetch();
-//   }, [id, setSolicitudId, setSolicitudHabilitada]);
-
-//   return (
-//     <Scoped initialStep="identificacion">
-//       <div className="flex flex-col h-full bg-gray-50 min-h-screen">
-//         <TopTabs active="general" />
-//         <StepperHeader errores={errores} />
-//         <StepperBody setErrores={setErrores} />
-//       </div>
-//     </Scoped>
-//   );
-// }
-
-// SimpleStepper.jsx
+// SolicitudesDetalle.jsx
 import React, { useState } from "react";
 import Identificacion from "@/components/solicitud/Identificacion";
 import Proyeccion from "@/components/solicitud/Proyeccion";
@@ -109,24 +67,46 @@ export default function SimpleStepper() {
   return (
     <div className="flex flex-col min-h-screen bg-gray-50">
       {/* HEADER */}
-      <div className="flex border-b bg-white px-6 py-4">
-        {steps.map((step, idx) => (
-          <div
-            key={step.id}
-            onClick={() => setCurrent(idx)}
-            className={`
-              flex-1 text-center cursor-pointer pb-1
-              ${
-                idx === current
-                  ? "border-b-2 border-blue-600 text-blue-600"
-                  : "text-gray-500 hover:text-gray-700"
-              }
-            `}
-          >
-            {step.label}
-          </div>
-        ))}
+      <div className="px-6 py-4 bg-white border-b">
+        <div className="flex gap-3 overflow-x-auto md:overflow-visible md:flex-wrap">
+
+
+          {steps.map((step, idx) => {
+            const isActive = idx === current;
+            const isCompleted = idx < current;
+            const isFuture = idx > current;
+
+            return (
+              <div
+                key={step.id}
+                onClick={() => {
+                  if (!isFuture) setCurrent(idx); // Bloquea clic en futuros
+                }}
+                className={`transition-all flex items-center gap-2 px-4 py-2 rounded-full text-sm font-medium border
+        ${isActive
+                    ? "bg-primary/80 text-white border-primary  shadow-md"
+                    : isCompleted
+                      ? "bg-green-100 text-green-800 border-green-400"
+                      : "bg-gray-100 text-gray-700 border-gray-300"
+                  }
+        ${isFuture ? "cursor-not-allowed opacity-50" : "cursor-pointer hover:bg-gray-200"}
+            `}>
+                <div className={`w-6 h-6 flex items-center justify-center rounded-full text-xs font-bold
+        ${isCompleted
+                    ? "bg-green-500 text-white"
+                    : "bg-white text-gray-800 border border-gray-300"
+                  }
+                `}>
+                  {idx + 1}
+                </div>
+                {step.label}
+              </div>
+            );
+          })}
+
+        </div>
       </div>
+
 
       {/* BODY */}
       <div className="flex-1 p-6">{steps[current].component}</div>
@@ -136,14 +116,14 @@ export default function SimpleStepper() {
         <button
           onClick={goPrev}
           disabled={current === 0}
-          className="px-4 py-2 rounded border disabled:opacity-50"
+          className="px-4 py-2 rounded border disabled:opacity-50 bg-gray-100 hover:bg-white hover:drop-shadow-lg"
         >
           ← Anterior
         </button>
         <button
           onClick={goNext}
           disabled={current === steps.length - 1}
-          className="px-4 py-2 rounded bg-blue-600 text-white disabled:opacity-50"
+          className="px-4 py-2 rounded bg-primary text-white disabled:opacity-50 hover:bg-primary/85 hover:drop-shadow-lg"
         >
           Siguiente →
         </button>
