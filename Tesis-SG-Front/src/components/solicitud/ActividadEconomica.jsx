@@ -104,6 +104,14 @@ export default function ActividadEconomica({ id }) {
           <h2 className="text-xl font-semibold text-gray-800">
             Actividad económica
           </h2>
+          {/* Botón para guardar datos */}
+          <Button
+            onClick={handleGuardar}
+            disabled={loading}
+            className="text-white"
+          >
+            Guardar datos
+          </Button>
           <Card>
             <CardContent className="p-6 space-y-6">
               <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
@@ -231,11 +239,6 @@ export default function ActividadEconomica({ id }) {
               </div>
             </CardContent>
           </Card>
-
-          {/* Botón para guardar datos */}
-          <Button onClick={handleGuardar} disabled={loading}>
-            Guardar datos
-          </Button>
         </>
       )}
     </div>

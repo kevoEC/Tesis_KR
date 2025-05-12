@@ -20,18 +20,24 @@ const getAuthHeaders = () => {
 };
 
 // 🟢 GET: Listar todos los prospectos
-export const getAdjuntos = async () => {
-  const res = await fetch(`${API_BASE_URL}/Prospecto`, {
-    headers: getAuthHeaders(),
-  });
+export const getAdjuntos = async (id) => {
+  const res = await fetch(
+    `${API_BASE_URL}/Documento/entidad?tipoEntidad=SolicitudInversion&idEntidad=${id}`,
+    {
+      headers: getAuthHeaders(),
+    }
+  );
   return handleResponse(res);
 };
 
 // 🔵 GET: Obtener prospecto por ID
 export const getAdjuntoById = async (id) => {
-  const res = await fetch(`${API_BASE_URL}/Prospecto/${id}`, {
-    headers: getAuthHeaders(),
-  });
+  const res = await fetch(
+    `${API_BASE_URL}/Documento/entidad?tipoEntidad=SolicitudInversion&idEntidad=${id}`,
+    {
+      headers: getAuthHeaders(),
+    }
+  );
   return handleResponse(res);
 };
 

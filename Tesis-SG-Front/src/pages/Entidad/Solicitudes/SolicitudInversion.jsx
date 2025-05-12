@@ -83,7 +83,6 @@ export default function SolicitudInversion() {
   const columnasSolicitud = [
     { key: "idSolicitudInversion", label: "ID" },
     { key: "nombreCompletoProspecto", label: "nombre Completo Prospecto" },
-    { key: "nombreCompletoCliente", label: "nombre Completo Cliente" },
     { key: "nombrePropietario", label: "nombre Propietario" },
   ];
 

@@ -11,7 +11,7 @@ import {
 } from "@/components/ui/dialog";
 import AdjuntoForm from "./AdjuntoForm";
 
-export default function Adjuntos() {
+export default function Adjuntos({ id }) {
   const [documentos, setDocumentos] = useState([]);
   const [isDialogOpen, setIsDialogOpen] = useState(false);
   const [documentoId, setDocumentoId] = useState(null); // Estado para el idDocumento
@@ -20,7 +20,7 @@ export default function Adjuntos() {
   useEffect(() => {
     const fetchData = async () => {
       try {
-        const data = await getAdjuntos(); // Ejecutar función async
+        const data = await getAdjuntos(id); // Ejecutar función async
         setDocumentos(data);
       } catch (error) {
         console.error("Error al cargar documentos:", error);
@@ -53,8 +53,7 @@ export default function Adjuntos() {
       ),
     },
 
-    { key: "nombres", label: "Nombres" },
-    { key: "Documento", label: "Url Documento Adjunto" },
+    { key: "nombress", label: "Nombres" },
   ];
 
   return (
