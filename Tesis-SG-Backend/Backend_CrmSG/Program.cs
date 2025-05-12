@@ -8,6 +8,7 @@ using Microsoft.IdentityModel.Tokens;
 using System.Text;
 using Backend_CrmSG.Services.Producto;
 using Backend_CrmSG.Services.Validaciones;
+using Backend_CrmSG.Services.Documento;
 
 var builder = WebApplication.CreateBuilder(args);
 var jwtKey = builder.Configuration["Jwt:Key"]
@@ -146,10 +147,7 @@ builder.Services.AddScoped<StoredProcedureService>();
 builder.Services.AddScoped<ProyeccionService>();
 builder.Services.AddScoped<SimuladorProyeccionService>();
 builder.Services.AddHttpClient<IValidacionService, ValidacionService>();
-
-
-
-
+builder.Services.AddScoped<IDocumentoService, DocumentoService>();
 
 // Catálogos
 builder.Services.AddScoped<IProductoService, ProductoService>();

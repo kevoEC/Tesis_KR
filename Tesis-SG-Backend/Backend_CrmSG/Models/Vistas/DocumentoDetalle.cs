@@ -1,6 +1,8 @@
-﻿namespace Backend_CrmSG.DTOs
+﻿using System.ComponentModel.DataAnnotations;
+
+namespace Backend_CrmSG.Models.Vistas
 {
-    public class DocumentoAdjuntoDto
+    public class DocumentoDetalle
     {
         public int IdDocumento { get; set; }
         public int IdTipoDocumento { get; set; }
