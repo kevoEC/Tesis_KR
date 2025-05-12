@@ -150,6 +150,112 @@ namespace Backend_CrmSG.Services.Seguridad
             }
         }
 
+        public async Task<bool> ValidarCorreoPorHashAsync(string hash)
+        {
+            var transacciones = await _transaccionRepository.GetAllAsync();
+            var tipoTransacciones = await _tipoTransaccionRepository.GetAllAsync();
+
+            var tipoCorreo = tipoTransacciones.FirstOrDefault(t => t.Nombre == "Correo");
+            if (tipoCorreo == null) return false;
+
+            var transaccion = transacciones.FirstOrDefault(t =>
+                t.HashValidacion == hash &&
+                t.IdTipoTransaccion == tipoCorreo.IdTipoTransaccion &&
+                !t.Exitoso &&
+                t.Expiracion > DateTime.UtcNow);
+
+            if (transaccion == null)
+            {
+                return false;
+            }
+
+            var usuario = await _usuarioRepository.GetByIdAsync(transaccion.IdUsuario);
+            if (usuario == null)
+            {
+                return false;
+            }
+
+            usuario.ValidacionCorreo = true;
+            usuario.EsActivo = true;
+            usuario.FechaModificacion = DateTime.UtcNow;
+            transaccion.Exitoso = true;
+
+            await _usuarioRepository.UpdateAsync(usuario);
+            await _transaccionRepository.UpdateAsync(transaccion);
+
+            return true;
+        }
+
+
+        public async Task<bool> EnviarCodigoSmsValidacion(int idUsuario, string telefono, string extension, Func<string, Task<bool>> sendSms)
+        {
+            var usuario = await _usuarioRepository.GetByIdAsync(idUsuario);
+            if (usuario == null) return false;
+
+            // Guardar teléfono con extensión
+            usuario.Telefono = extension + telefono;
+            await _usuarioRepository.UpdateAsync(usuario);
+
+            var tipos = await _tipoTransaccionRepository.GetAllAsync();
+            var tipoTelefono = tipos.FirstOrDefault(t => t.Nombre == "Telefono");
+            if (tipoTelefono == null) throw new Exception("TipoTransaccion 'Telefono' no existe.");
+
+            // Generar código de 6 dígitos
+            var codigo = new Random().Next(100000, 999999).ToString();
+
+            var transaccion = new TransaccionesValidacion
+            {
+                IdUsuario = idUsuario,
+                IdTipoTransaccion = tipoTelefono.IdTipoTransaccion,
+                HashValidacion = codigo,
+                FechaCreacion = DateTime.UtcNow,
+                Expiracion = DateTime.UtcNow.AddMinutes(10),
+                Operacion = "ValidacionTelefono",
+                Exitoso = false
+            };
+
+            await _transaccionRepository.AddAsync(transaccion);
+
+            // Enviar SMS usando callback (Twilio)
+            return await sendSms(usuario.Telefono!);
+        }
+
+
+        public async Task<bool> ValidarCodigoTelefonoAsync(int idUsuario, string codigo)
+        {
+            var transacciones = await _transaccionRepository.GetAllAsync();
+            var tipos = await _tipoTransaccionRepository.GetAllAsync();
+
+            var tipoTelefono = tipos.FirstOrDefault(t => t.Nombre == "Telefono");
+            if (tipoTelefono == null) return false;
+
+            var transaccion = transacciones.FirstOrDefault(t =>
+                t.IdUsuario == idUsuario &&
+                t.HashValidacion == codigo &&
+                t.IdTipoTransaccion == tipoTelefono.IdTipoTransaccion &&
+                !t.Exitoso &&
+                t.Expiracion > DateTime.UtcNow);
+
+            if (transaccion == null) return false;
+
+            var usuario = await _usuarioRepository.GetByIdAsync(idUsuario);
+            if (usuario == null) return false;
+
+            usuario.ValidacionTelefono = true;
+            usuario.FechaModificacion = DateTime.UtcNow;
+            transaccion.Exitoso = true;
+
+            await _usuarioRepository.UpdateAsync(usuario);
+            await _transaccionRepository.UpdateAsync(transaccion);
+
+            return true;
+        }
+
+
+
+
+
+
 
     }
 }

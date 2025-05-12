@@ -26,6 +26,9 @@ namespace Backend_CrmSG.Services.Seguridad
 
         Task<int> InsertarUsuarioParcialAsync(Usuario usuario);
         Task RegistrarTransaccionValidacionCorreo(int idUsuario, string email);
+        Task<bool> ValidarCorreoPorHashAsync(string hash);
+        Task<bool> EnviarCodigoSmsValidacion(int idUsuario, string telefono, string extension, Func<string, Task<bool>> sendSms);
+        Task<bool> ValidarCodigoTelefonoAsync(int idUsuario, string codigo);
 
 
     }

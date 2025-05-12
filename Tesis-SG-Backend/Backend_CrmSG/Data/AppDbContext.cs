@@ -124,6 +124,18 @@ namespace Backend_CrmSG.Data
             modelBuilder.Entity<DocumentoBasicoDetalle>()
                 .HasNoKey()
                 .ToView("vw_DocumentosBasicos");
+           
+            modelBuilder.Entity<TransaccionesValidacion>()
+            .HasOne(t => t.TipoTransaccion)
+            .WithMany(tt => tt.Transacciones)
+            .HasForeignKey(t => t.IdTipoTransaccion)
+            .OnDelete(DeleteBehavior.Restrict);
+
+            modelBuilder.Entity<TransaccionesValidacion>()
+                .HasOne(t => t.Usuario)
+                .WithMany()
+                .HasForeignKey(t => t.IdUsuario)
+                .OnDelete(DeleteBehavior.Restrict);
 
 
 
