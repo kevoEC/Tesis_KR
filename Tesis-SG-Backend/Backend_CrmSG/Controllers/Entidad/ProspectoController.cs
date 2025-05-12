@@ -1,4 +1,4 @@
-﻿using Backend_CrmSG.Models;
+﻿using Backend_CrmSG.Models.Entidades;
 using Backend_CrmSG.Repositories;
 using Microsoft.AspNetCore.Mvc;
 

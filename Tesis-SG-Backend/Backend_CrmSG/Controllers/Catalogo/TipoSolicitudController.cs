@@ -1,0 +1,50 @@
+﻿using Microsoft.AspNetCore.Mvc;
+using Backend_CrmSG.Models.Catalogos;
+using Backend_CrmSG.Repositories;
+
+namespace Backend_CrmSG.Controllers.Catalogos
+{
+    [Route("api/[controller]")]
+    [ApiController]
+    public class TipoSolicitudController : ControllerBase
+    {
+        private readonly IRepository<TipoSolicitud> _repository;
+
+        public TipoSolicitudController(IRepository<TipoSolicitud> repository)
+        {
+            _repository = repository;
+        }
+
+        [HttpGet]
+        public async Task<IActionResult> Get() => Ok(await _repository.GetAllAsync());
+
+        [HttpGet("{id}")]
+        public async Task<IActionResult> Get(int id)
+        {
+            var item = await _repository.GetByIdAsync(id);
+            return item == null ? NotFound() : Ok(item);
+        }
+
+        [HttpPost]
+        public async Task<IActionResult> Post([FromBody] TipoSolicitud item)
+        {
+            await _repository.AddAsync(item);
+            return CreatedAtAction(nameof(Get), new { id = item.IdTipoDeSolicitud }, item);
+        }
+
+        [HttpPut("{id}")]
+        public async Task<IActionResult> Put(int id, [FromBody] TipoSolicitud item)
+        {
+            if (id != item.IdTipoDeSolicitud) return BadRequest();
+            await _repository.UpdateAsync(item);
+            return NoContent();
+        }
+
+        [HttpDelete("{id}")]
+        public async Task<IActionResult> Delete(int id)
+        {
+            await _repository.DeleteAsync(id);
+            return NoContent();
+        }
+    }
+}

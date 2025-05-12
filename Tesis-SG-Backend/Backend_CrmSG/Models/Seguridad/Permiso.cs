@@ -8,7 +8,7 @@ namespace Backend_CrmSG.Models.Seguridad
         public int IdPermiso { get; set; }
 
         // Nombre o clave del permiso (por ejemplo, "VerDashboard", "EditarUsuario", etc.)
-        public string Nombre { get; set; }
+        public string? Nombre { get; set; }
 
         // Descripción opcional del permiso
         public string? Descripcion { get; set; }

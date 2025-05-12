@@ -8,16 +8,16 @@ namespace Backend_CrmSG.Models.Catalogos.Producto
         public int IdProducto { get; set; }
 
         [StringLength(64)]  // en vez de 128
-        public string ProductoNombre { get; set; }
+        public string? ProductoNombre { get; set; }
 
         [StringLength(64)]  // en vez de 128
-        public string NombreComercial { get; set; }
+        public string? NombreComercial { get; set; }
 
         [StringLength(32)]  // en vez de 16
-        public string ProductoCodigo { get; set; }
+        public string? ProductoCodigo { get; set; }
 
         [StringLength(8)]  // en vez de 16
-        public string Iniciales { get; set; }
+        public string? Iniciales { get; set; }
 
         public string? Descripcion { get; set; }
 

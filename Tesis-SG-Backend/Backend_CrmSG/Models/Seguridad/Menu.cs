@@ -8,10 +8,10 @@ namespace Backend_CrmSG.Models.Seguridad
         public int IdMenu { get; set; }
 
         // Nombre del menú (por ejemplo, "Dashboard", "Ventas", etc.)
-        public string Nombre { get; set; }
+        public string? Nombre { get; set; }
 
         // URL o ruta asociada al menú
-        public string Url { get; set; }
+        public string? Url { get; set; }
 
         // Icono o imagen (opcional)
         public string? Icono { get; set; }

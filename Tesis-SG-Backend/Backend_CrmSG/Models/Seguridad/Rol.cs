@@ -8,7 +8,7 @@ namespace Backend_CrmSG.Models.Seguridad
         [Key]
         public int IdRol { get; set; }
 
-        public string Nombre { get; set; }
+        public string? Nombre { get; set; }
 
         // Campos de auditoría que se observan en la tabla
         public DateTime? FechaCreacion { get; set; }

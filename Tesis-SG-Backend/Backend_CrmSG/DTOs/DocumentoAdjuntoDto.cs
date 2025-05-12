@@ -4,10 +4,10 @@
     {
         public int IdDocumento { get; set; }
         public int IdTipoDocumento { get; set; }
-        public string TipoDocumentoNombre { get; set; }
-        public string CodigoTipoDocumento { get; set; }
+        public string? TipoDocumentoNombre { get; set; }
+        public string? CodigoTipoDocumento { get; set; }
         public int? IdMotivo { get; set; }
-        public string MotivoNombre { get; set; }
+        public string? MotivoNombre { get; set; }
         public int? IdTarea { get; set; }
         public int? IdSolicitudInversion { get; set; }
         public int? IdInversion { get; set; }
