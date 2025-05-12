@@ -29,9 +29,12 @@ export const getAdjuntos = async () => {
 
 // 🔵 GET: Obtener prospecto por ID
 export const getAdjuntoById = async (id) => {
-  const res = await fetch(`${API_BASE_URL}/Prospecto/${id}`, {
-    headers: getAuthHeaders(),
-  });
+  const res = await fetch(
+    `${API_BASE_URL}/Documento/entidad?tipoEntidad=SolicitudInversion&idEntidad=${id}`,
+    {
+      headers: getAuthHeaders(),
+    }
+  );
   return handleResponse(res);
 };
 

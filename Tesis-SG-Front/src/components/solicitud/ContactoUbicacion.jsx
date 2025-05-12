@@ -1,115 +1,312 @@
-import { useState } from "react";
+import { useEffect, useState } from "react";
+import {
+  getSolicitudById,
+  updateSolicitud,
+} from "@/service/Entidades/SolicitudService";
 import { Card, CardContent } from "@/components/ui/card";
 import { Input } from "@/components/ui/input";
 import { Label } from "@/components/ui/label";
-import { Select, SelectTrigger, SelectValue, SelectContent, SelectItem } from "@/components/ui/select";
+import { Button } from "@/components/ui/button";
 import { Switch } from "@/components/ui/switch";
-import { Mail, Phone, Lock, Search } from "lucide-react";
+import { toast } from "sonner";
 
-export default function ContactoUbicacion() {
-  const [esResidenteOtroPais, setEsResidenteOtroPais] = useState(false);
-  const [esContribuyenteEEUU, setEsContribuyenteEEUU] = useState(false);
+export default function ContactoUbicacion({ id }) {
+  const [loading, setLoading] = useState(true);
+  const [solicitudData, setSolicitudData] = useState(null);
+  const [contactoUbicacion, setContactoUbicacion] = useState({
+    correoElectronico: "",
+    otroTelefono: "",
+    telefonoCelular: "",
+    telefonoFijo: "",
+    idTipoVia: "",
+    callePrincipal: "",
+    numeroDomicilio: "",
+    calleSecundaria: "",
+    referenciaDomicilio: "",
+    sectorBarrio: "",
+    tiempoResidencia: "",
+    idPaisResidencia: "",
+    idProvinciaResidencia: "",
+    idCiudadResidencia: "",
+    residenteOtroPais: false,
+    contribuyenteEEUU: false,
+    numeroIdentificacionOtroPais: "",
+    numeroIdentificacionEEUU: "",
+  });
+
+  useEffect(() => {
+    const cargar = async () => {
+      try {
+        const res = await getSolicitudById(id);
+        const data = res.data[0];
+        setSolicitudData(data);
+        setContactoUbicacion({
+          correoElectronico: data.contactoUbicacion.correoElectronico || "",
+          otroTelefono: data.contactoUbicacion.otroTelefono || "",
+          telefonoCelular: data.contactoUbicacion.telefonoCelular || "",
+          telefonoFijo: data.contactoUbicacion.telefonoFijo || "",
+          idTipoVia: data.contactoUbicacion.idTipoVia || "",
+          callePrincipal: data.contactoUbicacion.callePrincipal || "",
+          numeroDomicilio: data.contactoUbicacion.numeroDomicilio || "",
+          calleSecundaria: data.contactoUbicacion.calleSecundaria || "",
+          referenciaDomicilio: data.contactoUbicacion.referenciaDomicilio || "",
+          sectorBarrio: data.contactoUbicacion.sectorBarrio || "",
+          tiempoResidencia: data.contactoUbicacion.tiempoResidencia || "",
+          idPaisResidencia: data.contactoUbicacion.idPaisResidencia || "",
+          idProvinciaResidencia:
+            data.contactoUbicacion.idProvinciaResidencia || "",
+          idCiudadResidencia: data.contactoUbicacion.idCiudadResidencia || "",
+          residenteOtroPais: data.contactoUbicacion.residenteOtroPais || false,
+          contribuyenteEEUU: data.contactoUbicacion.contribuyenteEEUU || false,
+          numeroIdentificacionOtroPais:
+            data.contactoUbicacion.numeroIdentificacionOtroPais || "",
+          numeroIdentificacionEEUU:
+            data.contactoUbicacion.numeroIdentificacionEEUU || "",
+        });
+      } catch (err) {
+        toast.error("Error al cargar contacto: " + err.message);
+      } finally {
+        setLoading(false);
+      }
+    };
+    cargar();
+  }, [id]);
+
+  const handleGuardar = async () => {
+    if (!solicitudData) return;
+    try {
+      setLoading(true);
+      const payload = {
+        ...solicitudData,
+        contactoUbicacion,
+      };
+      const res = await updateSolicitud(id, payload);
+      if (res.success) toast.success("Contacto actualizado.");
+      else toast.error("Error al actualizar contacto.");
+    } catch (err) {
+      toast.error("Error al guardar: " + err.message);
+    } finally {
+      setLoading(false);
+    }
+  };
+
+  if (loading) return <p>Cargando contacto...</p>;
 
   return (
     <div className="space-y-6 p-6">
-      {/* 📬 Contacto */}
-      <h2 className="text-xl font-semibold text-gray-800">Contacto</h2>
+      <h2 className="text-xl font-semibold">Contacto y Ubicación</h2>
+      <Button onClick={handleGuardar} disabled={loading} className="text-white">
+        Guardar datos
+      </Button>
       <Card>
-        <CardContent className="p-6 space-y-6">
-          <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
-            <FormInput label="Correo electrónico" required icon={<Mail size={16} />} />
-            <FormInput label="Otro teléfono" />
-            <FormInput label="Teléfono celular" required icon={<Phone size={16} />} />
-            <FormInput label="Teléfono fijo" />
-          </div>
-        </CardContent>
-      </Card>
-
-      {/* 🏠 Ubicación */}
-      <h2 className="text-xl font-semibold text-gray-800">Ubicación</h2>
-      <Card>
-        <CardContent className="p-6 space-y-6">
-          <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
-            <FormSelect label="Tipo de vía" required />
-            <FormInput label="Calle principal" required />
-            <FormInput label="Número" required />
-            <FormInput label="Calle secundaria" />
-            <FormInput label="Referencia" />
-            <FormInput label="Tipo de vivienda" />
-            <FormInput label="Tiempo de residencia (años)" type="number" />
-            <FormSelect label="País" icon={<Search size={14} />} />
-            <FormSelect label="Provincia" icon={<Search size={14} />} />
-            <FormInput label="Ciudad" icon={<Lock size={14} />} value="Quito" disabled />
-            <FormSelect label="Parroquia" icon={<Search size={14} />} />
-            <FormInput label="Sector o barrio" />
-            <FormSwitch
-              label="Es residente en otro país diferente a EEUU"
-              checked={esResidenteOtroPais}
-              onChange={setEsResidenteOtroPais}
-            />
-            <FormSwitch
-              label="Es contribuyente en EEUU"
-              checked={esContribuyenteEEUU}
-              onChange={setEsContribuyenteEEUU}
-            />
-            <FormInput label="Número de identificación contribuyente EEUU" />
-            <FormInput label="Número de identificación contribuyente otro país" />
-          </div>
+        <CardContent className="p-6 grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
+          <FormInput
+            label="Correo electrónico"
+            value={contactoUbicacion.correoElectronico}
+            onChange={(e) =>
+              setContactoUbicacion({
+                ...contactoUbicacion,
+                correoElectronico: e.target.value,
+              })
+            }
+          />
+          <FormInput
+            label="Otro teléfono"
+            value={contactoUbicacion.otroTelefono}
+            onChange={(e) =>
+              setContactoUbicacion({
+                ...contactoUbicacion,
+                otroTelefono: e.target.value,
+              })
+            }
+          />
+          <FormInput
+            label="Teléfono celular"
+            value={contactoUbicacion.telefonoCelular}
+            onChange={(e) =>
+              setContactoUbicacion({
+                ...contactoUbicacion,
+                telefonoCelular: e.target.value,
+              })
+            }
+          />
+          <FormInput
+            label="Teléfono fijo"
+            value={contactoUbicacion.telefonoFijo}
+            onChange={(e) =>
+              setContactoUbicacion({
+                ...contactoUbicacion,
+                telefonoFijo: e.target.value,
+              })
+            }
+          />
+          <FormInput
+            label="Tipo de vía (ID)"
+            type="number"
+            value={contactoUbicacion.idTipoVia}
+            onChange={(e) =>
+              setContactoUbicacion({
+                ...contactoUbicacion,
+                idTipoVia: e.target.value,
+              })
+            }
+          />
+          <FormInput
+            label="Calle principal"
+            value={contactoUbicacion.callePrincipal}
+            onChange={(e) =>
+              setContactoUbicacion({
+                ...contactoUbicacion,
+                callePrincipal: e.target.value,
+              })
+            }
+          />
+          <FormInput
+            label="Número de domicilio"
+            value={contactoUbicacion.numeroDomicilio}
+            onChange={(e) =>
+              setContactoUbicacion({
+                ...contactoUbicacion,
+                numeroDomicilio: e.target.value,
+              })
+            }
+          />
+          <FormInput
+            label="Calle secundaria"
+            value={contactoUbicacion.calleSecundaria}
+            onChange={(e) =>
+              setContactoUbicacion({
+                ...contactoUbicacion,
+                calleSecundaria: e.target.value,
+              })
+            }
+          />
+          <FormInput
+            label="Referencia"
+            value={contactoUbicacion.referenciaDomicilio}
+            onChange={(e) =>
+              setContactoUbicacion({
+                ...contactoUbicacion,
+                referenciaDomicilio: e.target.value,
+              })
+            }
+          />
+          <FormInput
+            label="Sector / Barrio"
+            value={contactoUbicacion.sectorBarrio}
+            onChange={(e) =>
+              setContactoUbicacion({
+                ...contactoUbicacion,
+                sectorBarrio: e.target.value,
+              })
+            }
+          />
+          <FormInput
+            label="Tiempo de residencia (años)"
+            type="number"
+            value={contactoUbicacion.tiempoResidencia}
+            onChange={(e) =>
+              setContactoUbicacion({
+                ...contactoUbicacion,
+                tiempoResidencia: e.target.value,
+              })
+            }
+          />
+          <FormInput
+            label="ID País"
+            type="number"
+            value={contactoUbicacion.idPaisResidencia}
+            onChange={(e) =>
+              setContactoUbicacion({
+                ...contactoUbicacion,
+                idPaisResidencia: e.target.value,
+              })
+            }
+          />
+          <FormInput
+            label="ID Provincia"
+            type="number"
+            value={contactoUbicacion.idProvinciaResidencia}
+            onChange={(e) =>
+              setContactoUbicacion({
+                ...contactoUbicacion,
+                idProvinciaResidencia: e.target.value,
+              })
+            }
+          />
+          <FormInput
+            label="ID Ciudad"
+            type="number"
+            value={contactoUbicacion.idCiudadResidencia}
+            onChange={(e) =>
+              setContactoUbicacion({
+                ...contactoUbicacion,
+                idCiudadResidencia: e.target.value,
+              })
+            }
+          />
+          <FormSwitch
+            label="Residente otro país"
+            checked={contactoUbicacion.residenteOtroPais}
+            onChange={(checked) =>
+              setContactoUbicacion({
+                ...contactoUbicacion,
+                residenteOtroPais: checked,
+              })
+            }
+          />
+          <FormSwitch
+            label="Contribuyente EEUU"
+            checked={contactoUbicacion.contribuyenteEEUU}
+            onChange={(checked) =>
+              setContactoUbicacion({
+                ...contactoUbicacion,
+                contribuyenteEEUU: checked,
+              })
+            }
+          />
+          <FormInput
+            label="ID otro país"
+            value={contactoUbicacion.numeroIdentificacionOtroPais}
+            onChange={(e) =>
+              setContactoUbicacion({
+                ...contactoUbicacion,
+                numeroIdentificacionOtroPais: e.target.value,
+              })
+            }
+          />
+          <FormInput
+            label="ID EEUU"
+            value={contactoUbicacion.numeroIdentificacionEEUU}
+            onChange={(e) =>
+              setContactoUbicacion({
+                ...contactoUbicacion,
+                numeroIdentificacionEEUU: e.target.value,
+              })
+            }
+          />
         </CardContent>
       </Card>
     </div>
   );
 }
 
-function FormInput({ label, required = false, icon, ...props }) {
-    return (
-      <div className="space-y-1.5 relative">
-        <Label className="text-sm font-medium text-gray-700">
-          {label} {required && <span className="text-red-500">*</span>}
-        </Label>
-        <Input
-          placeholder="---"
-          {...props}
-          className={`text-sm pr-10 ${props.disabled ? "bg-gray-100 text-gray-500" : ""}`}
-        />
-        {icon && <span className="absolute right-3 top-9 text-gray-400">{icon}</span>}
-      </div>
-    );
-  }
-  
-  function FormSelect({ label, required = false, icon }) {
-    return (
-      <div className="space-y-1.5 relative">
-        <Label className="text-sm font-medium text-gray-700">
-          {label} {required && <span className="text-red-500">*</span>}
-        </Label>
-        <Select>
-          <SelectTrigger className="text-sm bg-white border border-gray-300 pr-10">
-            <SelectValue placeholder="---" />
-          </SelectTrigger>
-          <SelectContent className="bg-white">
-            <SelectItem value="valor1">Opción 1</SelectItem>
-            <SelectItem value="valor2">Opción 2</SelectItem>
-          </SelectContent>
-        </Select>
-        {icon && <span className="absolute right-3 top-9 text-gray-400">{icon}</span>}
-      </div>
-    );
-  }
-  
-  function FormSwitch({ label, checked, onChange }) {
-    return (
-      <div className="space-y-1.5">
-        <Label className="text-sm font-medium text-gray-700">{label}</Label>
-        <div className="flex items-center gap-4">
-          <Switch
-            checked={checked}
-            onCheckedChange={onChange}
-            className="border border-gray-500"
-          />
-          <span className="text-sm text-muted-foreground">{checked ? "Sí" : "No"}</span>
-        </div>
-      </div>
-    );
-  }
-  
+// Componentes reutilizables
+
+function FormInput({ label, value, onChange, type = "text" }) {
+  return (
+    <div className="space-y-1.5">
+      <Label className="text-sm font-medium text-gray-700">{label}</Label>
+      <Input placeholder="---" type={type} value={value} onChange={onChange} />
+    </div>
+  );
+}
+
+function FormSwitch({ label, checked, onChange }) {
+  return (
+    <div className="space-y-1.5 flex items-center gap-3">
+      <Switch checked={checked} onCheckedChange={onChange} className="border" />
+      <Label className="text-sm font-medium text-gray-700">{label}</Label>
+    </div>
+  );
+}

@@ -53,8 +53,7 @@ export default function Adjuntos() {
       ),
     },
 
-    { key: "nombres", label: "Nombres" },
-    { key: "Documento", label: "Url Documento Adjunto" },
+    { key: "nombress", label: "Nombres" },
   ];
 
   return (
