@@ -21,7 +21,7 @@ export default function Adjuntos({ id }) {
     const fetchData = async () => {
       try {
         const data = await getAdjuntos(id); // Ejecutar función async
-        setDocumentos(data);
+        setDocumentos(data.documentos);
       } catch (error) {
         console.error("Error al cargar documentos:", error);
       }
@@ -53,7 +53,7 @@ export default function Adjuntos({ id }) {
       ),
     },
 
-    { key: "nombress", label: "Nombres" },
+    { key: "motivoNombre", label: "Nombres" },
   ];
 
   return (
