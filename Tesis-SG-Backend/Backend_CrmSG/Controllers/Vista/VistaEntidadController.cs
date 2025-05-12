@@ -25,7 +25,9 @@ namespace Backend_CrmSG.Controllers.Vistas
                 { "prospecto", typeof(Models.Vistas.ProspectoDetalle) },
                 { "solicitudinversion", typeof(Models.Vistas.SolicitudInversionDetalle) },
                 { "referencia" , typeof(ReferenciaDetalle) },
-                { "beneficiario", typeof(BeneficiarioDetalle) }
+                { "beneficiario", typeof(BeneficiarioDetalle) },
+                { "asesorcomercial", typeof(AsesorComercialDetalle) },
+                { "proyeccion", typeof(ProyeccionDetalle) }
 
                 // Agrega aquí otras vistas como:
                 // { "solicitud", typeof(SolicitudInversionDetalle) }
@@ -66,7 +68,9 @@ namespace Backend_CrmSG.Controllers.Vistas
         { "prospecto", typeof(ProspectoDetalle) },
         { "solicitud", typeof(SolicitudInversionDetalle) },
         { "referencia" , typeof(ReferenciaDetalle) },
-        { "beneficiario", typeof(BeneficiarioDetalle) }
+        { "beneficiario", typeof(BeneficiarioDetalle) },
+        { "asesorcomercial", typeof(AsesorComercialDetalle) },
+        { "proyeccion", typeof(ProyeccionDetalle) }
         // Agrega más vistas aquí si lo deseas
     };
 

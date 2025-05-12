@@ -21,6 +21,23 @@ namespace Backend_CrmSG.Data
         public DbSet<ProductoInteres> ProductoInteres { get; set; }
         public DbSet<TipoCliente> TipoCliente { get; set; }
         public DbSet<TipoSolicitud> TipoSolicitud { get; set; }
+        public DbSet<JustificativoTransaccion> JustificativoTransaccion { get; set; }
+        public DbSet<Genero> Genero { get; set; }
+        public DbSet<EstadoCivil> EstadoCivil { get; set; }
+        public DbSet<Nacionalidad> Nacionalidad { get; set; }
+        public DbSet<Profesion> Profesion { get; set; }
+        public DbSet<Etnia> Etnia { get; set; }
+        public DbSet<Pais> Pais { get; set; }
+        public DbSet<Provincia> Provincia { get; set; }
+        public DbSet<Ciudad> Ciudad { get; set; }
+        public DbSet<ActividadEconomicaPrincipal> ActividadEconomicaPrincipal { get; set; }
+        public DbSet<ActividadEconomicaLugarTrabajo> ActividadEconomicaLugarTrabajo { get; set; }
+        public DbSet<TipoVia> TipoVia { get; set; }
+        public DbSet<Banco> Banco { get; set; }
+        public DbSet<TipoDocumentoCatalogo> TipoDocumentoCatalogo { get; set; }
+        public DbSet<TipoCuenta> TipoCuenta { get; set; }
+        public DbSet<TipoReferencia> TipoReferencia { get; set; }
+        public DbSet<ContinuarSolicitud> ContinuarSolicitud { get; set; }
 
         // DbSets de tus tablas de entidades principales
         public DbSet<Prospecto> Prospecto { get; set; }
@@ -52,6 +69,8 @@ namespace Backend_CrmSG.Data
         public DbSet<SolicitudInversionDetalle> SolicitudesInversionDetalle { get; set; }
         public DbSet<ReferenciaDetalle> ReferenciasDetalle { get; set; } // ← esta línea
         public DbSet<BeneficiarioDetalle> BeneficiariosDetalle { get; set; } // ← esta línea
+        public DbSet<AsesorComercialDetalle> AsesoresComercialesDetalle { get; set; }
+        public DbSet<ProyeccionDetalle> ProyeccionDetalle { get; set; } // ← esta línea
 
 
         protected override void OnModelCreating(ModelBuilder modelBuilder)
@@ -84,6 +103,15 @@ namespace Backend_CrmSG.Data
             modelBuilder.Entity<BeneficiarioDetalle>()
                 .HasNoKey()
                 .ToView("vw_BeneficiarioDetalle");
+
+            modelBuilder.Entity<AsesorComercialDetalle>()
+            .HasNoKey()
+            .ToView("vw_AsesorComercial");
+
+            modelBuilder.Entity<ProyeccionDetalle>()
+                .HasNoKey()
+                .ToView("vw_ProyeccionesResumen");
+
 
             base.OnModelCreating(modelBuilder);
         }

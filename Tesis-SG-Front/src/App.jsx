@@ -27,7 +27,6 @@ function App() {
           },
         }}
       />
-      F
       <BrowserRouter>
         <Suspense fallback={<Spinner />}>
           <Routes>
