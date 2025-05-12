@@ -1,120 +1,124 @@
 import { useEffect, useState } from "react";
-import { useNavigate } from "react-router-dom";
 import { Input } from "@/components/ui/input";
 import { Label } from "@/components/ui/label";
 import { Button } from "@/components/ui/button";
 import { Card, CardContent } from "@/components/ui/card";
-import { PlusCircle, ArrowLeft } from "lucide-react";
 import { toast } from "sonner";
 import {
   updateAdjunto,
   getAdjuntoById,
 } from "@/service/Entidades/AdjuntoService";
-import { useAuth } from "@/hooks/useAuth";
 
 export default function AdjuntoForm({ documentoId }) {
   const [archivoBase64, setArchivoBase64] = useState("");
-  const [newFile, setNewFile] = useState(null); // Nuevo archivo para subir
+  const [newFile, setNewFile] = useState(null);
+  const [observaciones, setObservaciones] = useState("Subido por el cliente");
   const [loading, setLoading] = useState(false);
   const [error, setError] = useState("");
 
-  // Cargar el archivo al iniciar el componente
+  // Carga inicial del adjunto
   useEffect(() => {
-    console.log(documentoId);
     async function loadFile() {
       setLoading(true);
       try {
-        const res = await getAdjuntoById(documentoId); // Traer archivo por ID
-        setArchivoBase64(res?.base64 ?? res); // Suponiendo que el servicio devuelve base64
+        const res = await getAdjuntoById(documentoId);
+        // Ajusta según el shape de tu servicio:
+        setArchivoBase64(res[0].base64Contenido || res[0].archivo);
       } catch (err) {
         setError("Error al cargar el archivo");
+      } finally {
+        setLoading(false);
       }
-      setLoading(false);
     }
     loadFile();
   }, [documentoId]);
 
-  // Manejar cambio de archivo (nuevo archivo)
+  // Cuando el usuario selecciona un nuevo PDF
   const handleFileChange = (e) => {
     const file = e.target.files[0];
-    if (file) {
-      const reader = new FileReader();
-      reader.onload = () => {
-        const base64 = reader.result.split(",")[1];
-        setNewFile(base64); // Guardar el nuevo archivo en base64
-      };
-      reader.readAsDataURL(file);
-    }
+    if (!file) return;
+    const reader = new FileReader();
+    reader.onload = () => {
+      const b64 = reader.result.split(",")[1];
+      setNewFile(b64);
+    };
+    reader.readAsDataURL(file);
   };
 
-  // Función para guardar el nuevo archivo
+  // Guardar el nuevo adjunto
   const handleSaveFile = async () => {
-    if (newFile) {
-      setLoading(true);
-      try {
-        await updateAdjunto(documentoId, newFile); // Llamar al servicio para actualizar
-        setArchivoBase64(newFile); // Actualizar el archivo visualizado
-        setNewFile(null); // Limpiar el nuevo archivo
-        setError(""); // Limpiar error
-      } catch (err) {
+    if (!newFile) {
+      setError("Por favor selecciona un archivo antes de guardar");
+      return;
+    }
+    setLoading(true);
+    setError("");
+    try {
+      const payload = {
+        base64Contenido: newFile,
+        observaciones,
+      };
+      const res = await updateAdjunto(documentoId, payload);
+      if (res.success) {
+        setArchivoBase64(newFile);
+        setNewFile(null);
+        toast.success("Adjunto actualizado correctamente");
+      } else {
         setError("Error al guardar el archivo");
       }
+    } catch {
+      setError("Error al guardar el archivo");
+    } finally {
       setLoading(false);
-    } else {
-      setError("Por favor selecciona un archivo antes de guardar");
     }
   };
 
   return (
-    <div className="space-y-8 p-6">
-      <div>
-        <h2 className="text-2xl font-semibold">Adjunto</h2>
+    <div className="space-y-6 p-6">
+      <h2 className="text-2xl font-semibold">Adjunto</h2>
 
-        {/* Mostrar mensaje de error */}
-        {error && <p className="text-red-500">{error}</p>}
+      {error && <p className="text-red-500">{error}</p>}
+      {loading && <p>Cargando...</p>}
 
-        {/* Si está cargando, mostrar mensaje de espera */}
-        {loading && <p>Cargando...</p>}
+      {archivoBase64 && !loading ? (
+        <iframe
+          src={`data:application/pdf;base64,${archivoBase64}`}
+          width="100%"
+          height="500"
+          title="Visor de documento"
+        />
+      ) : (
+        !loading && <p>No hay archivo cargado.</p>
+      )}
 
-        {/* Visualizar archivo actual */}
-        {archivoBase64 && !loading && (
-          <div>
-            <h3>Archivo actual:</h3>
-            <iframe
-              src={`data:application/pdf;base64,${archivoBase64}`}
-              width="100%"
-              height="500"
-              title="Visor de documento"
-            />
-          </div>
-        )}
-
-        {/* Si no hay archivo cargado */}
-        {!archivoBase64 && !loading && <p>No hay archivo cargado.</p>}
-
-        {/* Selección de archivo para actualizar */}
-        <div className="mt-4">
-          <label className="block text-sm font-medium">
+      <div className="mt-4 space-y-4">
+        <div>
+          <Label className="block text-sm font-medium">
             Seleccionar archivo
-          </label>
-          <input
+          </Label>
+          <Input
             type="file"
             accept="application/pdf"
             onChange={handleFileChange}
-            className="mt-1"
           />
         </div>
 
-        {/* Botón para guardar el archivo */}
-        <div className="mt-4">
-          <button
-            onClick={handleSaveFile}
-            disabled={loading || !newFile}
-            className="bg-blue-600 text-white px-4 py-2 rounded-md"
-          >
-            {loading ? "Guardando..." : "Guardar Adjunto"}
-          </button>
+        <div>
+          <Label className="block text-sm font-medium">Observaciones</Label>
+          <Input
+            value={observaciones}
+            onChange={(e) => setObservaciones(e.target.value)}
+            placeholder="Subido por el cliente"
+          />
         </div>
+
+        <Button
+          onClick={handleSaveFile}
+          disabled={loading || !newFile}
+          className="text-white"
+        >
+          {loading ? "Guardando..." : "Guardar Adjunto"}
+        </Button>
       </div>
     </div>
   );
