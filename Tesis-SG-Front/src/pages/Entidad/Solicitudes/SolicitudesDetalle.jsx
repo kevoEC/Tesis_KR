@@ -40,7 +40,6 @@ export default function SimpleStepper() {
       label: "Contacto y ubicación",
       component: <ContactoUbicacion id={id} />,
     },
-    { id: "conyuge", label: "Cónyuge", component: <Conyuge id={id} /> },
     { id: "banco", label: "Banco", component: <Banco id={id} /> },
     {
       id: "beneficiarios",
