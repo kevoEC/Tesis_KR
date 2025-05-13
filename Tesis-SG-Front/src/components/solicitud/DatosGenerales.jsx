@@ -5,38 +5,15 @@ import { Card, CardContent } from "@/components/ui/card";
 import { Input } from "@/components/ui/input";
 import { Label } from "@/components/ui/label";
 import { Button } from "@/components/ui/button";
-import {
-  Dialog,
-  DialogTrigger,
-  DialogContent,
-  DialogHeader,
-  DialogTitle,
-  DialogFooter,
-} from "@/components/ui/dialog";
-import {
-  Select,
-  SelectTrigger,
-  SelectValue,
-  SelectContent,
-  SelectItem,
-} from "@/components/ui/select";
+import { Dialog, DialogTrigger, DialogContent, DialogHeader, DialogTitle, DialogFooter, } from "@/components/ui/dialog";
+import { Select, SelectTrigger, SelectValue, SelectContent, SelectItem, } from "@/components/ui/select";
 import TablaCustom2 from "../shared/TablaCustom2";
-
-import {
-  getReferenciasPorSolicitud,
-  crearReferencia,
-  editarReferencia,
-  eliminarReferencia,
-} from "@/service/Entidades/ReferenciasService";
+import { getReferenciasPorSolicitud, crearReferencia, editarReferencia, eliminarReferencia, } from "@/service/Entidades/ReferenciasService";
 import { getTipoReferencia } from "@/service/Catalogos/TipoReferenciaService";
-
-import {
-  getSolicitudById,
-  updateSolicitud,
-} from "@/service/Entidades/SolicitudService";
-
+import { getSolicitudById, updateSolicitud, } from "@/service/Entidades/SolicitudService";
 import { Toaster } from "../ui/sonner";
 import { toast } from "sonner";
+import { getCatalogoEtnia, getCatalogoNacionalidad, getCatalogoProfesion } from "@/service/Catalogos/DatosGeneralesService";
 
 export default function DatosGenerales() {
   const { user } = useAuth();
@@ -45,6 +22,9 @@ export default function DatosGenerales() {
 
   /* --- Estado para datos generales --- */
   const [loadingGeneral, setLoadingGeneral] = useState(true);
+  const [catalogoEtnia, setCatalogoEtnia] = useState([]);
+  const [catalogoNacionalidad, setCatalogoNacionalidad] = useState([]);
+  const [catalogoProfesion, setCatalogoProfesion] = useState([]);
   const [solicitudData, setSolicitudData] = useState(null);
   const [datosGenerales, setDatosGenerales] = useState({
     fechaNacimiento: "",
@@ -81,6 +61,16 @@ export default function DatosGenerales() {
           provinciaNacimiento: "", // UI field; no viene de API
           ciudadNacimiento: "", // UI field; no viene de API
         });
+        const [etnias, nacionalidades, profesiones] = await Promise.all([
+          getCatalogoEtnia(),
+          getCatalogoNacionalidad(),
+          getCatalogoProfesion(),
+        ]);
+
+        setCatalogoEtnia(etnias);
+        setCatalogoNacionalidad(nacionalidades);
+        setCatalogoProfesion(profesiones);
+
       } catch (err) {
         toast.error("Error al cargar datos generales: " + err.message);
       } finally {
@@ -303,49 +293,73 @@ export default function DatosGenerales() {
             </FormGroup>
 
             <FormGroup label="Nacionalidad">
-              <Input
-                placeholder="Ej: Ecuatoriana"
+              <Select
                 value={datosGenerales.nacionalidad}
-                onChange={(e) =>
-                  setDatosGenerales({
-                    ...datosGenerales,
-                    nacionalidad: e.target.value,
-                  })
+                onValueChange={(v) =>
+                  setDatosGenerales({ ...datosGenerales, nacionalidad: v })
                 }
-              />
+              >
+                <SelectTrigger className="bg-white border border-gray-300">
+                  <SelectValue placeholder="Seleccionar..." />
+                </SelectTrigger>
+                <SelectContent className="bg-white">
+                  {catalogoNacionalidad.map((item) => (
+                    <SelectItem key={item.idNacionalidad} value={item.idNacionalidad}>
+                      {item.nombre}
+                    </SelectItem>
+                  ))}
+                </SelectContent>
+              </Select>
             </FormGroup>
+
 
             <FormGroup label="Profesión">
-              <Input
-                placeholder="Ej: Ingeniero/a"
+              <Select
                 value={datosGenerales.profesion}
-                onChange={(e) =>
-                  setDatosGenerales({
-                    ...datosGenerales,
-                    profesion: e.target.value,
-                  })
+                onValueChange={(v) =>
+                  setDatosGenerales({ ...datosGenerales, profesion: v })
                 }
-              />
+              >
+                <SelectTrigger className="bg-white border border-gray-300">
+                  <SelectValue placeholder="Seleccionar..." />
+                </SelectTrigger>
+                <SelectContent className="bg-white">
+                  {catalogoProfesion.map((item) => (
+                    <SelectItem key={item.idProfesion} value={item.idProfesion}>
+                      {item.nombre}
+                    </SelectItem>
+                  ))}
+                </SelectContent>
+              </Select>
             </FormGroup>
 
+
             <FormGroup label="Etnia">
-              <Input
-                placeholder="Ej: Mestizo"
+              <Select
                 value={datosGenerales.etnia}
-                onChange={(e) =>
-                  setDatosGenerales({
-                    ...datosGenerales,
-                    etnia: e.target.value,
-                  })
+                onValueChange={(v) =>
+                  setDatosGenerales({ ...datosGenerales, etnia: v })
                 }
-              />
+              >
+                <SelectTrigger className="bg-white border border-gray-300">
+                  <SelectValue placeholder="Seleccionar..." />
+                </SelectTrigger>
+                <SelectContent className="bg-white">
+                  {catalogoEtnia.map((item) => (
+                    <SelectItem key={item.idEtnia} value={item.idEtnia}>
+                      {item.nombre}
+                    </SelectItem>
+                  ))}
+                </SelectContent>
+              </Select>
             </FormGroup>
+
           </div>
         </CardContent>
       </Card>
 
       {/* 📇 Tabla de referencias */}
-     
+
       <div>
         <Card>
           <CardContent>
