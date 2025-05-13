@@ -3,6 +3,10 @@
   "WorkspaceRootPath": "D:\\Tesis KR\\Tesis_KR\\Tesis-SG-Backend\\",
   "Documents": [
     {
+      "AbsoluteMoniker": "D:0:0:{88881720-DDFC-4CF2-AE03-0B7DABEF7FB1}|Backend_CrmSG\\Backend_CrmSG.csproj|d:\\tesis kr\\tesis_kr\\tesis-sg-backend\\backend_crmsg\\controllers\\seguridad\\usuariocontroller.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "RelativeMoniker": "D:0:0:{88881720-DDFC-4CF2-AE03-0B7DABEF7FB1}|Backend_CrmSG\\Backend_CrmSG.csproj|solutionrelative:backend_crmsg\\controllers\\seguridad\\usuariocontroller.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+    },
+    {
       "AbsoluteMoniker": "D:0:0:{88881720-DDFC-4CF2-AE03-0B7DABEF7FB1}|Backend_CrmSG\\Backend_CrmSG.csproj|d:\\tesis kr\\tesis_kr\\tesis-sg-backend\\backend_crmsg\\services\\seguridad\\iusuarioservice.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
       "RelativeMoniker": "D:0:0:{88881720-DDFC-4CF2-AE03-0B7DABEF7FB1}|Backend_CrmSG\\Backend_CrmSG.csproj|solutionrelative:backend_crmsg\\services\\seguridad\\iusuarioservice.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
     },
@@ -13,10 +17,6 @@
     {
       "AbsoluteMoniker": "D:0:0:{88881720-DDFC-4CF2-AE03-0B7DABEF7FB1}|Backend_CrmSG\\Backend_CrmSG.csproj|d:\\tesis kr\\tesis_kr\\tesis-sg-backend\\backend_crmsg\\services\\sms\\ismsservice.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
       "RelativeMoniker": "D:0:0:{88881720-DDFC-4CF2-AE03-0B7DABEF7FB1}|Backend_CrmSG\\Backend_CrmSG.csproj|solutionrelative:backend_crmsg\\services\\sms\\ismsservice.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
-    },
-    {
-      "AbsoluteMoniker": "D:0:0:{88881720-DDFC-4CF2-AE03-0B7DABEF7FB1}|Backend_CrmSG\\Backend_CrmSG.csproj|d:\\tesis kr\\tesis_kr\\tesis-sg-backend\\backend_crmsg\\controllers\\seguridad\\usuariocontroller.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
-      "RelativeMoniker": "D:0:0:{88881720-DDFC-4CF2-AE03-0B7DABEF7FB1}|Backend_CrmSG\\Backend_CrmSG.csproj|solutionrelative:backend_crmsg\\controllers\\seguridad\\usuariocontroller.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
     },
     {
       "AbsoluteMoniker": "D:0:0:{88881720-DDFC-4CF2-AE03-0B7DABEF7FB1}|Backend_CrmSG\\Backend_CrmSG.csproj|d:\\tesis kr\\tesis_kr\\tesis-sg-backend\\backend_crmsg\\services\\seguridad\\usuarioservice.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
@@ -339,11 +339,11 @@
   "DocumentGroupContainers": [
     {
       "Orientation": 0,
-      "VerticalTabListWidth": 276,
+      "VerticalTabListWidth": 151,
       "DocumentGroups": [
         {
           "DockedWidth": 200,
-          "SelectedChildIndex": 4,
+          "SelectedChildIndex": 15,
           "Children": [
             {
               "$type": "Document",
@@ -355,8 +355,7 @@
               "RelativeToolTip": "Backend_CrmSG\\DTOs\\ValidacionTelefonoDTO.cs",
               "ViewState": "AgIAAAAAAAAAAAAAAAAAAAcAAAAAAAAAAAAAAA==",
               "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
-              "WhenOpened": "2025-05-12T23:09:48.063Z",
-              "EditorCaption": ""
+              "WhenOpened": "2025-05-12T23:09:48.063Z"
             },
             {
               "$type": "Document",
@@ -368,12 +367,11 @@
               "RelativeToolTip": "Backend_CrmSG\\DTOs\\SolicitudCodigoTelefonoDTO.cs",
               "ViewState": "AgIAAAAAAAAAAAAAAAAAAAQAAAAqAAAAAAAAAA==",
               "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
-              "WhenOpened": "2025-05-12T23:09:27.055Z",
-              "EditorCaption": ""
+              "WhenOpened": "2025-05-12T23:09:27.055Z"
             },
             {
               "$type": "Document",
-              "DocumentIndex": 1,
+              "DocumentIndex": 2,
               "Title": "TwilioSmsService.cs",
               "DocumentMoniker": "D:\\Tesis KR\\Tesis_KR\\Tesis-SG-Backend\\Backend_CrmSG\\Services\\SMS\\TwilioSmsService.cs",
               "RelativeDocumentMoniker": "Backend_CrmSG\\Services\\SMS\\TwilioSmsService.cs",
@@ -381,12 +379,11 @@
               "RelativeToolTip": "Backend_CrmSG\\Services\\SMS\\TwilioSmsService.cs",
               "ViewState": "AgIAAAYAAAAAAAAAAAAxwB4AAAAtAAAAAAAAAA==",
               "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
-              "WhenOpened": "2025-05-12T22:57:19.047Z",
-              "EditorCaption": ""
+              "WhenOpened": "2025-05-12T22:57:19.047Z"
             },
             {
               "$type": "Document",
-              "DocumentIndex": 2,
+              "DocumentIndex": 3,
               "Title": "ISmsService.cs",
               "DocumentMoniker": "D:\\Tesis KR\\Tesis_KR\\Tesis-SG-Backend\\Backend_CrmSG\\Services\\SMS\\ISmsService.cs",
               "RelativeDocumentMoniker": "Backend_CrmSG\\Services\\SMS\\ISmsService.cs",
@@ -394,18 +391,17 @@
               "RelativeToolTip": "Backend_CrmSG\\Services\\SMS\\ISmsService.cs",
               "ViewState": "AgIAAAAAAAAAAAAAAAAAAAYAAAAAAAAAAAAAAA==",
               "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
-              "WhenOpened": "2025-05-12T22:57:00.934Z",
-              "EditorCaption": ""
+              "WhenOpened": "2025-05-12T22:57:00.934Z"
             },
             {
               "$type": "Document",
-              "DocumentIndex": 0,
+              "DocumentIndex": 1,
               "Title": "IUsuarioService.cs",
               "DocumentMoniker": "D:\\Tesis KR\\Tesis_KR\\Tesis-SG-Backend\\Backend_CrmSG\\Services\\Seguridad\\IUsuarioService.cs",
               "RelativeDocumentMoniker": "Backend_CrmSG\\Services\\Seguridad\\IUsuarioService.cs",
               "ToolTip": "D:\\Tesis KR\\Tesis_KR\\Tesis-SG-Backend\\Backend_CrmSG\\Services\\Seguridad\\IUsuarioService.cs",
               "RelativeToolTip": "Backend_CrmSG\\Services\\Seguridad\\IUsuarioService.cs",
-              "ViewState": "AgIAAA8AAAAAAAAAAAAowBwAAAA6AAAAAAAAAA==",
+              "ViewState": "AgIAAA8AAAAAAAAAAAA7wBwAAAA6AAAAAAAAAA==",
               "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
               "WhenOpened": "2025-05-12T22:43:42.454Z",
               "EditorCaption": ""
@@ -420,8 +416,7 @@
               "RelativeToolTip": "Backend_CrmSG\\Services\\Correo\\CorreoService.cs",
               "ViewState": "AgIAAAAAAAAAAAAAAAAAAAcAAAA3AAAAAAAAAA==",
               "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
-              "WhenOpened": "2025-05-12T22:23:56.461Z",
-              "EditorCaption": ""
+              "WhenOpened": "2025-05-12T22:23:56.461Z"
             },
             {
               "$type": "Document",
@@ -433,8 +428,7 @@
               "RelativeToolTip": "Backend_CrmSG\\Services\\Correo\\ICorreoService.cs",
               "ViewState": "AgIAAAAAAAAAAAAAAAAAAAMAAAAFAAAAAAAAAA==",
               "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
-              "WhenOpened": "2025-05-12T22:23:38.398Z",
-              "EditorCaption": ""
+              "WhenOpened": "2025-05-12T22:23:38.398Z"
             },
             {
               "$type": "Document",
@@ -446,8 +440,7 @@
               "RelativeToolTip": "Backend_CrmSG\\Services\\StoredProcedureService.cs",
               "ViewState": "AgIAABYAAAAAAAAAAAAswBYAAABUAAAAAAAAAA==",
               "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
-              "WhenOpened": "2025-05-12T22:16:40.43Z",
-              "EditorCaption": ""
+              "WhenOpened": "2025-05-12T22:16:40.43Z"
             },
             {
               "$type": "Document",
@@ -459,8 +452,7 @@
               "RelativeToolTip": "Backend_CrmSG\\DTOs\\RegistroParcialResponseDTO.cs",
               "ViewState": "AgIAAAAAAAAAAAAAAAAAAAYAAAAuAAAAAAAAAA==",
               "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
-              "WhenOpened": "2025-05-12T22:16:26.872Z",
-              "EditorCaption": ""
+              "WhenOpened": "2025-05-12T22:16:26.872Z"
             },
             {
               "$type": "Document",
@@ -472,8 +464,7 @@
               "RelativeToolTip": "Backend_CrmSG\\DTOs\\SimulacionRequest.cs",
               "ViewState": "AgIAAAAAAAAAAAAAAAAAABEAAABAAAAAAAAAAA==",
               "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
-              "WhenOpened": "2025-05-12T22:15:57.01Z",
-              "EditorCaption": ""
+              "WhenOpened": "2025-05-12T22:15:57.01Z"
             },
             {
               "$type": "Document",
@@ -485,8 +476,7 @@
               "RelativeToolTip": "Backend_CrmSG\\Models\\Seguridad\\Usuario.cs",
               "ViewState": "AgIAAAAAAAAAAAAAAAAAABMAAAAwAAAAAAAAAA==",
               "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
-              "WhenOpened": "2025-05-12T22:12:26.278Z",
-              "EditorCaption": ""
+              "WhenOpened": "2025-05-12T22:12:26.278Z"
             },
             {
               "$type": "Document",
@@ -498,8 +488,7 @@
               "RelativeToolTip": "Backend_CrmSG\\Models\\Seguridad\\TransaccionesValidacion.cs",
               "ViewState": "AgIAAAAAAAAAAAAAAAAAABkAAAAAAAAAAAAAAA==",
               "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
-              "WhenOpened": "2025-05-12T21:54:42.351Z",
-              "EditorCaption": ""
+              "WhenOpened": "2025-05-12T21:54:42.351Z"
             },
             {
               "$type": "Document",
@@ -511,8 +500,7 @@
               "RelativeToolTip": "Backend_CrmSG\\DTOs\\RegistroParcialDTO.cs",
               "ViewState": "AgIAAAAAAAAAAAAAAAAAABIAAAAAAAAAAAAAAA==",
               "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
-              "WhenOpened": "2025-05-12T21:51:48.317Z",
-              "EditorCaption": ""
+              "WhenOpened": "2025-05-12T21:51:48.317Z"
             },
             {
               "$type": "Document",
@@ -524,8 +512,7 @@
               "RelativeToolTip": "Backend_CrmSG\\Models\\Seguridad\\TipoTransaccion.cs",
               "ViewState": "AgIAAAAAAAAAAAAAAAAAABEAAAAAAAAAAAAAAA==",
               "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
-              "WhenOpened": "2025-05-12T21:51:33.849Z",
-              "EditorCaption": ""
+              "WhenOpened": "2025-05-12T21:51:33.849Z"
             },
             {
               "$type": "Document",
@@ -537,18 +524,17 @@
               "RelativeToolTip": "Backend_CrmSG\\Services\\Seguridad\\UsuarioService.cs",
               "ViewState": "AgIAAL0AAAAAAAAAAAA2wOQAAABRAAAAAAAAAA==",
               "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
-              "WhenOpened": "2025-05-12T21:50:34.334Z",
-              "EditorCaption": ""
+              "WhenOpened": "2025-05-12T21:50:34.334Z"
             },
             {
               "$type": "Document",
-              "DocumentIndex": 3,
+              "DocumentIndex": 0,
               "Title": "UsuarioController.cs",
               "DocumentMoniker": "D:\\Tesis KR\\Tesis_KR\\Tesis-SG-Backend\\Backend_CrmSG\\Controllers\\Seguridad\\UsuarioController.cs",
               "RelativeDocumentMoniker": "Backend_CrmSG\\Controllers\\Seguridad\\UsuarioController.cs",
               "ToolTip": "D:\\Tesis KR\\Tesis_KR\\Tesis-SG-Backend\\Backend_CrmSG\\Controllers\\Seguridad\\UsuarioController.cs",
               "RelativeToolTip": "Backend_CrmSG\\Controllers\\Seguridad\\UsuarioController.cs",
-              "ViewState": "AgIAAOgAAAAAAAAAAAAEwPoAAABaAAAAAAAAAA==",
+              "ViewState": "AgIAAAgBAAAAAAAAAAAmwBoAAAAtAAAAAAAAAA==",
               "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
               "WhenOpened": "2025-05-12T21:48:28.784Z",
               "EditorCaption": ""
@@ -563,8 +549,7 @@
               "RelativeToolTip": "Backend_CrmSG\\Models\\Vistas\\DocumentoBasicoDetalle.cs",
               "ViewState": "AgIAAAAAAAAAAAAAAAAqwA8AAAAAAAAAAAAAAA==",
               "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
-              "WhenOpened": "2025-05-12T19:29:24.094Z",
-              "EditorCaption": ""
+              "WhenOpened": "2025-05-12T19:29:24.094Z"
             },
             {
               "$type": "Document",
@@ -576,8 +561,7 @@
               "RelativeToolTip": "Backend_CrmSG\\DTOs\\DocumentoActualizarDto.cs",
               "ViewState": "AgIAAAAAAAAAAAAAAAAAAAgAAAAAAAAAAAAAAA==",
               "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
-              "WhenOpened": "2025-05-12T16:12:58.684Z",
-              "EditorCaption": ""
+              "WhenOpened": "2025-05-12T16:12:58.684Z"
             },
             {
               "$type": "Document",
@@ -589,8 +573,7 @@
               "RelativeToolTip": "Backend_CrmSG\\Models\\Vistas\\DocumentoDetalle.cs",
               "ViewState": "AgIAAAAAAAAAAAAAAAAqwAgAAAA4AAAAAAAAAA==",
               "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
-              "WhenOpened": "2025-05-12T15:54:20.867Z",
-              "EditorCaption": ""
+              "WhenOpened": "2025-05-12T15:54:20.867Z"
             },
             {
               "$type": "Document",
@@ -602,8 +585,7 @@
               "RelativeToolTip": "Backend_CrmSG\\DTOs\\DocumentoAdjuntoDto.cs",
               "ViewState": "AgIAAAAAAAAAAAAAAAAqwAgAAABEAAAAAAAAAA==",
               "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
-              "WhenOpened": "2025-05-12T15:52:18.608Z",
-              "EditorCaption": ""
+              "WhenOpened": "2025-05-12T15:52:18.608Z"
             },
             {
               "$type": "Document",
@@ -615,8 +597,7 @@
               "RelativeToolTip": "Backend_CrmSG\\DTOs\\DocumentoMotivoDto.cs",
               "ViewState": "AgIAAAAAAAAAAAAAAAAAAAUAAAApAAAAAAAAAA==",
               "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
-              "WhenOpened": "2025-05-12T15:50:40.47Z",
-              "EditorCaption": ""
+              "WhenOpened": "2025-05-12T15:50:40.47Z"
             },
             {
               "$type": "Document",
@@ -628,8 +609,7 @@
               "RelativeToolTip": "Backend_CrmSG\\DTOs\\DocumentoCargaDto.cs",
               "ViewState": "AgIAAAAAAAAAAAAAAAAAAA0AAAAAAAAAAAAAAA==",
               "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
-              "WhenOpened": "2025-05-12T15:11:54.874Z",
-              "EditorCaption": ""
+              "WhenOpened": "2025-05-12T15:11:54.874Z"
             },
             {
               "$type": "Document",
@@ -641,8 +621,7 @@
               "RelativeToolTip": "Backend_CrmSG\\Models\\Entidades\\Actividad.cs",
               "ViewState": "AgIAAAAAAAAAAAAAAAAAABUAAAAAAAAAAAAAAA==",
               "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
-              "WhenOpened": "2025-05-12T15:44:47.836Z",
-              "EditorCaption": ""
+              "WhenOpened": "2025-05-12T15:44:47.836Z"
             },
             {
               "$type": "Document",
@@ -654,8 +633,7 @@
               "RelativeToolTip": "Backend_CrmSG\\Models\\Documentos\\Documento.cs",
               "ViewState": "AgIAAAAAAAAAAAAAAAAAAAkAAAA0AAAAAAAAAA==",
               "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
-              "WhenOpened": "2025-05-12T15:44:06.336Z",
-              "EditorCaption": ""
+              "WhenOpened": "2025-05-12T15:44:06.336Z"
             },
             {
               "$type": "Document",
@@ -667,8 +645,7 @@
               "RelativeToolTip": "Backend_CrmSG\\Services\\Documento\\IDocumentoService.cs",
               "ViewState": "AgIAAAAAAAAAAAAAAAAAAA0AAAA9AAAAAAAAAA==",
               "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
-              "WhenOpened": "2025-05-12T15:12:29.015Z",
-              "EditorCaption": ""
+              "WhenOpened": "2025-05-12T15:12:29.015Z"
             },
             {
               "$type": "Document",
@@ -680,8 +657,7 @@
               "RelativeToolTip": "Backend_CrmSG\\Services\\Documento\\DocumentoService.cs",
               "ViewState": "AgIAAJUAAAAAAAAAAAAAwKMAAAA5AAAAAAAAAA==",
               "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
-              "WhenOpened": "2025-05-12T15:12:06.144Z",
-              "EditorCaption": ""
+              "WhenOpened": "2025-05-12T15:12:06.144Z"
             },
             {
               "$type": "Document",
@@ -693,8 +669,7 @@
               "RelativeToolTip": "Backend_CrmSG\\Controllers\\Documento\\DocumentoController.cs",
               "ViewState": "AgIAAGcAAAAAAAAAAIBJwH0AAABfAAAAAAAAAA==",
               "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
-              "WhenOpened": "2025-05-12T15:09:58.127Z",
-              "EditorCaption": ""
+              "WhenOpened": "2025-05-12T15:09:58.127Z"
             },
             {
               "$type": "Document",
@@ -706,8 +681,7 @@
               "RelativeToolTip": "Backend_CrmSG\\Models\\Catalogos\\ContinuarSolicitud.cs",
               "ViewState": "AgIAAAAAAAAAAAAAAAAAAAwAAAAAAAAAAAAAAA==",
               "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
-              "WhenOpened": "2025-05-12T14:54:59.306Z",
-              "EditorCaption": ""
+              "WhenOpened": "2025-05-12T14:54:59.306Z"
             },
             {
               "$type": "Document",
@@ -719,8 +693,7 @@
               "RelativeToolTip": "Backend_CrmSG\\Models\\Catalogos\\Ciudad.cs",
               "ViewState": "AgIAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA==",
               "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
-              "WhenOpened": "2025-05-12T14:54:58.328Z",
-              "EditorCaption": ""
+              "WhenOpened": "2025-05-12T14:54:58.328Z"
             },
             {
               "$type": "Document",
@@ -732,8 +705,7 @@
               "RelativeToolTip": "Backend_CrmSG\\Models\\Catalogos\\TipoReferencia.cs",
               "ViewState": "AgIAAAAAAAAAAAAAAAAAAAcAAAANAAAAAAAAAA==",
               "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
-              "WhenOpened": "2025-05-12T14:54:33.261Z",
-              "EditorCaption": ""
+              "WhenOpened": "2025-05-12T14:54:33.261Z"
             },
             {
               "$type": "Document",
@@ -745,8 +717,7 @@
               "RelativeToolTip": "Backend_CrmSG\\Controllers\\Catalogo\\TipoDocumentoCatalogoController.cs",
               "ViewState": "AgIAAAYAAAAAAAAAAIBJwAcAAAABAAAAAAAAAA==",
               "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
-              "WhenOpened": "2025-05-12T12:52:07.706Z",
-              "EditorCaption": ""
+              "WhenOpened": "2025-05-12T12:52:07.706Z"
             },
             {
               "$type": "Document",
@@ -769,8 +740,7 @@
               "RelativeToolTip": "Backend_CrmSG\\Controllers\\Catalogo\\BancoController.cs",
               "ViewState": "AgIAADEAAAAAAAAAAAAcwAUAAAAAAAAAAAAAAA==",
               "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
-              "WhenOpened": "2025-05-12T12:50:02.094Z",
-              "EditorCaption": ""
+              "WhenOpened": "2025-05-12T12:50:02.094Z"
             },
             {
               "$type": "Document",
@@ -782,8 +752,7 @@
               "RelativeToolTip": "Backend_CrmSG\\Models\\Catalogos\\Banco.cs",
               "ViewState": "AgIAAAAAAAAAAAAAAAAAAA8AAAAwAAAAAAAAAA==",
               "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
-              "WhenOpened": "2025-05-12T12:49:27.547Z",
-              "EditorCaption": ""
+              "WhenOpened": "2025-05-12T12:49:27.547Z"
             },
             {
               "$type": "Document",
@@ -795,8 +764,7 @@
               "RelativeToolTip": "Backend_CrmSG\\Controllers\\Catalogo\\TipoViaController.cs.cs",
               "ViewState": "AgIAAB0AAAAAAAAAAAAwwDEAAAAfAAAAAAAAAA==",
               "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
-              "WhenOpened": "2025-05-12T12:40:17.296Z",
-              "EditorCaption": ""
+              "WhenOpened": "2025-05-12T12:40:17.296Z"
             },
             {
               "$type": "Document",
@@ -819,8 +787,7 @@
               "RelativeToolTip": "Backend_CrmSG\\Controllers\\Catalogo\\ActividadEconomicaLugarTrabajoController.cs",
               "ViewState": "AgIAAAAAAAAAAAAAAAAAAAoAAAAPAAAAAAAAAA==",
               "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
-              "WhenOpened": "2025-05-12T12:36:57.297Z",
-              "EditorCaption": ""
+              "WhenOpened": "2025-05-12T12:36:57.297Z"
             },
             {
               "$type": "Document",
@@ -832,8 +799,7 @@
               "RelativeToolTip": "Backend_CrmSG\\Data\\AppDbContext.cs",
               "ViewState": "AgIAAGEAAAAAAAAAAAAAwHwAAAAbAAAAAAAAAA==",
               "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
-              "WhenOpened": "2025-05-10T22:57:40.841Z",
-              "EditorCaption": ""
+              "WhenOpened": "2025-05-10T22:57:40.841Z"
             },
             {
               "$type": "Document",
@@ -845,8 +811,7 @@
               "RelativeToolTip": "Backend_CrmSG\\Controllers\\Catalogo\\ActividadEconomicaPrincipalController.cs",
               "ViewState": "AgIAADkAAAAAAAAAAIBJwAMAAAAhAAAAAAAAAA==",
               "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
-              "WhenOpened": "2025-05-12T12:33:44.491Z",
-              "EditorCaption": ""
+              "WhenOpened": "2025-05-12T12:33:44.491Z"
             },
             {
               "$type": "Document",
@@ -869,8 +834,7 @@
               "RelativeToolTip": "Backend_CrmSG\\Controllers\\Catalogo\\CiudadController.cs",
               "ViewState": "AgIAADEAAAAAAAAAAAAcwDsAAAAcAAAAAAAAAA==",
               "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
-              "WhenOpened": "2025-05-12T12:30:15.223Z",
-              "EditorCaption": ""
+              "WhenOpened": "2025-05-12T12:30:15.223Z"
             },
             {
               "$type": "Document",
@@ -893,8 +857,7 @@
               "RelativeToolTip": "Backend_CrmSG\\Controllers\\Catalogo\\ProvinciaController.cs",
               "ViewState": "AgIAABAAAAAAAAAAAAAgwAgAAAAfAAAAAAAAAA==",
               "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
-              "WhenOpened": "2025-05-12T12:25:33.111Z",
-              "EditorCaption": ""
+              "WhenOpened": "2025-05-12T12:25:33.111Z"
             },
             {
               "$type": "Document",
@@ -917,8 +880,7 @@
               "RelativeToolTip": "Backend_CrmSG\\Controllers\\Catalogo\\PaisController.cs",
               "ViewState": "AgIAAAAAAAAAAAAAAAAAAAUAAAAAAAAAAAAAAA==",
               "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
-              "WhenOpened": "2025-05-12T12:21:13.443Z",
-              "EditorCaption": ""
+              "WhenOpened": "2025-05-12T12:21:13.443Z"
             },
             {
               "$type": "Document",
@@ -930,8 +892,7 @@
               "RelativeToolTip": "Backend_CrmSG\\Models\\Catalogos\\Pais.cs",
               "ViewState": "AgIAAAAAAAAAAAAAAAAAAAoAAAAFAAAAAAAAAA==",
               "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
-              "WhenOpened": "2025-05-12T12:20:32.136Z",
-              "EditorCaption": ""
+              "WhenOpened": "2025-05-12T12:20:32.136Z"
             },
             {
               "$type": "Document",
@@ -943,8 +904,7 @@
               "RelativeToolTip": "Backend_CrmSG\\Controllers\\Catalogo\\EtniaController.cs",
               "ViewState": "AgIAAC4AAAAAAAAAAAAcwAYAAAAtAAAAAAAAAA==",
               "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
-              "WhenOpened": "2025-05-12T12:18:25.169Z",
-              "EditorCaption": ""
+              "WhenOpened": "2025-05-12T12:18:25.169Z"
             },
             {
               "$type": "Document",
@@ -967,8 +927,7 @@
               "RelativeToolTip": "Backend_CrmSG\\Controllers\\Catalogo\\ProfesionController.cs",
               "ViewState": "AgIAACAAAAAAAAAAAAAwwAcAAAABAAAAAAAAAA==",
               "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
-              "WhenOpened": "2025-05-12T12:15:35.977Z",
-              "EditorCaption": ""
+              "WhenOpened": "2025-05-12T12:15:35.977Z"
             },
             {
               "$type": "Document",
@@ -1002,8 +961,7 @@
               "RelativeToolTip": "Backend_CrmSG\\Controllers\\Catalogo\\AgenciaController.cs",
               "ViewState": "AgIAAB4AAAAAAAAAAAAmwCYAAAAAAAAAAAAAAA==",
               "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
-              "WhenOpened": "2025-05-12T02:01:09.448Z",
-              "EditorCaption": ""
+              "WhenOpened": "2025-05-12T02:01:09.448Z"
             },
             {
               "$type": "Document",
@@ -1048,8 +1006,7 @@
               "RelativeToolTip": "Backend_CrmSG\\Models\\Catalogos\\OrigenCliente.cs",
               "ViewState": "AgIAAAAAAAAAAAAAAAAAAAYAAAANAAAAAAAAAA==",
               "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
-              "WhenOpened": "2025-05-12T02:06:35.37Z",
-              "EditorCaption": ""
+              "WhenOpened": "2025-05-12T02:06:35.37Z"
             },
             {
               "$type": "Document",
@@ -1061,8 +1018,7 @@
               "RelativeToolTip": "Backend_CrmSG\\Models\\Catalogos\\JustificativoTransaccion.cs",
               "ViewState": "AgIAAAAAAAAAAAAAAAAAAAgAAAA7AAAAAAAAAA==",
               "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
-              "WhenOpened": "2025-05-12T02:02:10.884Z",
-              "EditorCaption": ""
+              "WhenOpened": "2025-05-12T02:02:10.884Z"
             },
             {
               "$type": "Document",
@@ -1074,8 +1030,7 @@
               "RelativeToolTip": "Backend_CrmSG\\DTOs\\SolicitudDTOs\\SolicitudIdentificacionDTO.cs",
               "ViewState": "AgIAAAAAAAAAAAAAAAAAAA4AAAA2AAAAAAAAAA==",
               "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
-              "WhenOpened": "2025-05-10T22:26:06.817Z",
-              "EditorCaption": ""
+              "WhenOpened": "2025-05-10T22:26:06.817Z"
             },
             {
               "$type": "Document",
@@ -1087,8 +1042,7 @@
               "RelativeToolTip": "Backend_CrmSG\\appsettings.json",
               "ViewState": "AgIAAAwAAAAAAAAAAAAAABsAAAAfAAAAAAAAAA==",
               "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.001642|",
-              "WhenOpened": "2025-05-10T18:20:05.597Z",
-              "EditorCaption": ""
+              "WhenOpened": "2025-05-10T18:20:05.597Z"
             },
             {
               "$type": "Document",
@@ -1100,8 +1054,7 @@
               "RelativeToolTip": "Backend_CrmSG\\Controllers\\Entidad\\ActividadController.cs",
               "ViewState": "AgIAAAAAAAAAAAAAAAAAABAAAAAAAAAAAAAAAA==",
               "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
-              "WhenOpened": "2025-05-10T22:52:10.471Z",
-              "EditorCaption": ""
+              "WhenOpened": "2025-05-10T22:52:10.471Z"
             },
             {
               "$type": "Document",
@@ -1113,8 +1066,7 @@
               "RelativeToolTip": "Backend_CrmSG\\Models\\Catalogos\\Genero.cs",
               "ViewState": "AgIAAAAAAAAAAAAAAAAAAAcAAAApAAAAAAAAAA==",
               "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
-              "WhenOpened": "2025-05-12T12:00:09.794Z",
-              "EditorCaption": ""
+              "WhenOpened": "2025-05-12T12:00:09.794Z"
             },
             {
               "$type": "Document",
@@ -1126,8 +1078,7 @@
               "RelativeToolTip": "Backend_CrmSG\\Program.cs",
               "ViewState": "AgIAAI4AAAAAAAAAAAAAAJwAAAAMAAAAAAAAAA==",
               "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
-              "WhenOpened": "2025-05-10T20:51:37.066Z",
-              "EditorCaption": ""
+              "WhenOpened": "2025-05-10T20:51:37.066Z"
             },
             {
               "$type": "Document",
@@ -1139,8 +1090,7 @@
               "RelativeToolTip": "Backend_CrmSG\\Controllers\\Catalogo\\GeneroController.cs",
               "ViewState": "AgIAAAAAAAAAAAAAAAAAABUAAABCAAAAAAAAAA==",
               "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
-              "WhenOpened": "2025-05-12T12:01:20.497Z",
-              "EditorCaption": ""
+              "WhenOpened": "2025-05-12T12:01:20.497Z"
             },
             {
               "$type": "Document",
@@ -1152,8 +1102,7 @@
               "RelativeToolTip": "Backend_CrmSG\\Repositories\\Repository.cs",
               "ViewState": "AgIAAAAAAAAAAAAAAAAAABgAAAAuAAAAAAAAAA==",
               "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
-              "WhenOpened": "2025-05-10T18:19:02.697Z",
-              "EditorCaption": ""
+              "WhenOpened": "2025-05-10T18:19:02.697Z"
             },
             {
               "$type": "Document",
@@ -1165,8 +1114,7 @@
               "RelativeToolTip": "Backend_CrmSG\\Controllers\\Entidad\\ReferenciaController.cs",
               "ViewState": "AgIAABQAAAAAAAAAAAAAwD8AAAASAAAAAAAAAA==",
               "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
-              "WhenOpened": "2025-05-10T22:53:23.844Z",
-              "EditorCaption": ""
+              "WhenOpened": "2025-05-10T22:53:23.844Z"
             },
             {
               "$type": "Document",
@@ -1178,8 +1126,7 @@
               "RelativeToolTip": "Backend_CrmSG\\Controllers\\Catalogo\\JustificativoTransaccionController.cs",
               "ViewState": "AgIAAC4AAAAAAAAAAAAcwDYAAAAJAAAAAAAAAA==",
               "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
-              "WhenOpened": "2025-05-12T02:02:54.218Z",
-              "EditorCaption": ""
+              "WhenOpened": "2025-05-12T02:02:54.218Z"
             },
             {
               "$type": "Document",
@@ -1191,8 +1138,7 @@
               "RelativeToolTip": "Backend_CrmSG\\Models\\Vistas\\AsesorComercialDetalle.cs",
               "ViewState": "AgIAAAAAAAAAAAAAAAAAAAsAAAAAAAAAAAAAAA==",
               "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
-              "WhenOpened": "2025-05-12T01:54:08.309Z",
-              "EditorCaption": ""
+              "WhenOpened": "2025-05-12T01:54:08.309Z"
             },
             {
               "$type": "Document",
@@ -1204,8 +1150,7 @@
               "RelativeToolTip": "Backend_CrmSG\\Controllers\\Vista\\VistaEntidadController.cs",
               "ViewState": "AgIAACQAAAAAAAAAAAAowDwAAAAJAAAAAAAAAA==",
               "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
-              "WhenOpened": "2025-05-10T18:19:07.421Z",
-              "EditorCaption": ""
+              "WhenOpened": "2025-05-10T18:19:07.421Z"
             },
             {
               "$type": "Document",
@@ -1217,8 +1162,7 @@
               "RelativeToolTip": "Backend_CrmSG\\Controllers\\Entidad\\ProyeccionController.cs",
               "ViewState": "AgIAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA==",
               "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
-              "WhenOpened": "2025-05-10T22:53:41.607Z",
-              "EditorCaption": ""
+              "WhenOpened": "2025-05-10T22:53:41.607Z"
             },
             {
               "$type": "Document",
@@ -1230,8 +1174,7 @@
               "RelativeToolTip": "Backend_CrmSG\\Models\\Entidades\\Referencia.cs",
               "ViewState": "AgIAAAAAAAAAAAAAAAAAABMAAAArAAAAAAAAAA==",
               "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
-              "WhenOpened": "2025-05-10T22:55:25.715Z",
-              "EditorCaption": ""
+              "WhenOpened": "2025-05-10T22:55:25.715Z"
             },
             {
               "$type": "Document",
@@ -1243,8 +1186,7 @@
               "RelativeToolTip": "Backend_CrmSG\\Models\\Vistas\\ReferenciaDetalle.cs",
               "ViewState": "AgIAAAAAAAAAAAAAAAAAABIAAAAAAAAAAAAAAA==",
               "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
-              "WhenOpened": "2025-05-10T22:55:49.202Z",
-              "EditorCaption": ""
+              "WhenOpened": "2025-05-10T22:55:49.202Z"
             },
             {
               "$type": "Document",
@@ -1256,8 +1198,7 @@
               "RelativeToolTip": "Backend_CrmSG\\Models\\Entidades\\Beneficiario.cs",
               "ViewState": "AgIAAAAAAAAAAAAAAAAAABIAAAASAAAAAAAAAA==",
               "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
-              "WhenOpened": "2025-05-10T23:30:31.701Z",
-              "EditorCaption": ""
+              "WhenOpened": "2025-05-10T23:30:31.701Z"
             },
             {
               "$type": "Document",
@@ -1269,8 +1210,7 @@
               "RelativeToolTip": "Backend_CrmSG\\Models\\Vistas\\BeneficiarioDetalle.cs",
               "ViewState": "AgIAAAAAAAAAAAAAAAAAAAwAAAA4AAAAAAAAAA==",
               "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
-              "WhenOpened": "2025-05-10T23:31:06.792Z",
-              "EditorCaption": ""
+              "WhenOpened": "2025-05-10T23:31:06.792Z"
             },
             {
               "$type": "Document",
@@ -1282,8 +1222,7 @@
               "RelativeToolTip": "Backend_CrmSG\\Controllers\\Entidad\\BeneficiarioController.cs",
               "ViewState": "AgIAADYAAAAAAAAAAAAmwEAAAAAAAAAAAAAAAA==",
               "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
-              "WhenOpened": "2025-05-10T23:31:47.42Z",
-              "EditorCaption": ""
+              "WhenOpened": "2025-05-10T23:31:47.42Z"
             },
             {
               "$type": "Document",
@@ -1295,8 +1234,7 @@
               "RelativeToolTip": "Backend_CrmSG\\DTOs\\SolicitudDTOs\\SolicitudInversionDTO.cs",
               "ViewState": "AgIAAAkAAAAAAAAAAAA5wBAAAAAAAAAAAAAAAA==",
               "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
-              "WhenOpened": "2025-05-10T21:39:58.064Z",
-              "EditorCaption": ""
+              "WhenOpened": "2025-05-10T21:39:58.064Z"
             },
             {
               "$type": "Document",
@@ -1308,8 +1246,7 @@
               "RelativeToolTip": "Backend_CrmSG\\DTOs\\SolicitudDTOs\\SolicitudInversionUpdateDTO.cs",
               "ViewState": "AgIAAAAAAAAAAAAAAAAAAAwAAABMAAAAAAAAAA==",
               "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
-              "WhenOpened": "2025-05-10T21:39:55.084Z",
-              "EditorCaption": ""
+              "WhenOpened": "2025-05-10T21:39:55.084Z"
             },
             {
               "$type": "Document",
@@ -1321,8 +1258,7 @@
               "RelativeToolTip": "Backend_CrmSG\\DTOs\\SolicitudDTOs\\SolicitudInversionCreateDTO.cs",
               "ViewState": "AgIAAA8AAAAAAAAAAAA4wA8AAAAuAAAAAAAAAA==",
               "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
-              "WhenOpened": "2025-05-10T21:39:45.223Z",
-              "EditorCaption": ""
+              "WhenOpened": "2025-05-10T21:39:45.223Z"
             },
             {
               "$type": "Document",
@@ -1334,8 +1270,7 @@
               "RelativeToolTip": "Backend_CrmSG\\DTOs\\SolicitudDTOs\\IdentificacionDTO.cs",
               "ViewState": "AgIAAAAAAAAAAAAAAAAAACMAAAAAAAAAAAAAAA==",
               "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
-              "WhenOpened": "2025-05-10T21:31:52.129Z",
-              "EditorCaption": ""
+              "WhenOpened": "2025-05-10T21:31:52.129Z"
             },
             {
               "$type": "Document",
@@ -1347,8 +1282,7 @@
               "RelativeToolTip": "Backend_CrmSG\\Controllers\\Catalogo\\Producto\\ConfiguracionProductoController.cs",
               "ViewState": "AgIAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA==",
               "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
-              "WhenOpened": "2025-05-10T21:04:11.267Z",
-              "EditorCaption": ""
+              "WhenOpened": "2025-05-10T21:04:11.267Z"
             },
             {
               "$type": "Document",
@@ -1360,8 +1294,7 @@
               "RelativeToolTip": "Backend_CrmSG\\Controllers\\Catalogo\\Producto\\ProductoController.cs",
               "ViewState": "AgIAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA==",
               "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
-              "WhenOpened": "2025-05-10T21:04:07.356Z",
-              "EditorCaption": ""
+              "WhenOpened": "2025-05-10T21:04:07.356Z"
             },
             {
               "$type": "Document",
@@ -1373,8 +1306,7 @@
               "RelativeToolTip": "Backend_CrmSG\\DTOs\\ProductoConConfiguracionesDto.cs",
               "ViewState": "AgIAAAAAAAAAAAAAAAAAAAgAAAAAAAAAAAAAAA==",
               "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
-              "WhenOpened": "2025-05-10T21:02:01.545Z",
-              "EditorCaption": ""
+              "WhenOpened": "2025-05-10T21:02:01.545Z"
             },
             {
               "$type": "Document",
@@ -1386,8 +1318,7 @@
               "RelativeToolTip": "Backend_CrmSG\\Controllers\\Entidad\\SolicitudInversionController.cs",
               "ViewState": "AgIAAGwAAAAAAAAAAAAswKIAAAAAAAAAAAAAAA==",
               "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
-              "WhenOpened": "2025-05-10T19:44:31.998Z",
-              "EditorCaption": ""
+              "WhenOpened": "2025-05-10T19:44:31.998Z"
             },
             {
               "$type": "Document",
@@ -1399,8 +1330,7 @@
               "RelativeToolTip": "Backend_CrmSG\\Models\\Entidades\\SolicitudInversion.cs",
               "ViewState": "AgIAAAAAAAAAAAAAAAAqwBAAAAAjAAAAAAAAAA==",
               "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
-              "WhenOpened": "2025-05-10T18:28:43.192Z",
-              "EditorCaption": ""
+              "WhenOpened": "2025-05-10T18:28:43.192Z"
             },
             {
               "$type": "Document",
@@ -1412,8 +1342,7 @@
               "RelativeToolTip": "Backend_CrmSG\\Helpers\\SolicitudMapper.cs",
               "ViewState": "AgIAAAAAAAAAAAAAAAAAAAwAAAA+AAAAAAAAAA==",
               "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
-              "WhenOpened": "2025-05-10T18:25:18.183Z",
-              "EditorCaption": ""
+              "WhenOpened": "2025-05-10T18:25:18.183Z"
             },
             {
               "$type": "Document",
@@ -1425,8 +1354,7 @@
               "RelativeToolTip": "Backend_CrmSG\\DTOs\\SolicitudDTOs\\FinalizacionDTO.cs",
               "ViewState": "AgIAAAAAAAAAAAAAAAAAAAkAAAA3AAAAAAAAAA==",
               "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
-              "WhenOpened": "2025-05-10T18:24:57.158Z",
-              "EditorCaption": ""
+              "WhenOpened": "2025-05-10T18:24:57.158Z"
             },
             {
               "$type": "Document",
@@ -1438,8 +1366,7 @@
               "RelativeToolTip": "Backend_CrmSG\\appsettings.Development.json",
               "ViewState": "AgIAAAAAAAAAAAAAAAAAAAgAAAAAAAAAAAAAAA==",
               "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.001642|",
-              "WhenOpened": "2025-05-10T18:20:02.135Z",
-              "EditorCaption": ""
+              "WhenOpened": "2025-05-10T18:20:02.135Z"
             }
           ]
         }
