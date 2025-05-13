@@ -486,8 +486,8 @@ export default function Identificacion({ id }) {
       f.tipoSolicitud === "Nueva"
         ? 1
         : f.tipoSolicitud === "Renovación"
-        ? 2
-        : 3,
+          ? 2
+          : 3,
     tipoCliente: f.tipoCliente === "Natural" ? 1 : 2,
     tipoDocumento:
       f.tipoDocumento === "Cédula" ? 1 : f.tipoDocumento === "RUC" ? 2 : 3,
@@ -632,11 +632,10 @@ export default function Identificacion({ id }) {
       <div className="flex items-center justify-between">
         <h2 className="text-2xl font-semibold text-gray-800">Identificación</h2>
         <div className="flex items-center gap-3">
-          <Label className="text-sm font-medium text-gray-700">Validar</Label>
-          <Switch
+          <FormSwitch
+            label="Validar"
             checked={form.validar}
-            className="border border-gray-400"
-            onCheckedChange={async (c) => {
+            onChange={async (c) => {
               if (!loadingValidacion && !bloquearCampos) {
                 if (!c) return handleChange("validar", false);
                 const ok = await ejecutarValidaciones();
@@ -653,10 +652,11 @@ export default function Identificacion({ id }) {
           {bloquearCampos && (
             <button
               onClick={() => setBloquearCampos(false)}
-              className="text-sm text-blue-600 hover:underline ml-4"
+              className="text-sm text-gray-200 bg-primary hover:bg-primary/80 hover:text-white px-4 py-1.5 rounded-md ml-4"
             >
               Editar datos
             </button>
+
           )}
         </div>
       </div>
@@ -732,7 +732,7 @@ export default function Identificacion({ id }) {
             <Button
               onClick={handleSaveIdentificacion}
               disabled={loadingSave}
-              className="text-white"
+              className="text-gray-200 bg-primary hover:bg-primary/80"
             >
               {loadingSave ? "Guardando..." : "Guardar Identificación"}
             </Button>
@@ -825,6 +825,50 @@ function FormSelect({
           ))}
         </SelectContent>
       </Select>
+    </div>
+  );
+}
+function FormSwitch({ label, checked, onChange }) {
+  return (
+    <div className="flex items-center gap-4">
+      <div className="relative">
+        <Switch
+          checked={checked}
+          onCheckedChange={onChange}
+          className={`
+            peer
+            inline-flex
+            h-6 w-11 shrink-0
+            cursor-pointer
+            items-center
+            rounded-full
+            border
+            border-gray-400
+            transition-colors
+            duration-200
+            ease-in-out
+            ${checked ? "bg-primary" : "bg-gray-300"}
+          `}
+        />
+        {/* Círculo deslizante */}
+        <span
+          className={`
+            pointer-events-none
+            absolute
+            left-0.5 top-0.5
+            h-5 w-5
+            transform
+            rounded-full
+            bg-white
+            shadow
+            transition-transform
+            duration-200
+            ease-in-out
+            ${checked ? "translate-x-5" : "translate-x-0"}
+          `}
+        />
+      </div>
+      <Label className="text-sm font-medium text-gray-700">{label}</Label>
     </div>
   );
 }

@@ -320,14 +320,45 @@ function FormSelect({ label, options, value, onChange }) {
 
 function FormSwitch({ label, checked, onChange }) {
   return (
-    <div className="space-y-1.5">
+    <div className="flex items-center gap-4">
+      <div className="relative">
+        <Switch
+          checked={checked}
+          onCheckedChange={onChange}
+          className={`
+            peer
+            inline-flex
+            h-6 w-11 shrink-0
+            cursor-pointer
+            items-center
+            rounded-full
+            border
+            border-gray-400
+            transition-colors
+            duration-200
+            ease-in-out
+            ${checked ? "bg-primary" : "bg-gray-300"}
+          `}
+        />
+        {/* Círculo deslizante */}
+        <span
+          className={`
+            pointer-events-none
+            absolute
+            left-0.5 top-0.5
+            h-5 w-5
+            transform
+            rounded-full
+            bg-white
+            shadow
+            transition-transform
+            duration-200
+            ease-in-out
+            ${checked ? "translate-x-5" : "translate-x-0"}
+          `}
+        />
+      </div>
       <Label className="text-sm font-medium text-gray-700">{label}</Label>
-      <Switch
-        checked={checked}
-        onCheckedChange={onChange}
-        className="border border-gray-500"
-      />
-      <span className="text-sm">{checked ? "Sí" : "No"}</span>
     </div>
   );
 }

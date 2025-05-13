@@ -9,6 +9,8 @@ import { Label } from "@/components/ui/label";
 import { Button } from "@/components/ui/button";
 import { Switch } from "@/components/ui/switch";
 import { toast } from "sonner";
+import { Select, SelectTrigger, SelectValue, SelectContent, SelectItem, } from "@/components/ui/select";
+import { getCatalogoPais, getCatalogoCiudadPorProvincia, getCatalogoProvinciaPorPais, getCatalogoTipoVia } from "@/service/Catalogos/ContactoUbicacionService";
 
 export default function ContactoUbicacion({ id }) {
   const [loading, setLoading] = useState(true);
@@ -33,6 +35,11 @@ export default function ContactoUbicacion({ id }) {
     numeroIdentificacionOtroPais: "",
     numeroIdentificacionEEUU: "",
   });
+  const [catalogoPaises, setCatalogoPaises] = useState([]);
+  const [catalogoProvincias, setCatalogoProvincias] = useState([]);
+  const [catalogoCiudades, setCatalogoCiudades] = useState([]);
+  const [catalogoTipoVia, setCatalogoTipoVia] = useState([]);
+
 
   useEffect(() => {
     const cargar = async () => {
@@ -45,16 +52,15 @@ export default function ContactoUbicacion({ id }) {
           otroTelefono: data.contactoUbicacion.otroTelefono || "",
           telefonoCelular: data.contactoUbicacion.telefonoCelular || "",
           telefonoFijo: data.contactoUbicacion.telefonoFijo || "",
-          idTipoVia: data.contactoUbicacion.idTipoVia || "",
           callePrincipal: data.contactoUbicacion.callePrincipal || "",
           numeroDomicilio: data.contactoUbicacion.numeroDomicilio || "",
           calleSecundaria: data.contactoUbicacion.calleSecundaria || "",
           referenciaDomicilio: data.contactoUbicacion.referenciaDomicilio || "",
           sectorBarrio: data.contactoUbicacion.sectorBarrio || "",
           tiempoResidencia: data.contactoUbicacion.tiempoResidencia || "",
+          idTipoVia: data.contactoUbicacion.idTipoVia || "",
           idPaisResidencia: data.contactoUbicacion.idPaisResidencia || "",
-          idProvinciaResidencia:
-            data.contactoUbicacion.idProvinciaResidencia || "",
+          idProvinciaResidencia: data.contactoUbicacion.idProvinciaResidencia || "",
           idCiudadResidencia: data.contactoUbicacion.idCiudadResidencia || "",
           residenteOtroPais: data.contactoUbicacion.residenteOtroPais || false,
           contribuyenteEEUU: data.contactoUbicacion.contribuyenteEEUU || false,
@@ -63,6 +69,25 @@ export default function ContactoUbicacion({ id }) {
           numeroIdentificacionEEUU:
             data.contactoUbicacion.numeroIdentificacionEEUU || "",
         });
+        // 📥 Cargar todos los países y tipo de vía
+        const [paises, tipoVia] = await Promise.all([
+          getCatalogoPais(),
+          getCatalogoTipoVia(),
+        ]);
+        setCatalogoPaises(paises);
+        setCatalogoTipoVia(tipoVia);
+
+        // ⚠️ Si ya hay país/provincia seleccionados, carga dependientes
+        if (data.contactoUbicacion.idPaisResidencia) {
+          const provincias = await getCatalogoProvinciaPorPais(data.contactoUbicacion.idPaisResidencia);
+          setCatalogoProvincias(provincias);
+
+          if (data.contactoUbicacion.idProvinciaResidencia) {
+            const ciudades = await getCatalogoCiudadPorProvincia(data.contactoUbicacion.idProvinciaResidencia);
+            setCatalogoCiudades(ciudades);
+          }
+        }
+
       } catch (err) {
         toast.error("Error al cargar contacto: " + err.message);
       } finally {
@@ -88,6 +113,27 @@ export default function ContactoUbicacion({ id }) {
     } finally {
       setLoading(false);
     }
+  };
+  const handlePaisChange = async (idPais) => {
+    setContactoUbicacion({
+      ...contactoUbicacion,
+      idPaisResidencia: idPais,
+      idProvinciaResidencia: "",
+      idCiudadResidencia: "",
+    });
+    const provincias = await getCatalogoProvinciaPorPais(idPais);
+    setCatalogoProvincias(provincias);
+    setCatalogoCiudades([]);
+  };
+
+  const handleProvinciaChange = async (idProvincia) => {
+    setContactoUbicacion({
+      ...contactoUbicacion,
+      idProvinciaResidencia: idProvincia,
+      idCiudadResidencia: "",
+    });
+    const ciudades = await getCatalogoCiudadPorProvincia(idProvincia);
+    setCatalogoCiudades(ciudades);
   };
 
   if (loading) return <p>Cargando contacto...</p>;
@@ -140,17 +186,26 @@ export default function ContactoUbicacion({ id }) {
               })
             }
           />
-          <FormInput
-            label="Tipo de vía (ID)"
-            type="number"
-            value={contactoUbicacion.idTipoVia}
-            onChange={(e) =>
-              setContactoUbicacion({
-                ...contactoUbicacion,
-                idTipoVia: e.target.value,
-              })
-            }
-          />
+          <FormGroup label="Tipo de vía">
+            <Select
+              value={contactoUbicacion.idTipoVia}
+              onValueChange={(v) =>
+                setContactoUbicacion({ ...contactoUbicacion, idTipoVia: v })
+              }
+            >
+              <SelectTrigger>
+                <SelectValue placeholder="Seleccionar tipo de vía" />
+              </SelectTrigger>
+              <SelectContent>
+                {catalogoTipoVia.map((item) => (
+                  <SelectItem key={item.idTipoVia} value={item.idTipoVia}>
+                    {item.nombre}
+                  </SelectItem>
+                ))}
+              </SelectContent>
+            </Select>
+          </FormGroup>
+
           <FormInput
             label="Calle principal"
             value={contactoUbicacion.callePrincipal}
@@ -212,39 +267,64 @@ export default function ContactoUbicacion({ id }) {
               })
             }
           />
-          <FormInput
-            label="ID País"
-            type="number"
-            value={contactoUbicacion.idPaisResidencia}
-            onChange={(e) =>
-              setContactoUbicacion({
-                ...contactoUbicacion,
-                idPaisResidencia: e.target.value,
-              })
-            }
-          />
-          <FormInput
-            label="ID Provincia"
-            type="number"
-            value={contactoUbicacion.idProvinciaResidencia}
-            onChange={(e) =>
-              setContactoUbicacion({
-                ...contactoUbicacion,
-                idProvinciaResidencia: e.target.value,
-              })
-            }
-          />
-          <FormInput
-            label="ID Ciudad"
-            type="number"
-            value={contactoUbicacion.idCiudadResidencia}
-            onChange={(e) =>
-              setContactoUbicacion({
-                ...contactoUbicacion,
-                idCiudadResidencia: e.target.value,
-              })
-            }
-          />
+          <FormGroup label="País de residencia">
+            <Select
+              value={contactoUbicacion.idPaisResidencia}
+              onValueChange={handlePaisChange}
+            >
+              <SelectTrigger>
+                <SelectValue placeholder="Seleccionar país" />
+              </SelectTrigger>
+              <SelectContent>
+                {catalogoPaises.map((pais) => (
+                  <SelectItem key={pais.idPais} value={pais.idPais}>
+                    {pais.nombre}
+                  </SelectItem>
+                ))}
+              </SelectContent>
+            </Select>
+          </FormGroup>
+
+          <FormGroup label="Provincia">
+            <Select
+              disabled={!contactoUbicacion.idPaisResidencia}
+              value={contactoUbicacion.idProvinciaResidencia}
+              onValueChange={handleProvinciaChange}
+            >
+              <SelectTrigger>
+                <SelectValue placeholder="Seleccionar provincia" />
+              </SelectTrigger>
+              <SelectContent>
+                {catalogoProvincias.map((prov) => (
+                  <SelectItem key={prov.idProvincia} value={prov.idProvincia}>
+                    {prov.nombre}
+                  </SelectItem>
+                ))}
+              </SelectContent>
+            </Select>
+          </FormGroup>
+
+          <FormGroup label="Ciudad">
+            <Select
+              disabled={!contactoUbicacion.idProvinciaResidencia}
+              value={contactoUbicacion.idCiudadResidencia}
+              onValueChange={(v) =>
+                setContactoUbicacion({ ...contactoUbicacion, idCiudadResidencia: v })
+              }
+            >
+              <SelectTrigger>
+                <SelectValue placeholder="Seleccionar ciudad" />
+              </SelectTrigger>
+              <SelectContent>
+                {catalogoCiudades.map((ciu) => (
+                  <SelectItem key={ciu.idCiudad} value={ciu.idCiudad}>
+                    {ciu.nombre}
+                  </SelectItem>
+                ))}
+              </SelectContent>
+            </Select>
+          </FormGroup>
+
           <FormSwitch
             label="Residente otro país"
             checked={contactoUbicacion.residenteOtroPais}
@@ -266,7 +346,7 @@ export default function ContactoUbicacion({ id }) {
             }
           />
           <FormInput
-            label="ID otro país"
+            label="Número de identificación (Otro País)"
             value={contactoUbicacion.numeroIdentificacionOtroPais}
             onChange={(e) =>
               setContactoUbicacion({
@@ -276,7 +356,7 @@ export default function ContactoUbicacion({ id }) {
             }
           />
           <FormInput
-            label="ID EEUU"
+            label="Número de Identificación(EE.UU.)"
             value={contactoUbicacion.numeroIdentificacionEEUU}
             onChange={(e) =>
               setContactoUbicacion({
@@ -302,11 +382,57 @@ function FormInput({ label, value, onChange, type = "text" }) {
   );
 }
 
+
 function FormSwitch({ label, checked, onChange }) {
   return (
-    <div className="space-y-1.5 flex items-center gap-3">
-      <Switch checked={checked} onCheckedChange={onChange} className="border" />
+    <div className="flex items-center gap-4">
+      <div className="relative">
+        <Switch
+          checked={checked}
+          onCheckedChange={onChange}
+          className={`
+            peer
+            inline-flex
+            h-6 w-11 shrink-0
+            cursor-pointer
+            items-center
+            rounded-full
+            border
+            border-gray-400
+            transition-colors
+            duration-200
+            ease-in-out
+            ${checked ? "bg-primary" : "bg-gray-300"}
+          `}
+        />
+        {/* Círculo deslizante */}
+        <span
+          className={`
+            pointer-events-none
+            absolute
+            left-0.5 top-0.5
+            h-5 w-5
+            transform
+            rounded-full
+            bg-white
+            shadow
+            transition-transform
+            duration-200
+            ease-in-out
+            ${checked ? "translate-x-5" : "translate-x-0"}
+          `}
+        />
+      </div>
       <Label className="text-sm font-medium text-gray-700">{label}</Label>
+    </div>
+  );
+}
+
+function FormGroup({ label, children }) {
+  return (
+    <div className="space-y-1.5">
+      <Label className="text-sm font-medium text-gray-700">{label}</Label>
+      {children}
     </div>
   );
 }
