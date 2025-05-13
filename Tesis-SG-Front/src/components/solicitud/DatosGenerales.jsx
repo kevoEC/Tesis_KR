@@ -20,14 +20,6 @@ import {
   SelectContent,
   SelectItem,
 } from "@/components/ui/select";
-import {
-  Table,
-  TableHeader,
-  TableRow,
-  TableHead,
-  TableBody,
-  TableCell,
-} from "@/components/ui/table";
 import TablaCustom2 from "../shared/TablaCustom2";
 
 import {
@@ -353,41 +345,7 @@ export default function DatosGenerales() {
       </Card>
 
       {/* 📇 Tabla de referencias */}
-      <div className="pt-4 space-y-4">
-        <div className="flex items-center justify-between">
-          <h3 className="text-lg font-semibold text-gray-700">Referencias</h3>
-          <Button
-            onClick={handleAbrirFormulario}
-            className="bg-blue-600 hover:bg-blue-700 text-white text-sm px-4 py-2 rounded-md"
-          >
-            Agregar Referencia
-          </Button>
-        </div>
-
-        <Card>
-          <CardContent className="p-0">
-            <Table>
-              <TableHeader>
-                <TableRow>
-                  <TableHead>Nombre referencia</TableHead>
-                  <TableHead>Tipo</TableHead>
-                  <TableHead>Teléfono celular</TableHead>
-                </TableRow>
-              </TableHeader>
-              <TableBody>
-                <TableRow>
-                  <TableCell
-                    colSpan={3}
-                    className="text-center text-gray-500 py-6"
-                  >
-                    No se encontró nada para mostrar aquí
-                  </TableCell>
-                </TableRow>
-              </TableBody>
-            </Table>
-          </CardContent>
-        </Card>
-      </div>
+     
       <div>
         <Card>
           <CardContent>
