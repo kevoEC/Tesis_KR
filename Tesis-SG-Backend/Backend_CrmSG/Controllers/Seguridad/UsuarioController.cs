@@ -7,6 +7,7 @@ using System.Security.Claims;
 using System.IdentityModel.Tokens.Jwt;
 using Backend_CrmSG.DTOs.Seguridad;
 using Backend_CrmSG.Services.Correo;
+using Backend_CrmSG.Services.SMS;
 
 
 
@@ -20,12 +21,14 @@ namespace Backend_CrmSG.Controllers.Seguridad
         private readonly StoredProcedureService _storedProcedureService;
         private readonly IJwtService _jwtService;
         private readonly ICorreoService _correoService;
-        public UsuarioController(IUsuarioService usuarioService, IJwtService jwtService, StoredProcedureService storedProcedureService, ICorreoService correoService)
+        private readonly ISmsService _smsService;
+        public UsuarioController(IUsuarioService usuarioService, IJwtService jwtService, StoredProcedureService storedProcedureService, ICorreoService correoService, ISmsService smsService)
         {
             _usuarioService = usuarioService;
             _storedProcedureService = storedProcedureService;
             _jwtService = jwtService;
             _correoService = correoService;
+            _smsService = smsService;
         }
 
         // POST: api/Usuario/login
