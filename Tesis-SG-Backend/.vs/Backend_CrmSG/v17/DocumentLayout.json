@@ -379,8 +379,7 @@
               "RelativeToolTip": "Backend_CrmSG\\Services\\SMS\\TwilioSmsService.cs",
               "ViewState": "AgIAAAAAAAAAAAAAAAAAACcAAAAAAAAAAAAAAA==",
               "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
-              "WhenOpened": "2025-05-12T22:57:19.047Z",
-              "EditorCaption": ""
+              "WhenOpened": "2025-05-12T22:57:19.047Z"
             },
             {
               "$type": "Document",
@@ -392,8 +391,7 @@
               "RelativeToolTip": "Backend_CrmSG\\Services\\SMS\\ISmsService.cs",
               "ViewState": "AgIAAAAAAAAAAAAAAAAAAAkAAAAAAAAAAAAAAA==",
               "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
-              "WhenOpened": "2025-05-12T22:57:00.934Z",
-              "EditorCaption": ""
+              "WhenOpened": "2025-05-12T22:57:00.934Z"
             },
             {
               "$type": "Document",
@@ -405,8 +403,7 @@
               "RelativeToolTip": "Backend_CrmSG\\Services\\Seguridad\\IUsuarioService.cs",
               "ViewState": "AgIAABAAAAAAAAAAAAAkwB0AAAAtAAAAAAAAAA==",
               "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
-              "WhenOpened": "2025-05-12T22:43:42.454Z",
-              "EditorCaption": ""
+              "WhenOpened": "2025-05-12T22:43:42.454Z"
             },
             {
               "$type": "Document",
@@ -526,8 +523,7 @@
               "RelativeToolTip": "Backend_CrmSG\\Services\\Seguridad\\UsuarioService.cs",
               "ViewState": "AgIAALcAAAAAAAAAAAAqwMYAAAA8AAAAAAAAAA==",
               "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
-              "WhenOpened": "2025-05-12T21:50:34.334Z",
-              "EditorCaption": ""
+              "WhenOpened": "2025-05-12T21:50:34.334Z"
             },
             {
               "$type": "Document",
@@ -539,8 +535,7 @@
               "RelativeToolTip": "Backend_CrmSG\\Controllers\\Seguridad\\UsuarioController.cs",
               "ViewState": "AgIAAPoAAAAAAAAAAAAnwBABAAAJAAAAAAAAAA==",
               "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
-              "WhenOpened": "2025-05-12T21:48:28.784Z",
-              "EditorCaption": ""
+              "WhenOpened": "2025-05-12T21:48:28.784Z"
             },
             {
               "$type": "Document",
@@ -1043,7 +1038,7 @@
               "RelativeDocumentMoniker": "Backend_CrmSG\\appsettings.json",
               "ToolTip": "D:\\Tesis KR\\Tesis_KR\\Tesis-SG-Backend\\Backend_CrmSG\\appsettings.json",
               "RelativeToolTip": "Backend_CrmSG\\appsettings.json",
-              "ViewState": "AgIAAAkAAAAAAAAAAAAAACcAAAABAAAAAAAAAA==",
+              "ViewState": "AgIAAAkAAAAAAAAAAAAAACQAAAAFAAAAAAAAAA==",
               "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.001642|",
               "WhenOpened": "2025-05-10T18:20:05.597Z",
               "EditorCaption": ""
