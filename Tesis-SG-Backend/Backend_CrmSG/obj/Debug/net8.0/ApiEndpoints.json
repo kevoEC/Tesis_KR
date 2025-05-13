@@ -4009,6 +4009,22 @@
     "ReturnTypes": []
   },
   {
+    "ContainingType": "Backend_CrmSG.Controllers.Seguridad.UsuarioController",
+    "Method": "ValidarCorreo",
+    "RelativePath": "api/Usuario/validar-correo",
+    "HttpMethod": "GET",
+    "IsController": true,
+    "Order": 0,
+    "Parameters": [
+      {
+        "Name": "token",
+        "Type": "System.String",
+        "IsRequired": false
+      }
+    ],
+    "ReturnTypes": []
+  },
+  {
     "ContainingType": "Backend_CrmSG.Controllers.Seguridad.UsuarioRolController",
     "Method": "GetAll",
     "RelativePath": "api/UsuarioRol",
