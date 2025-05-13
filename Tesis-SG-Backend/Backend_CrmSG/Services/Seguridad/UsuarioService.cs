@@ -187,18 +187,26 @@ namespace Backend_CrmSG.Services.Seguridad
         }
 
 
-        public async Task<bool> EnviarCodigoSmsValidacion(int idUsuario, string telefono, string extension, Func<string, Task<bool>> sendSms)
+        public async Task<bool> EnviarCodigoSmsValidacion(
+            int idUsuario,
+            string telefono,
+            string extension,
+            Func<string, string, Task<bool>> sendSms)
         {
             var usuario = await _usuarioRepository.GetByIdAsync(idUsuario);
             if (usuario == null) return false;
 
-            // Guardar teléfono con extensión
-            usuario.Telefono = extension + telefono;
+            // Guardar el número completo con extensión (ej: +593987654321)
+            var numeroCompleto = extension + telefono;
+            usuario.Telefono = numeroCompleto;
+            usuario.FechaModificacion = DateTime.UtcNow;
+
             await _usuarioRepository.UpdateAsync(usuario);
 
             var tipos = await _tipoTransaccionRepository.GetAllAsync();
             var tipoTelefono = tipos.FirstOrDefault(t => t.Nombre == "Telefono");
-            if (tipoTelefono == null) throw new Exception("TipoTransaccion 'Telefono' no existe.");
+            if (tipoTelefono == null)
+                throw new Exception("TipoTransaccion 'Telefono' no existe.");
 
             // Generar código de 6 dígitos
             var codigo = new Random().Next(100000, 999999).ToString();
@@ -216,9 +224,13 @@ namespace Backend_CrmSG.Services.Seguridad
 
             await _transaccionRepository.AddAsync(transaccion);
 
-            // Enviar SMS usando callback (Twilio)
-            return await sendSms(usuario.Telefono!);
+            // Mensaje con el código
+            var mensaje = $"Tu código de validación es: {codigo}";
+
+            // Enviar SMS usando la función externa (Twilio)
+            return await sendSms(numeroCompleto, mensaje);
         }
+
 
 
         public async Task<bool> ValidarCodigoTelefonoAsync(int idUsuario, string codigo)

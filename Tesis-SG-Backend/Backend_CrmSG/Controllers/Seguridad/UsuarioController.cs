@@ -241,14 +241,25 @@ namespace Backend_CrmSG.Controllers.Seguridad
                 dto.IdUsuario,
                 dto.Numero,
                 dto.Extension,
-                async (numeroCompleto) => await _smsService.EnviarCodigoValidacion(numeroCompleto, "tu código aquí") // Implementado abajo
+                async (numeroCompleto, mensaje) => await _smsService.EnviarCodigoValidacion(numeroCompleto, mensaje)
             );
 
             if (!resultado)
-                return BadRequest(new { success = false, message = "No se pudo enviar el SMS de validación." });
+            {
+                return BadRequest(new
+                {
+                    success = false,
+                    message = "No se pudo enviar el SMS de validación."
+                });
+            }
 
-            return Ok(new { success = true, message = "Código de validación enviado por SMS." });
+            return Ok(new
+            {
+                success = true,
+                message = "Código de validación enviado por SMS."
+            });
         }
+
 
         [HttpPost("validar-telefono")]
         public async Task<IActionResult> ValidarTelefono([FromBody] ValidacionTelefonoDTO dto)

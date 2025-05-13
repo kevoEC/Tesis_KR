@@ -3946,6 +3946,22 @@
   },
   {
     "ContainingType": "Backend_CrmSG.Controllers.Seguridad.UsuarioController",
+    "Method": "EnviarCodigoTelefono",
+    "RelativePath": "api/Usuario/enviar-codigo-telefono",
+    "HttpMethod": "POST",
+    "IsController": true,
+    "Order": 0,
+    "Parameters": [
+      {
+        "Name": "dto",
+        "Type": "Backend_CrmSG.DTOs.SolicitudCodigoTelefonoDTO",
+        "IsRequired": true
+      }
+    ],
+    "ReturnTypes": []
+  },
+  {
+    "ContainingType": "Backend_CrmSG.Controllers.Seguridad.UsuarioController",
     "Method": "Login",
     "RelativePath": "api/Usuario/login",
     "HttpMethod": "POST",
@@ -4020,6 +4036,22 @@
         "Name": "token",
         "Type": "System.String",
         "IsRequired": false
+      }
+    ],
+    "ReturnTypes": []
+  },
+  {
+    "ContainingType": "Backend_CrmSG.Controllers.Seguridad.UsuarioController",
+    "Method": "ValidarTelefono",
+    "RelativePath": "api/Usuario/validar-telefono",
+    "HttpMethod": "POST",
+    "IsController": true,
+    "Order": 0,
+    "Parameters": [
+      {
+        "Name": "dto",
+        "Type": "Backend_CrmSG.DTOs.ValidacionTelefonoDTO",
+        "IsRequired": true
       }
     ],
     "ReturnTypes": []
