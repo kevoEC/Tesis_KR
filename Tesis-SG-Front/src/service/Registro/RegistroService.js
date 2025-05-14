@@ -17,3 +17,18 @@ export const registroParcial = async (payload) => {
 
   return handleResponse(response);
 };
+
+
+export const validarCorreoToken = async (token) => {
+  const response = await fetch(`${API_BASE_URL}/usuario/validar-correo?token=${token}`);
+  const data = await response.json();
+
+  if (!response.ok || !data.success) {
+    throw new Error(data.message || "Token inválido o expirado");
+  }
+
+  return data;
+};
+
+
+
