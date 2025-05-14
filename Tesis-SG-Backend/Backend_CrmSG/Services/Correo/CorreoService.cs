@@ -27,7 +27,7 @@ namespace Backend_CrmSG.Services.Correo
                     EnableSsl = true
                 };
 
-                var urlValidacion = $"{_configuration["App:FrontendUrl"]}/validar-correo?token={hashValidacion}";
+                var urlValidacion = $"{_configuration["App:FrontendUrl"]}/register?token={hashValidacion}";
                 var from = _configuration["Smtp:From"];
                 if (string.IsNullOrWhiteSpace(from))
                     throw new InvalidOperationException("La dirección 'From' no está configurada en appsettings.");
