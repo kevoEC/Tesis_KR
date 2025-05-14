@@ -537,3 +537,6 @@ D:\Universidad\Tesis\Tesis-DevOps\Tesis_KR\Tesis-SG-Backend\Backend_CrmSG\obj\De
 D:\Tesis KR\Tesis_KR\Tesis-SG-Backend\Backend_CrmSG\bin\Debug\net8.0\Microsoft.Bcl.Memory.dll
 D:\Tesis KR\Tesis_KR\Tesis-SG-Backend\Backend_CrmSG\bin\Debug\net8.0\Newtonsoft.Json.dll
 D:\Tesis KR\Tesis_KR\Tesis-SG-Backend\Backend_CrmSG\bin\Debug\net8.0\Twilio.dll
+D:\Universidad\Tesis\Tesis-DevOps\Tesis_KR\Tesis-SG-Backend\Backend_CrmSG\bin\Debug\net8.0\Microsoft.Bcl.Memory.dll
+D:\Universidad\Tesis\Tesis-DevOps\Tesis_KR\Tesis-SG-Backend\Backend_CrmSG\bin\Debug\net8.0\Newtonsoft.Json.dll
+D:\Universidad\Tesis\Tesis-DevOps\Tesis_KR\Tesis-SG-Backend\Backend_CrmSG\bin\Debug\net8.0\Twilio.dll
