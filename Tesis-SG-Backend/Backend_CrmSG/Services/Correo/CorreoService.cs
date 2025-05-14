@@ -55,7 +55,7 @@ namespace Backend_CrmSG.Services.Correo
               <h1 style='font-size: 24px; color: #000; margin-bottom: 20px;'>Activa tu cuenta</h1>
               <p style='font-size: 14px; color: #333; line-height: 1.6; margin: 0 0 30px;'>
                 Es momento de validar tu cuenta para poder acceder a nuestros productos. Si no has realizado el registro, puedes omitir este mensaje. 
-                Se eliminará automáticamente en el transcurso de 1 día.
+                Se eliminará automáticamente en el transcurso de 2 días.
               </p>
               <a href='{urlValidacion}' 
                  style='display:inline-block;background:#000;color:#fff;padding:14px 28px;border-radius:6px;text-decoration:none;font-weight:bold;font-size:14px;'>
