@@ -1,9 +1,11 @@
-import { useState } from "react";
+import { useEffect, useState } from "react";
+import {
+  getSolicitudById,
+  updateSolicitud,
+} from "@/service/Entidades/SolicitudService";
 import { Card, CardContent } from "@/components/ui/card";
-import { Label } from "@/components/ui/label";
 import { Input } from "@/components/ui/input";
-import { Textarea } from "@/components/ui/textarea";
-import { Switch } from "@/components/ui/switch";
+import { Label } from "@/components/ui/label";
 import {
   Select,
   SelectTrigger,
@@ -11,120 +13,163 @@ import {
   SelectContent,
   SelectItem,
 } from "@/components/ui/select";
-import { Search } from "lucide-react";
+import { Button } from "@/components/ui/button";
+import { Switch } from "@/components/ui/switch";
+import { toast } from "sonner";
 
-export default function Finalizacion() {
-  const [form, setForm] = useState({
-    continuar: "",
-    motivo: "",
-    observacion: "",
-    confirmarRechazo: false,
+export default function FinalizacionForm({ id }) {
+  const [loading, setLoading] = useState(true);
+  const [solicitudData, setSolicitudData] = useState(null);
+  const [finalizacion, setFinalizacion] = useState({
+    numeroContrato: "",
+    idContinuarSolicitud: "",
+    motivoFinalizacion: "",
+    observacionFinalizacion: "",
+    confirmar: false,
   });
+  const [decision, setDecision] = useState("Finalizar con el registro");
 
-  const handleChange = (field, value) => {
-    setForm((prev) => ({ ...prev, [field]: value }));
+  useEffect(() => {
+    const cargar = async () => {
+      try {
+        const res = await getSolicitudById(id);
+        const data = res.data[0];
+        setSolicitudData(data);
+        setFinalizacion({
+          numeroContrato: data.finalizacion.numeroContrato ?? "",
+          idContinuarSolicitud: data.finalizacion.idContinuarSolicitud ?? "",
+          motivoFinalizacion: data.finalizacion.motivoFinalizacion ?? "",
+          observacionFinalizacion:
+            data.finalizacion.observacionFinalizacion ?? "",
+          confirmar: data.finalizacion.confirmar ?? false,
+        });
+      } catch (err) {
+        toast.error("Error al cargar datos de finalización: " + err.message);
+      } finally {
+        setLoading(false);
+      }
+    };
+    cargar();
+  }, [id]);
+
+  const handleGuardar = async () => {
+    if (!solicitudData) return;
+    try {
+      setLoading(true);
+      const payload = {
+        ...solicitudData,
+        finalizacion: {
+          ...solicitudData.finalizacion,
+          ...finalizacion,
+        },
+      };
+      const res = await updateSolicitud(id, payload);
+      if (res.success) toast.success("Finalización actualizada.");
+      else toast.error("Error al actualizar finalización.");
+    } catch (err) {
+      toast.error("Error al guardar: " + err.message);
+    } finally {
+      setLoading(false);
+    }
   };
+
+  if (loading) return <p>Cargando datos de finalización...</p>;
 
   return (
     <div className="space-y-6 p-6">
-      <h2 className="text-xl font-semibold text-gray-800">Finalización</h2>
+      <h2 className="text-xl font-semibold">Finalización</h2>
 
-      <Card className="shadow border">
-        <CardContent className="p-6 space-y-6">
-          <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
-            {/* Número de contrato (bloqueado) */}
-            <FormInput label="Número de contrato" value="000123456" disabled />
-
-            {/* Propietario (bloqueado con link simulado) */}
-            <FormInput
-              label="Propietario"
-              value="CRM Servicio (Desconectado)"
-              disabled
-            />
-
-            {/* Continuar */}
-            <div className="space-y-1 md:col-span-2">
-              <Label className="text-sm text-gray-700 font-medium">
-                Continuar <span className="text-red-500">*</span>
-              </Label>
-              <Select
-                value={form.continuar}
-                onValueChange={(val) => handleChange("continuar", val)}
-              >
-                <SelectTrigger className="bg-white border border-gray-300">
-                  <SelectValue placeholder="Seleccionar opción..." />
-                </SelectTrigger>
-                <SelectContent className="bg-white">
-                  <SelectItem value="finalizar">Finalizar con el registro</SelectItem>
-                  <SelectItem value="rechazar">Rechazar y terminar</SelectItem>
-                </SelectContent>
-              </Select>
-            </div>
-
-            {/* Mostrar si se rechaza */}
-            {form.continuar === "rechazar" && (
-              <>
-                <div className="space-y-1">
-                  <Label className="text-sm text-gray-700 font-medium">
-                    Motivo <span className="text-red-500">*</span>
-                  </Label>
-                  <div className="relative">
-                    <Input
-                      value={form.motivo}
-                      onChange={(e) => handleChange("motivo", e.target.value)}
-                      className="pr-10"
-                    />
-                    <Search className="absolute right-3 top-2.5 size-4 text-gray-500" />
-                  </div>
-                </div>
-
-                <div className="space-y-1 md:col-span-2">
-                  <Label className="text-sm text-gray-700 font-medium">
-                    Observación <span className="text-red-500">*</span>
-                  </Label>
-                  <Textarea
-                    rows={3}
-                    value={form.observacion}
-                    onChange={(e) => handleChange("observacion", e.target.value)}
-                    className="border border-gray-300"
-                  />
-                </div>
-
-                <div className="flex items-center gap-4 md:col-span-2">
-                  <Label className="text-sm font-medium text-gray-700">
-                    Confirmar rechazo <span className="text-red-500">*</span>
-                  </Label>
-                  <Switch
-                    checked={form.confirmarRechazo}
-                    onCheckedChange={(checked) =>
-                      handleChange("confirmarRechazo", checked)
-                    }
-                    className="border border-gray-400"
-                  />
-                  <span className="text-sm text-muted-foreground">
-                    {form.confirmarRechazo ? "Sí" : "No"}
-                  </span>
-                </div>
-              </>
-            )}
-          </div>
+      <Button onClick={handleGuardar} disabled={loading} className="text-white">
+        Guardar datos
+      </Button>
+      <Card>
+        <CardContent className="p-6 grid grid-cols-1 md:grid-cols-2 lg:grid-cols-2 gap-6">
+          <FormInput
+            label="Número de contrato"
+            value={finalizacion.numeroContrato}
+            onChange={(e) =>
+              setFinalizacion({
+                ...finalizacion,
+                numeroContrato: e.target.value,
+              })
+            }
+          />
+          <FormInput
+            label="ID Continuar solicitud"
+            type="number"
+            value={finalizacion.idContinuarSolicitud}
+            onChange={(e) =>
+              setFinalizacion({
+                ...finalizacion,
+                idContinuarSolicitud: e.target.value,
+              })
+            }
+          />
+          <FormInput
+            label="Motivo de finalización"
+            value={finalizacion.motivoFinalizacion}
+            onChange={(e) =>
+              setFinalizacion({
+                ...finalizacion,
+                motivoFinalizacion: e.target.value,
+              })
+            }
+          />
+          <FormInput
+            label="Observación de finalización"
+            value={finalizacion.observacionFinalizacion}
+            onChange={(e) =>
+              setFinalizacion({
+                ...finalizacion,
+                observacionFinalizacion: e.target.value,
+              })
+            }
+          />
+          <FormSwitch
+            label="Confirmar"
+            checked={finalizacion.confirmar}
+            onChange={(checked) =>
+              setFinalizacion({ ...finalizacion, confirmar: checked })
+            }
+          />
         </CardContent>
       </Card>
+
+      {/* Select local — no se envía al backend */}
+      <div className="space-y-1.5">
+        <Label className="text-sm font-medium text-gray-700">Acción</Label>
+        <Select value={decision} onValueChange={setDecision}>
+          <SelectTrigger className="text-sm">
+            <SelectValue placeholder="Seleccione una acción" />
+          </SelectTrigger>
+          <SelectContent className="bg-white">
+            <SelectItem value="Finalizar con el registro">
+              Finalizar con el registro
+            </SelectItem>
+            <SelectItem value="Rechazar">Rechazar</SelectItem>
+          </SelectContent>
+        </Select>
+      </div>
     </div>
   );
 }
 
-// Reutilizable
-function FormInput({ label, value, onChange, disabled = false }) {
+// Reutilizables
+
+function FormInput({ label, value, onChange, type = "text" }) {
   return (
-    <div className="space-y-1">
+    <div className="space-y-1.5">
       <Label className="text-sm font-medium text-gray-700">{label}</Label>
-      <Input
-        value={value}
-        onChange={onChange}
-        disabled={disabled}
-        className="bg-gray-100 text-sm"
-      />
+      <Input placeholder="---" type={type} value={value} onChange={onChange} />
+    </div>
+  );
+}
+
+function FormSwitch({ label, checked, onChange }) {
+  return (
+    <div className="space-y-1.5 flex items-center gap-3">
+      <Switch checked={checked} onCheckedChange={onChange} className="border" />
+      <Label className="text-sm font-medium text-gray-700">{label}</Label>
     </div>
   );
 }

@@ -20,18 +20,24 @@ const getAuthHeaders = () => {
 };
 
 // 🟢 GET: Listar todos los prospectos
-export const getAdjuntos = async () => {
-  const res = await fetch(`${API_BASE_URL}/Prospecto`, {
-    headers: getAuthHeaders(),
-  });
+export const getAdjuntos = async (id) => {
+  const res = await fetch(
+    `${API_BASE_URL}/Documento/entidad?tipoEntidad=SolicitudInversion&idEntidad=${id}`,
+    {
+      headers: getAuthHeaders(),
+    }
+  );
   return handleResponse(res);
 };
 
 // 🔵 GET: Obtener prospecto por ID
 export const getAdjuntoById = async (id) => {
-  const res = await fetch(`${API_BASE_URL}/Prospecto/${id}`, {
-    headers: getAuthHeaders(),
-  });
+  const res = await fetch(
+    `${API_BASE_URL}/vista/documento/filtrar?por=IdDocumento&id=${id}`,
+    {
+      headers: getAuthHeaders(),
+    }
+  );
   return handleResponse(res);
 };
 
@@ -47,7 +53,7 @@ export const createAdjunto = async (data) => {
 
 // 🟠 PUT: Actualizar prospecto existente
 export const updateAdjunto = async (id, data) => {
-  const res = await fetch(`${API_BASE_URL}/Prospecto/${id}`, {
+  const res = await fetch(`${API_BASE_URL}/Documento/${id}/archivo`, {
     method: "PUT",
     headers: getAuthHeaders(),
     body: JSON.stringify(data),
@@ -55,11 +61,22 @@ export const updateAdjunto = async (id, data) => {
   return handleResponse(res);
 };
 
-// 🔴 DELETE: Eliminar prospecto
-export const deleteAdjunto = async (id) => {
-  const res = await fetch(`${API_BASE_URL}/Prospecto/${id}`, {
-    method: "DELETE",
+export const generateallAdjunto = async (data) => {
+  const res = await fetch(`${API_BASE_URL}/Documento/motivo`, {
+    method: "POST",
     headers: getAuthHeaders(),
+    body: JSON.stringify(data),
   });
+  return handleResponse(res);
+};
+
+export const deleteallAdjunto = async (id, data) => {
+  const res = await fetch(
+    `${API_BASE_URL}/Documento/motivo/32?idSolicitudInversion=${id}`,
+    {
+      method: "DELETE",
+      headers: getAuthHeaders(),
+    }
+  );
   return handleResponse(res);
 };

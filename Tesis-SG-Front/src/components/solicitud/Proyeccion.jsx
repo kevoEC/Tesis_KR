@@ -9,6 +9,7 @@ import { Label } from "@/components/ui/label";
 import { Switch } from "@/components/ui/switch";
 import { Button } from "@/components/ui/button";
 import { PlusCircle } from "lucide-react";
+import { FaEdit, FaTrash, FaSort, FaSortUp, FaSortDown, FaPlus, FaFileExport, FaFilePdf, FaFileCsv, FaArrowLeft, FaArrowRight, } from "react-icons/fa";
 import { Select, SelectTrigger, SelectValue, SelectContent, SelectItem } from "@/components/ui/select";
 
 export default function Proyeccion() {
@@ -38,21 +39,21 @@ export default function Proyeccion() {
   }, [idSolicitud]);
 
   return (
-    <div className="space-y-6 p-6">
+    <div className="space-y-6 px-4 sm:px-6 py-6">
       <h2 className="text-xl font-semibold text-gray-800">Proyecciones vinculadas</h2>
 
       <div className="flex justify-end mb-2">
         <Button
-          className="bg-blue-600 hover:bg-blue-700 text-white text-sm px-4 py-2 rounded-lg"
+          
           onClick={() => navigate(`/solicitudes/editar/${idSolicitud}/proyeccion/nueva`)}
+          className="bg-primary text-gray-200 hover:text-white hover:bg-primary/80 cursor-pointer flex items-center gap-2"
         >
-          <PlusCircle size={16} className="mr-2" />
-          Agregar proyección
+          <FaPlus className="text-white" /> Agregar Proyección
         </Button>
       </div>
 
       <Card>
-        <CardContent className="p-4">
+        <CardContent className="space-y-6 px-4 sm:px-6 py-6">
           <div className="overflow-x-auto">
             <Table>
               <TableHeader>

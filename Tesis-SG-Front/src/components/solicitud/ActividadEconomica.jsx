@@ -3,15 +3,31 @@ import {
   getSolicitudById,
   updateSolicitud,
 } from "@/service/Entidades/SolicitudService";
+import {
+  getActividadEconomicaPrincipal,
+  getActividadEconomicaTrabajo,
+} from "@/service/Catalogos/ActividadEconomicaService";
+import {
+  Select,
+  SelectTrigger,
+  SelectValue,
+  SelectContent,
+  SelectItem,
+} from "@/components/ui/select";
+
 import { Card, CardContent } from "@/components/ui/card";
 import { Input } from "@/components/ui/input";
 import { Label } from "@/components/ui/label";
 import { Button } from "@/components/ui/button";
 import { Switch } from "@/components/ui/switch";
 import { toast } from "sonner";
+
 export default function ActividadEconomica({ id }) {
   const [loading, setLoading] = useState(true);
   const [solicitudData, setSolicitudData] = useState(null); // Aquí almacenamos toda la solicitud
+  const [catalogoPrincipal, setCatalogoPrincipal] = useState([]);
+  const [catalogoTrabajo, setCatalogoTrabajo] = useState([]);
+
   const [actividadEconomica, setActividadEconomica] = useState({
     idActividadEconomicaPrincipal: "",
     idActividadEconomicaLugarTrabajo: "",
@@ -29,19 +45,18 @@ export default function ActividadEconomica({ id }) {
 
   useEffect(() => {
     const cargarDatos = async () => {
+      setLoading(true);
+
       try {
+        // 🔹 Obtener la solicitud
         const response = await getSolicitudById(id);
         const data = response.data[0];
-
-        // Guardar toda la solicitud
         setSolicitudData(data);
 
-        // Inicializar los valores de actividadEconomica
+        // 🔹 Inicializar los valores del formulario
         setActividadEconomica({
-          idActividadEconomicaPrincipal:
-            data.actividadEconomica.idActividadEconomicaPrincipal || "",
-          idActividadEconomicaLugarTrabajo:
-            data.actividadEconomica.idActividadEconomicaLugarTrabajo || "",
+          idActividadEconomicaPrincipal: data.actividadEconomica.idActividadEconomicaPrincipal || "",
+          idActividadEconomicaLugarTrabajo: data.actividadEconomica.idActividadEconomicaLugarTrabajo || "",
           lugarTrabajo: data.actividadEconomica.lugarTrabajo || "",
           correoTrabajo: data.actividadEconomica.correoTrabajo || "",
           otraActividadEconomica:
@@ -56,8 +71,30 @@ export default function ActividadEconomica({ id }) {
             data.actividadEconomica.referenciaDireccionTrabajo || "",
           isPEP: data.actividadEconomica.esPEP || false,
         });
+
+        // 🔹 Obtener catálogos
+        const [principalRaw, trabajoRaw] = await Promise.all([
+          getActividadEconomicaPrincipal(),
+          getActividadEconomicaTrabajo(),
+        ]);
+        
+        // 🔁 Mapeamos los catálogos a formato común { id, nombre }
+        const principal = principalRaw.map((item) => ({
+          id: String(item.idActividadEconomicaPrincipal),
+          nombre: item.nombre,
+        }));
+        
+        const trabajo = trabajoRaw.map((item) => ({
+          id: String(item.idActividadEconomicaLugarTrabajo),
+          nombre: item.nombre,
+        }));
+        
+        setCatalogoPrincipal(principal);
+        setCatalogoTrabajo(trabajo);
+        
+
       } catch (error) {
-        toast.error("Error al cargar la actividad económica: " + error.message);
+        toast.error("Error al cargar datos: " + error.message);
       } finally {
         setLoading(false);
       }
@@ -65,6 +102,7 @@ export default function ActividadEconomica({ id }) {
 
     cargarDatos();
   }, [id]);
+
 
   // Función para manejar el guardado de los datos
   const handleGuardar = async () => {
@@ -104,29 +142,41 @@ export default function ActividadEconomica({ id }) {
           <h2 className="text-xl font-semibold text-gray-800">
             Actividad económica
           </h2>
+          {/* Botón para guardar datos */}
+          <Button
+            onClick={handleGuardar}
+            disabled={loading}
+            className="text-white"
+          >
+            Guardar datos
+          </Button>
           <Card>
             <CardContent className="p-6 space-y-6">
               <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
-                <FormInput
+                <FormSelect
                   label="Actividad económica principal"
+                  options={catalogoPrincipal}
                   value={actividadEconomica.idActividadEconomicaPrincipal}
-                  onChange={(e) =>
+                  onChange={(value) =>
                     setActividadEconomica({
                       ...actividadEconomica,
-                      idActividadEconomicaPrincipal: e.target.value,
+                      idActividadEconomicaPrincipal: value,
                     })
                   }
                 />
-                <FormInput
+
+                <FormSelect
                   label="Actividad económica del lugar de trabajo"
+                  options={catalogoTrabajo}
                   value={actividadEconomica.idActividadEconomicaLugarTrabajo}
-                  onChange={(e) =>
+                  onChange={(value) =>
                     setActividadEconomica({
                       ...actividadEconomica,
-                      idActividadEconomicaLugarTrabajo: e.target.value,
+                      idActividadEconomicaLugarTrabajo: value,
                     })
                   }
                 />
+
                 <FormInput
                   label="Lugar de trabajo"
                   value={actividadEconomica.lugarTrabajo}
@@ -231,11 +281,6 @@ export default function ActividadEconomica({ id }) {
               </div>
             </CardContent>
           </Card>
-
-          {/* Botón para guardar datos */}
-          <Button onClick={handleGuardar} disabled={loading}>
-            Guardar datos
-          </Button>
         </>
       )}
     </div>
@@ -252,17 +297,68 @@ function FormInput({ label, value, onChange, type = "text" }) {
     </div>
   );
 }
-
-function FormSwitch({ label, checked, onChange }) {
+function FormSelect({ label, options, value, onChange }) {
   return (
     <div className="space-y-1.5">
       <Label className="text-sm font-medium text-gray-700">{label}</Label>
-      <Switch
-        checked={checked}
-        onCheckedChange={onChange}
-        className="border border-gray-500"
-      />
-      <span className="text-sm">{checked ? "Sí" : "No"}</span>
+      <Select value={String(value)} onValueChange={onChange}>
+        <SelectTrigger className="bg-white border border-gray-300">
+          <SelectValue placeholder="Seleccione una opción" />
+        </SelectTrigger>
+        <SelectContent className="bg-white">
+          {options.map((item) => (
+            <SelectItem key={item.id} value={String(item.id)}>
+              {item.nombre}
+            </SelectItem>
+          ))}
+        </SelectContent>
+      </Select>
+    </div>
+  );
+}
+
+
+function FormSwitch({ label, checked, onChange }) {
+  return (
+    <div className="flex items-center gap-4">
+      <div className="relative">
+        <Switch
+          checked={checked}
+          onCheckedChange={onChange}
+          className={`
+            peer
+            inline-flex
+            h-6 w-11 shrink-0
+            cursor-pointer
+            items-center
+            rounded-full
+            border
+            border-gray-400
+            transition-colors
+            duration-200
+            ease-in-out
+            ${checked ? "bg-primary" : "bg-gray-300"}
+          `}
+        />
+        {/* Círculo deslizante */}
+        <span
+          className={`
+            pointer-events-none
+            absolute
+            left-0.5 top-0.5
+            h-5 w-5
+            transform
+            rounded-full
+            bg-white
+            shadow
+            transition-transform
+            duration-200
+            ease-in-out
+            ${checked ? "translate-x-5" : "translate-x-0"}
+          `}
+        />
+      </div>
+      <Label className="text-sm font-medium text-gray-700">{label}</Label>
     </div>
   );
 }

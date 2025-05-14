@@ -1,40 +1,10 @@
 "use client";
-
-import {
-  Table,
-  TableHeader,
-  TableRow,
-  TableHead,
-  TableBody,
-  TableCell,
-} from "@/components/ui/table";
-import {
-  DropdownMenu,
-  DropdownMenuTrigger,
-  DropdownMenuContent,
-  DropdownMenuItem,
-} from "@/components/ui/dropdown-menu";
+import { Table, TableHeader, TableRow, TableHead, TableBody, TableCell, } from "@/components/ui/table";
+import { DropdownMenu, DropdownMenuTrigger, DropdownMenuContent, DropdownMenuItem, } from "@/components/ui/dropdown-menu";
 import { Button } from "@/components/ui/button";
 import { Input } from "@/components/ui/input";
-import {
-  Dialog,
-  DialogContent,
-  DialogHeader,
-  DialogFooter,
-} from "@/components/ui/dialog";
-import {
-  FaEdit,
-  FaTrash,
-  FaSort,
-  FaSortUp,
-  FaSortDown,
-  FaPlus,
-  FaFileExport,
-  FaFilePdf,
-  FaFileCsv,
-  FaArrowLeft,
-  FaArrowRight,
-} from "react-icons/fa";
+import { Dialog, DialogContent, DialogHeader, DialogFooter, } from "@/components/ui/dialog";
+import { FaEdit, FaTrash, FaSort, FaSortUp, FaSortDown, FaPlus, FaFileExport, FaFilePdf, FaFileCsv, FaArrowLeft, FaArrowRight, } from "react-icons/fa";
 import ReactPaginate from "react-paginate";
 import { useEffect, useState } from "react";
 import { DialogTitle } from "@radix-ui/react-dialog";
@@ -185,7 +155,7 @@ const TablaCustom2 = ({
           <Button
             // onClick={() => setModalOpen(true)}
             onClick={handleAgregarNuevo}
-            className="bg-primary text-white hover:bg-primary/90 cursor-pointer flex items-center gap-2"
+            className="bg-primary text-gray-100 hover:text-white hover:bg-primary/90 cursor-pointer flex items-center gap-2"
           >
             <FaPlus className="text-white" /> Agregar Nuevo
           </Button>
@@ -232,73 +202,75 @@ const TablaCustom2 = ({
         </DropdownMenu>
       </div>
 
-      <Table>
-        <TableHeader>
-          <TableRow>
-            {columns.map((column) => (
-              <TableHead
-                key={column.key}
-                onClick={() =>
-                  column.label !== "Acciones" && handleSort(column.key)
-                }
-                className="cursor-pointer select-none"
-              >
-                <div className="flex items-center">
-                  {column.label}
-                  {column.label !== "Acciones" && getSortIndicator(data.key)}
-                </div>
-              </TableHead>
-            ))}
-            {(mostrarEditar || mostrarEliminar) && (
-              <TableHead>Acciones</TableHead>
-            )}
-          </TableRow>
-        </TableHeader>
-        <TableBody>
-          {currentPageData.length > 0 ? (
-            currentPageData.map((row, idx) => (
-              <TableRow key={idx}>
-                {columns.map((col) => (
-                  <TableCell key={col.key}>
-                    {col.render ? col.render(row[col.key], row) : row[col.key]}
-                  </TableCell>
-                ))}
-                {(mostrarEditar || mostrarEliminar) && (
-                  <TableCell className="flex gap-2">
-                    {mostrarEditar && (
-                      <Button
-                        size="sm"
-                        className="bg-emerald-500 hover:bg-emerald-600 text-white cursor-pointer"
-                        onClick={() => onEditarClick && onEditarClick(row)}
-                      >
-                        <FaEdit className="mr-1" /> Editar
-                      </Button>
-                    )}
-                    {mostrarEliminar && (
-                      <Button
-                        size="sm"
-                        className="bg-red-400 text-white cursor-pointer hover:bg-red-600"
-                        onClick={() => handleOpenDeleteDialog(row)}
-                      >
-                        <FaTrash className="mr-1" size={14} /> Eliminar
-                      </Button>
-                    )}
-                  </TableCell>
-                )}
-              </TableRow>
-            ))
-          ) : (
+      <div className="overflow-x-auto w-full">
+        <Table className="min-w-full">
+          <TableHeader>
             <TableRow>
-              <TableCell
-                colSpan={columns.length + 1}
-                className="text-center text-muted py-4"
-              >
-                No hay datos registrados aún.
-              </TableCell>
+              {columns.map((column) => (
+                <TableHead
+                  key={column.key}
+                  onClick={() =>
+                    column.label !== "Acciones" && handleSort(column.key)
+                  }
+                  className="cursor-pointer select-none"
+                >
+                  <div className="flex items-center">
+                    {column.label}
+                    {column.label !== "Acciones" && getSortIndicator(data.key)}
+                  </div>
+                </TableHead>
+              ))}
+              {(mostrarEditar || mostrarEliminar) && (
+                <TableHead>Acciones</TableHead>
+              )}
             </TableRow>
-          )}
-        </TableBody>
-      </Table>
+          </TableHeader>
+          <TableBody>
+            {currentPageData.length > 0 ? (
+              currentPageData.map((row, idx) => (
+                <TableRow key={idx}>
+                  {columns.map((col) => (
+                    <TableCell key={col.key}>
+                      {col.render ? col.render(row[col.key], row) : row[col.key]}
+                    </TableCell>
+                  ))}
+                  {(mostrarEditar || mostrarEliminar) && (
+                    <TableCell className="flex gap-2">
+                      {mostrarEditar && (
+                        <Button
+                          size="sm"
+                          className="bg-emerald-500 hover:bg-emerald-600 text-white cursor-pointer"
+                          onClick={() => onEditarClick && onEditarClick(row)}
+                        >
+                          <FaEdit className="mr-1" /> Editar
+                        </Button>
+                      )}
+                      {mostrarEliminar && (
+                        <Button
+                          size="sm"
+                          className="bg-red-400 text-white cursor-pointer hover:bg-red-600"
+                          onClick={() => handleOpenDeleteDialog(row)}
+                        >
+                          <FaTrash className="mr-1" size={14} /> Eliminar
+                        </Button>
+                      )}
+                    </TableCell>
+                  )}
+                </TableRow>
+              ))
+            ) : (
+              <TableRow>
+                <TableCell
+                  colSpan={columns.length + 1}
+                  className="text-center text-muted py-4"
+                >
+                  No hay datos registrados aún.
+                </TableCell>
+              </TableRow>
+            )}
+          </TableBody>
+        </Table>
+      </div>
 
       <div className="flex flex-col md:flex-row justify-between items-center gap-4">
         <ReactPaginate
