@@ -6,7 +6,7 @@ import Step3VerificacionCorreo from "./steps/Step3VerificacionCorreo";
 import Step4VerificacionTelefono from "./steps/Step4VerificacionTelefono";
 import Step5ConfirmacionFinal from "./steps/Step5ConfirmacionFinal";
 import GlassLoader from "@/components/ui/GlassLoader";
-import { validarCorreoToken } from "@/services/Registro/RegistroService";
+import { validarCorreoToken } from "@/service/Registro/RegistroService";
 
 export default function Register() {
   const [step, setStep] = useState(1);

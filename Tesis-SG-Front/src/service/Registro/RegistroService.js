@@ -28,5 +28,26 @@ export const validarCorreoToken = async (token) => {
 };
 
 
+// Enviar código de verificación por SMS
+export const enviarCodigoTelefono = async ({ idUsuario, numero, extension }) => {
+  const res = await fetch(`${API_BASE_URL}/usuario/enviar-codigo-telefono`, {
+    method: "POST",
+    headers: { "Content-Type": "application/json" },
+    body: JSON.stringify({ idUsuario, numero, extension }),
+  });
+
+  return await res.json();
+};
+
+// Validar el código ingresado
+export const validarCodigoTelefono = async ({ idUsuario, codigo }) => {
+  const res = await fetch(`${API_BASE_URL}/usuario/validar-telefono`, {
+    method: "POST",
+    headers: { "Content-Type": "application/json" },
+    body: JSON.stringify({ idUsuario, codigo }),
+  });
+
+  return await res.json();
+};
 
 
