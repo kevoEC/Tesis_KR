@@ -1,5 +1,7 @@
 ﻿using System.Collections.Generic;
 using System.Threading.Tasks;
+using Backend_CrmSG.DTOs;
+using Backend_CrmSG.DTOs.SolicitudDTOs;
 using Backend_CrmSG.Models.Seguridad;
 
 namespace Backend_CrmSG.Services.Seguridad
@@ -26,15 +28,15 @@ namespace Backend_CrmSG.Services.Seguridad
 
         Task<int> InsertarUsuarioParcialAsync(Usuario usuario);
         Task RegistrarTransaccionValidacionCorreo(int idUsuario, string email);
-        Task<bool> ValidarCorreoPorHashAsync(string hash);
-        Task<bool> EnviarCodigoSmsValidacion(
+        Task<ResultadoValidacionCorreo> ValidarCorreoPorHashAsync(string hash);
+
+        Task<ResultadoEnvioSms> EnviarCodigoSmsValidacion(
             int idUsuario,
             string telefono,
             string extension,
             Func<string, string, Task<bool>> sendSms
         );
-
-        Task<bool> ValidarCodigoTelefonoAsync(int idUsuario, string codigo);
+        Task<ResultadoValidacionTelefono> ValidarCodigoTelefonoAsync(int idUsuario, string codigo);
 
 
     }

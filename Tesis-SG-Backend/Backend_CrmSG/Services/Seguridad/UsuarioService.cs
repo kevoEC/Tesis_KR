@@ -1,6 +1,8 @@
 ﻿using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
+using Backend_CrmSG.DTOs;
+using Backend_CrmSG.DTOs.SolicitudDTOs;
 using Backend_CrmSG.Models.Seguridad;
 using Backend_CrmSG.Repositories;
 using Microsoft.EntityFrameworkCore;
@@ -150,30 +152,42 @@ namespace Backend_CrmSG.Services.Seguridad
             }
         }
 
-        public async Task<bool> ValidarCorreoPorHashAsync(string hash)
+        public async Task<ResultadoValidacionCorreo> ValidarCorreoPorHashAsync(string hash)
         {
             var transacciones = await _transaccionRepository.GetAllAsync();
             var tipoTransacciones = await _tipoTransaccionRepository.GetAllAsync();
 
             var tipoCorreo = tipoTransacciones.FirstOrDefault(t => t.Nombre == "Correo");
-            if (tipoCorreo == null) return false;
+            if (tipoCorreo == null)
+                return new ResultadoValidacionCorreo { Exitoso = false, Mensaje = "Tipo de transacción no válido." };
 
-            var transaccion = transacciones.FirstOrDefault(t =>
-                t.HashValidacion == hash &&
-                t.IdTipoTransaccion == tipoCorreo.IdTipoTransaccion &&
-                !t.Exitoso &&
-                t.Expiracion > DateTime.UtcNow);
+            var transaccion = transacciones.FirstOrDefault(t => t.HashValidacion == hash && t.IdTipoTransaccion == tipoCorreo.IdTipoTransaccion);
 
             if (transaccion == null)
+                return new ResultadoValidacionCorreo { Exitoso = false, Mensaje = "Token inválido." };
+
+            if (transaccion.Exitoso)
             {
-                return false;
+                return new ResultadoValidacionCorreo
+                {
+                    Exitoso = true,
+                    YaValidado = true,
+                    Mensaje = "Tu cuenta ya había sido validada anteriormente."
+                };
+            }
+
+            if (transaccion.Expiracion < DateTime.UtcNow)
+            {
+                return new ResultadoValidacionCorreo
+                {
+                    Exitoso = false,
+                    Mensaje = "El enlace ha expirado."
+                };
             }
 
             var usuario = await _usuarioRepository.GetByIdAsync(transaccion.IdUsuario);
             if (usuario == null)
-            {
-                return false;
-            }
+                return new ResultadoValidacionCorreo { Exitoso = false, Mensaje = "Usuario no encontrado." };
 
             usuario.ValidacionCorreo = true;
             usuario.EsActivo = true;
@@ -183,20 +197,35 @@ namespace Backend_CrmSG.Services.Seguridad
             await _usuarioRepository.UpdateAsync(usuario);
             await _transaccionRepository.UpdateAsync(transaccion);
 
-            return true;
+            return new ResultadoValidacionCorreo
+            {
+                Exitoso = true,
+                YaValidado = false,
+                Mensaje = "Correo validado exitosamente. Tu cuenta ya está activa."
+            };
         }
 
 
-        public async Task<bool> EnviarCodigoSmsValidacion(
+        public async Task<ResultadoEnvioSms> EnviarCodigoSmsValidacion(
             int idUsuario,
             string telefono,
             string extension,
             Func<string, string, Task<bool>> sendSms)
         {
             var usuario = await _usuarioRepository.GetByIdAsync(idUsuario);
-            if (usuario == null) return false;
+            if (usuario == null)
+                return new ResultadoEnvioSms { Success = false, Message = "Usuario no encontrado." };
 
-            // Guardar el número completo con extensión (ej: +593987654321)
+            if (usuario.ValidacionTelefono)
+            {
+                return new ResultadoEnvioSms
+                {
+                    Success = true,
+                    YaValidado = true,
+                    Message = "Este número ya fue validado anteriormente."
+                };
+            }
+
             var numeroCompleto = extension + telefono;
             usuario.Telefono = numeroCompleto;
             usuario.FechaModificacion = DateTime.UtcNow;
@@ -206,9 +235,8 @@ namespace Backend_CrmSG.Services.Seguridad
             var tipos = await _tipoTransaccionRepository.GetAllAsync();
             var tipoTelefono = tipos.FirstOrDefault(t => t.Nombre == "Telefono");
             if (tipoTelefono == null)
-                throw new Exception("TipoTransaccion 'Telefono' no existe.");
+                return new ResultadoEnvioSms { Success = false, Message = "Tipo de transacción no encontrado." };
 
-            // Generar código de 6 dígitos
             var codigo = new Random().Next(100000, 999999).ToString();
 
             var transaccion = new TransaccionesValidacion
@@ -224,22 +252,46 @@ namespace Backend_CrmSG.Services.Seguridad
 
             await _transaccionRepository.AddAsync(transaccion);
 
-            // Mensaje con el código
-            var mensaje = $"Tu código de validación es: {codigo}";
+            var mensaje = $"SG Consulting Group: Tu código de validación es {codigo}. No lo compartas con nadie. Válido por 10 minutos.";
 
-            // Enviar SMS usando la función externa (Twilio)
-            return await sendSms(numeroCompleto, mensaje);
+            var enviado = await sendSms(numeroCompleto, mensaje);
+            if (!enviado)
+            {
+                return new ResultadoEnvioSms { Success = false, Message = "No se pudo enviar el SMS de validación." };
+            }
+
+            return new ResultadoEnvioSms { Success = true, YaValidado = false, Message = "Código de validación enviado por SMS." };
         }
 
 
-
-        public async Task<bool> ValidarCodigoTelefonoAsync(int idUsuario, string codigo)
+        public async Task<ResultadoValidacionTelefono> ValidarCodigoTelefonoAsync(int idUsuario, string codigo)
         {
+            var usuario = await _usuarioRepository.GetByIdAsync(idUsuario);
+            if (usuario == null)
+            {
+                return new ResultadoValidacionTelefono
+                {
+                    Exitoso = false,
+                    Mensaje = "Usuario no encontrado."
+                };
+            }
+
+            if (usuario.ValidacionTelefono)
+            {
+                return new ResultadoValidacionTelefono
+                {
+                    Exitoso = true,
+                    YaValidado = true,
+                    Mensaje = "Este número ya fue validado anteriormente."
+                };
+            }
+
             var transacciones = await _transaccionRepository.GetAllAsync();
             var tipos = await _tipoTransaccionRepository.GetAllAsync();
 
             var tipoTelefono = tipos.FirstOrDefault(t => t.Nombre == "Telefono");
-            if (tipoTelefono == null) return false;
+            if (tipoTelefono == null)
+                return new ResultadoValidacionTelefono { Exitoso = false, Mensaje = "Tipo no válido." };
 
             var transaccion = transacciones.FirstOrDefault(t =>
                 t.IdUsuario == idUsuario &&
@@ -248,10 +300,14 @@ namespace Backend_CrmSG.Services.Seguridad
                 !t.Exitoso &&
                 t.Expiracion > DateTime.UtcNow);
 
-            if (transaccion == null) return false;
-
-            var usuario = await _usuarioRepository.GetByIdAsync(idUsuario);
-            if (usuario == null) return false;
+            if (transaccion == null)
+            {
+                return new ResultadoValidacionTelefono
+                {
+                    Exitoso = false,
+                    Mensaje = "Código inválido o expirado."
+                };
+            }
 
             usuario.ValidacionTelefono = true;
             usuario.FechaModificacion = DateTime.UtcNow;
@@ -260,14 +316,13 @@ namespace Backend_CrmSG.Services.Seguridad
             await _usuarioRepository.UpdateAsync(usuario);
             await _transaccionRepository.UpdateAsync(transaccion);
 
-            return true;
+            return new ResultadoValidacionTelefono
+            {
+                Exitoso = true,
+                YaValidado = false,
+                Mensaje = "Número validado exitosamente."
+            };
         }
-
-
-
-
-
-
 
     }
 }

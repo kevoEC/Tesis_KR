@@ -218,21 +218,23 @@ namespace Backend_CrmSG.Controllers.Seguridad
 
             var resultado = await _usuarioService.ValidarCorreoPorHashAsync(token);
 
-            if (!resultado)
+            if (!resultado.Exitoso)
             {
                 return BadRequest(new
                 {
                     success = false,
-                    message = "El enlace de validación es inválido o ha expirado."
+                    message = resultado.Mensaje
                 });
             }
 
             return Ok(new
             {
                 success = true,
-                message = "Correo validado exitosamente. Tu cuenta ya está activa."
+                yaValidado = resultado.YaValidado,
+                message = resultado.Mensaje
             });
         }
+
 
         [HttpPost("enviar-codigo-telefono")]
         public async Task<IActionResult> EnviarCodigoTelefono([FromBody] SolicitudCodigoTelefonoDTO dto)
@@ -244,21 +246,23 @@ namespace Backend_CrmSG.Controllers.Seguridad
                 async (numeroCompleto, mensaje) => await _smsService.EnviarCodigoValidacion(numeroCompleto, mensaje)
             );
 
-            if (!resultado)
+            if (!resultado.Success)
             {
                 return BadRequest(new
                 {
                     success = false,
-                    message = "No se pudo enviar el SMS de validación."
+                    message = resultado.Message
                 });
             }
 
             return Ok(new
             {
                 success = true,
-                message = "Código de validación enviado por SMS."
+                yaValidado = resultado.YaValidado,
+                message = resultado.Message
             });
         }
+
 
 
         [HttpPost("validar-telefono")]
@@ -266,11 +270,19 @@ namespace Backend_CrmSG.Controllers.Seguridad
         {
             var resultado = await _usuarioService.ValidarCodigoTelefonoAsync(dto.IdUsuario, dto.Codigo);
 
-            if (!resultado)
-                return BadRequest(new { success = false, message = "Código inválido o expirado." });
+            if (!resultado.Exitoso)
+            {
+                return BadRequest(new { success = false, message = resultado.Mensaje });
+            }
 
-            return Ok(new { success = true, message = "Número validado exitosamente." });
+            return Ok(new
+            {
+                success = true,
+                yaValidado = resultado.YaValidado,
+                message = resultado.Mensaje
+            });
         }
+
 
 
 

@@ -6,7 +6,7 @@ import Step3VerificacionCorreo from "./steps/Step3VerificacionCorreo";
 import Step4VerificacionTelefono from "./steps/Step4VerificacionTelefono";
 import Step5ConfirmacionFinal from "./steps/Step5ConfirmacionFinal";
 import GlassLoader from "@/components/ui/GlassLoader";
-import { validarCorreoToken } from "@/service/Registro/RegistroService";
+import { validarCorreoToken } from "@/services/Registro/RegistroService";
 
 export default function Register() {
   const [step, setStep] = useState(1);
@@ -30,15 +30,20 @@ export default function Register() {
 
   const token = searchParams.get("token");
 
-  // Detectar token en URL y validarlo automáticamente
   useEffect(() => {
     const validar = async () => {
       if (token) {
         try {
-          await validarCorreoToken(token);
-          setStep(4); // paso siguiente después del correo validado
+          const result = await validarCorreoToken(token);
+
+          if (result.success) {
+            // Si el token fue válido, sin importar si ya estaba validado antes
+            setStep(4);
+          } else {
+            setErrorValidacion(result.message);
+          }
         } catch (err) {
-          setErrorValidacion(err.message);
+          setErrorValidacion(err.message || "Error desconocido.");
         }
       }
       setLoading(false);
